@@ -7,11 +7,14 @@ use App\Filament\Resources\CourseCategoryResource\RelationManagers;
 use App\Models\CourseCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class CourseCategoryResource extends Resource
 {
@@ -25,11 +28,24 @@ class CourseCategoryResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->placeholder('Enter a name')
+                    ->live()
+                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
+                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
+                            return;
+                        }
+
+                        $set('slug', Str::slug($state));
+                    })
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
+                    ->placeholder('Enter a slug')
+                    ->alphaDash()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\Toggle::make('is_active')
+                    ->default(true)
                     ->required(),
             ]);
     }
