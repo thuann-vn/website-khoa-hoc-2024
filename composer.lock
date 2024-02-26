@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a339077610711a1d20bf2bad8cd1e812",
+    "content-hash": "2957a83bb11a9445ce9bb1dcc25e990e",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2293,6 +2293,67 @@
                 }
             ],
             "time": "2023-11-12T22:16:48+00:00"
+        },
+        {
+            "name": "guava/filament-nested-resources",
+            "version": "1.0.0-alpha.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GuavaCZ/filament-nested-resources.git",
+                "reference": "811d24d69404da36d42445e19a28dea812378c4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GuavaCZ/filament-nested-resources/zipball/811d24d69404da36d42445e19a28dea812378c4c",
+                "reference": "811d24d69404da36d42445e19a28dea812378c4c",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0.0",
+                "livewire/livewire": "^3.0",
+                "spatie/laravel-package-tools": "^1.15"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.11",
+                "orchestra/testbench": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Guava\\Filament\\NestedResources\\NestedResourcesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Guava\\Filament\\NestedResources\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukas Frey",
+                    "email": "lukas.frey@guava.cz"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/GuavaCZ/filament-nested-resources/issues",
+                "source": "https://github.com/GuavaCZ/filament-nested-resources/tree/1.0.0-alpha.11"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GuavaCZ",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-19T08:33:13+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -10547,7 +10608,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -16,6 +16,7 @@
     "croustibat/filament-jobs-monitor": "^2.1",
     "diglactic/laravel-breadcrumbs": "^8.1",
     "filament/filament": "^3.1",
+    "guava/filament-nested-resources": "^1.0@alpha",
     "guzzlehttp/guzzle": "^7.2",
     "inertiajs/inertia-laravel": "^0.6.3",
     "jeffgreco13/filament-breezy": "^2.2",
@@ -75,6 +76,6 @@
       "php-http/discovery": true
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true
 }
