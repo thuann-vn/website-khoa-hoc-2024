@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CourseLessonResource\Pages;
 use App\Filament\Resources\CourseLessonResource\RelationManagers;
 use App\Models\CourseLesson;
+use FFMpeg\Format\Video\X264;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -17,6 +18,7 @@ use Guava\Filament\NestedResources\Resources\NestedResource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class CourseLessonResource extends NestedResource
 {
@@ -29,35 +31,44 @@ class CourseLessonResource extends NestedResource
     {
         return $form
             ->schema([
-//                Forms\Components\Select::make('course_chapter_id')
-//                    ->required()
-//                ->relationship('chapter', 'name'),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->live()
-                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
-                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
-                            return;
-                        }
+                Forms\Components\Tabs::make('Tabs')->tabs([
+                    Forms\Components\Tabs\Tab::make('Lesson Info')->schema([
+                        Forms\Components\FileUpload::make('image_url')
+                            ->image()
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->live()
+                            ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
+                                if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
+                                    return;
+                                }
 
-                        $set('slug', Str::slug($state));
-                    })
-                    ->maxLength(255)
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('description')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\Hidden::make('duration')
-                    ->default(0),
-                Forms\Components\Hidden::make('position')
-                    ->default(0),
-                Forms\Components\TextInput::make('video_url')
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image_url')
-                    ->image(),
-                Forms\Components\Toggle::make('is_active')
-                    ->default(true)
-                    ->required(),
+                                $set('slug', Str::slug($state));
+                            })
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+                        Forms\Components\Textarea::make('description')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                        Forms\Components\Hidden::make('duration')
+                            ->default(0),
+                        Forms\Components\Hidden::make('position')
+                            ->default(0),
+                        Forms\Components\Toggle::make('is_active')
+                            ->default(true)
+                            ->required(),
+                    ]),
+                    Forms\Components\Tabs\Tab::make('Video')->schema([
+                        Forms\Components\FileUpload::make('video_url')
+                            ->disk('videos')
+                            ->visibility('private')
+                            ->required()
+                            ->acceptedFileTypes(['video/*'])
+                            ->columnSpanFull(),
+                    ])
+                ])->columnSpanFull()
+
             ]);
     }
 
@@ -126,4 +137,5 @@ class CourseLessonResource extends NestedResource
             'chapter', // Parent Resource Name
         );
     }
+
 }

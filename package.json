@@ -26,6 +26,7 @@
         "vite": "^5.0.11"
     },
     "dependencies": {
-        "tippy.js": "^6.3.7"
+        "tippy.js": "^6.3.7",
+        "video.js": "^8.10.0"
     }
 }

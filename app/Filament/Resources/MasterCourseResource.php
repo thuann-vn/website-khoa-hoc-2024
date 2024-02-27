@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CourseResource\Pages;
-use App\Filament\Resources\CourseResource\RelationManagers;
-use App\Models\Course;
+use App\Filament\Resources\MasterCourseResource\Pages;
+use App\Filament\Resources\MasterCourseResource\RelationManagers;
+use App\Models\MasterCourse;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -12,41 +12,24 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Guava\Filament\NestedResources\Resources\NestedResource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
-use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
 
-class CourseResource extends NestedResource
+class MasterCourseResource extends Resource
 {
-    protected static ?string $model = Course::class;
+    protected static ?string $model = MasterCourse::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $breadcrumbTitleAttribute = 'name';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
-                    ->label('Image')
                     ->image()
-                    ->required()
-                ->columnSpanFull(),
-                Forms\Components\Select::make('teacher_id')
-                    ->relationship('teacher', 'name')
+                    ->columnSpanFull()
                     ->required(),
-                Forms\Components\Select::make('course_category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
-                Forms\Components\Select::make('masterCourses')
-                    ->relationship('masterCourses', 'name')
-                    ->multiple()
-                    ->preload()
-                ->columnSpanFull(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->live()
@@ -65,21 +48,6 @@ class CourseResource extends NestedResource
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                MoneyInput::make('price')
-                    ->required()
-                    ->prefix('$'),
-                MoneyInput::make('one_on_one_price')
-                    ->required()
-                    ->prefix('$'),
-                Forms\Components\TextInput::make('discount')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                Forms\Components\TextInput::make('duration')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Toggle::make('is_active')
-                    ->required(),
             ]);
     }
 
@@ -87,22 +55,11 @@ class CourseResource extends NestedResource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('teacher.name')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                MoneyColumn::make('price')
-                    ->money('VND')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('duration')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -129,16 +86,16 @@ class CourseResource extends NestedResource
     {
         return [
             //
-            RelationManagers\SectionsRelationManager::class
+            RelationManagers\CoursesRelationManager::class
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCourses::route('/'),
-            'create' => Pages\CreateCourse::route('/create'),
-            'edit' => Pages\EditCourse::route('/{record}/edit'),
+            'index' => Pages\ListMasterCourses::route('/'),
+            'create' => Pages\CreateMasterCourse::route('/create'),
+            'edit' => Pages\EditMasterCourse::route('/{record}/edit'),
         ];
     }
 }

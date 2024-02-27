@@ -89,8 +89,6 @@ class CourseSectionResource extends NestedResource
 //                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('video_url')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_url'),
