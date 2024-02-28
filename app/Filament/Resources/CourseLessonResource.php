@@ -61,9 +61,7 @@ class CourseLessonResource extends NestedResource
                     ]),
                     Forms\Components\Tabs\Tab::make('Video')->schema([
                         Forms\Components\FileUpload::make('video_url')
-                            ->disk('videos')
                             ->visibility('private')
-                            ->required()
                             ->acceptedFileTypes(['video/*'])
                             ->columnSpanFull(),
                     ])

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Livewire\Post\Show as PostShow;
@@ -51,16 +52,19 @@ Route::get('/video/secret/{key}', function ($key) {
     return Storage::disk('videos')->download($key);
 })->name('video.key');
 
-Route::get('/video/{playlist}', function ($playlist) {
+Route::get('/video/{id}', function (Request $request) {
+    $id = $request->id;
+    $filename = $request->filename;
+    $video = \App\Models\CourseLessonVideo::where('course_lesson_id', $id)->first();
     return \ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::
         dynamicHLSPlaylist('public')
         ->fromDisk('public')
-        ->open($playlist)
-        ->setMediaUrlResolver(function ($mediaFilename) {
-            return Storage::disk('public')->url($mediaFilename);
+        ->open(!empty($filename) ? 'lesson_' . $video->courseLesson->id . '/' . $filename : $video->video_url)
+        ->setMediaUrlResolver(function ($mediaFilename) use ($video, $request){
+            return Storage::disk('public')->url('lesson_' . $video->courseLesson->id . '/' . $mediaFilename);
         })
-        ->setPlaylistUrlResolver(function ($playlistFilename) {
-            return route('video.playlist', ['playlist' => $playlistFilename]);
+        ->setPlaylistUrlResolver(function ($playlistFilename) use ($id){
+            return route('video.playlist', ['id' => $id, 'filename' => $playlistFilename]);
         });
 })->name('video.playlist');
 

@@ -18,7 +18,7 @@ export default function Dashboard({ auth, onReady }: PageProps) {
       }
     },
     sources: [{
-      src: '/video/01HQNT4RAB551WBQN7PMPZ2AG4.m3u8',
+      src: '/video/1',
       type: 'application/x-mpegURL',
       withCredentials: true
     }]

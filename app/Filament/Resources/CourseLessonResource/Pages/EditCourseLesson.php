@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\CourseLessonResource\Pages;
 
 use App\Filament\Resources\CourseLessonResource;
+use App\Jobs\ProcessVideo;
+use App\Models\CourseLessonVideo;
 use FFMpeg\Format\Video\X264;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -24,20 +26,28 @@ class EditCourseLesson extends NestedEditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $lowBitrate = (new X264)->setKiloBitrate(250);
-        $midBitrate = (new X264)->setKiloBitrate(500);
-        $highBitrate = (new X264)->setKiloBitrate(1000);
-        $fileName = pathinfo($data['video_url'], PATHINFO_FILENAME);
-        $encryptionKey = HLSExporter::generateEncryptionKey();
-        FFMpeg::fromDisk('videos')
-            ->open($data['video_url'])
-            ->exportForHLS()
-            ->addFormat($lowBitrate)
-            ->addFormat($midBitrate)
-            ->addFormat($highBitrate)
-            ->toDisk('public')
-            ->save($fileName . '.m3u8');
-        $data['video_url'] = $fileName . '.m3u8';
+        //Check if video is changed
+        $oldVideoUrl = $this->record->video_url;
+//        if($oldVideoUrl != $data['video_url']){
+            $lessonVideo = CourseLessonVideo::where('course_lesson_id', $this->record->id)->first();
+            if(!empty($lessonVideo)){
+                $lessonVideo->delete();
+            }
+
+            $lessonVideo = new CourseLessonVideo([
+                'course_lesson_id' => $this->record->id,
+                'status' => 0,
+                'progress' => 0,
+                'video_url' => $data['video_url'],
+                'started_at' => null,
+                'completed_at' => null
+            ]);
+
+            $lessonVideo->save();
+
+            dispatch(new ProcessVideo($lessonVideo));
+//        }
+
         return $data;
     }
 }
