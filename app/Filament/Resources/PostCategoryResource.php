@@ -7,11 +7,14 @@ use App\Filament\Resources\PostCategoryResource\RelationManagers;
 use App\Models\PostCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class PostCategoryResource extends Resource
 {
@@ -27,12 +30,21 @@ class PostCategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->live()
+                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
+                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
+                            return;
+                        }
+
+                        $set('slug', Str::slug($state));
+                    })
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Toggle::make('is_active')
+                    ->default(true)
                     ->required(),
             ]);
     }
