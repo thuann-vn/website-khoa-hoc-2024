@@ -2,52 +2,38 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MasterCourseResource\Pages;
-use App\Filament\Resources\MasterCourseResource\RelationManagers;
-use App\Models\MasterCourse;
+use App\Filament\Resources\PostCategoryResource\Pages;
+use App\Filament\Resources\PostCategoryResource\RelationManagers;
+use App\Models\PostCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
-class MasterCourseResource extends Resource
+class PostCategoryResource extends Resource
 {
-    protected static ?string $model = MasterCourse::class;
+    protected static ?string $model = PostCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-star';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Collections';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->columnSpanFull()
-                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->live()
-                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
-                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
-                            return;
-                        }
-
-                        $set('slug', Str::slug($state));
-                    })
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                Forms\Components\Toggle::make('is_active')
+                    ->required(),
             ]);
     }
 
@@ -55,11 +41,12 @@ class MasterCourseResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -86,16 +73,15 @@ class MasterCourseResource extends Resource
     {
         return [
             //
-            RelationManagers\CoursesRelationManager::class
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMasterCourses::route('/'),
-            'create' => Pages\CreateMasterCourse::route('/create'),
-            'edit' => Pages\EditMasterCourse::route('/{record}/edit'),
+            'index' => Pages\ListPostCategories::route('/'),
+            'create' => Pages\CreatePostCategory::route('/create'),
+            'edit' => Pages\EditPostCategory::route('/{record}/edit'),
         ];
     }
 }

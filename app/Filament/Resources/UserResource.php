@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
@@ -26,7 +27,7 @@ class UserResource extends Resource
     /**
      * The settings navigation group.
      */
-    protected static ?string $navigationGroup = 'Collections';
+    protected static ?string $navigationGroup = 'Settings';
 
     /**
      * The settings navigation sort order.
@@ -127,5 +128,10 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
         ];
+    }
+
+    public static function modifyGlobalSearchQuery(Builder $query, string $search): void
+    {
+        $query->where('type', 'user');
     }
 }

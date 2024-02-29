@@ -18,6 +18,7 @@ class CourseLessonVideoResource extends Resource
     protected static ?string $model = CourseLessonVideo::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationParentItem = 'Courses';
 
     public static function form(Form $form): Form
     {
@@ -52,9 +53,11 @@ class CourseLessonVideoResource extends Resource
                 Tables\Columns\TextColumn::make('video_url')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('progress')
+                    ->badge()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->badge()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -71,11 +74,6 @@ class CourseLessonVideoResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 

@@ -130,4 +130,9 @@ class Post extends Model
     {
         return $query->where('is_published', false);
     }
+
+    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(PostCategory::class, 'post_has_categories', 'post_id', 'post_category_id');
+    }
 }

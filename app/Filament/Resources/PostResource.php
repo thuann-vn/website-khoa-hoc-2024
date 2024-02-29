@@ -124,6 +124,11 @@ class PostResource extends Resource
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
 
+                                Forms\Components\Select::make('categories')
+                                     ->required()
+                                    ->relationship('categories', 'name')
+                                    ->multiple()->preload(),
+
                                 Forms\Components\Select::make('user_id')
                                     ->label('Author')
                                     ->relationship('user', 'name')
