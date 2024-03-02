@@ -1,0 +1,85 @@
+{
+  "pricingOne": [
+    {
+      "tag": "COURSE PRICING",
+      "title": "Style One",
+      "yearlyPlan": "Yearly Plan",
+      "monthlyPlan": "Monthly Plan",
+      "basicPlan": [
+        {
+          "title": "Basic Plan",
+          "badge": "Free for a Month",
+          "yearlyDuration": "yearly",
+          "yearlyAmount": 30.99,
+          "monthlyAmount": 8,
+          "monthlyDuration": "monthly",
+          "isActive": false,
+          "list": [
+            {
+              "text": "Unlimited Access Courses"
+            },
+            {
+              "text": "Certificate After Completion"
+            },
+            {
+              "text": "High Resolution Videos"
+            },
+            {
+              "text": "24/7 Dedicated Support"
+            }
+          ]
+        }
+      ],
+      "standardPlan": [
+        {
+          "title": "Standard Plan",
+          "badge": "Most Popular",
+          "yearlyDuration": "yearly",
+          "yearlyAmount": 100.99,
+          "monthlyAmount": 20.0,
+          "monthlyDuration": "monthly",
+          "isActive": true,
+          "list": [
+            {
+              "text": "Unlimited Access Courses"
+            },
+            {
+              "text": "Certificate After Completion"
+            },
+            {
+              "text": "High Resolution Videos"
+            },
+            {
+              "text": "24/7 Dedicated Support"
+            }
+          ]
+        }
+      ],
+      "exclusivePlan": [
+        {
+          "title": "Exclusive Plan",
+          "badge": "Free for a Month",
+          "yearlyDuration": "yearly",
+          "yearlyAmount": 99.99,
+          "monthlyAmount": 39.0,
+          "monthlyDuration": "monthly",
+          "isActive": false,
+          "list": [
+            {
+              "text": "Unlimited Access Courses"
+            },
+            {
+              "text": "Certificate After Completion"
+            },
+            {
+              "text": "High Resolution Videos"
+            },
+            {
+              "text": "24/7 Dedicated Support"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
