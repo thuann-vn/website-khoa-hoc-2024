@@ -24,6 +24,8 @@ class Course extends Model {
         'updated_by'
     ];
 
+    protected $appends = ['course_lesson_count'];
+
     public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Teacher::class, 'teacher_id');
@@ -42,5 +44,20 @@ class Course extends Model {
     public function masterCourses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(MasterCourse::class, 'master_course_has_course', 'course_id', 'master_course_id');
+    }
+
+    public function courseSections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CourseSection::class, 'course_id');
+    }
+
+    public function getCourseLessonCountAttribute()
+    {
+        //Count all the lessons in the course
+        return $this->courseSections->map(function (CourseSection $section) {
+            return $section->chapters->map(function (CourseChapter $chapter) {
+                return $chapter->lessons->count();
+            })->sum();
+        })->sum();
     }
 }

@@ -1,5 +1,6 @@
 import CounterData from "../../data/elements/counter.json";
 import useFetch from "@/context/useFetch";
+import ReactOdometer from 'react-odometerjs'
 const CounterFive = () => {
   const { values } = useFetch(CounterData, "counterFive");
 
@@ -18,11 +19,11 @@ const CounterFive = () => {
                     <div className="content">
                       <h3 className="counter">
                         <span className="odometer">
-                          {/*<Odometer*/}
-                          {/*  value={*/}
-                          {/*    values[index * data.body.length + innerIndex]*/}
-                          {/*  }*/}
-                          {/*/>*/}
+                          <ReactOdometer
+                            value={
+                              values[index * data.body.length + innerIndex]
+                            }
+                          />
                         </span>
                       </h3>
                       <span className="subtitle">{data.text}</span>

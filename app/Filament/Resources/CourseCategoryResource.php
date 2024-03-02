@@ -27,6 +27,10 @@ class CourseCategoryResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\FileUpload::make('image')
+                    ->image()
+                    ->required()
+                ->columnSpanFull(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->placeholder('Enter a name')

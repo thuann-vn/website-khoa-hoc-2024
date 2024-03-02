@@ -50,14 +50,10 @@ const HeaderSeven = ({
                       src={"/images/logo/logo.png"}
                       width={152}
                       height={50}
-                      priority={true}
                       alt="Education Logo Images"
                     />
                   </Link>
                 </div>
-              </div>
-              <div className="header-info d-none d-lg-block">
-                <Category />
               </div>
             </div>
 
@@ -66,7 +62,7 @@ const HeaderSeven = ({
             </div>
             <div className="header-right">
               <div className="rbt-btn-wrapper d-none d-xl-block">
-                <Link className={`rbt-btn ${btnClass}`} href="#">
+                <Link className={`rbt-btn ${btnClass}`} href={route('login')}>
                   <span data-text={`${btnText}`}>{btnText}</span>
                 </Link>
               </div>

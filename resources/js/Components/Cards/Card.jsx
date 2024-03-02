@@ -1,12 +1,12 @@
 
 import CourseDetails from "../../data/course-details/courseData.json";
 import { Link } from '@inertiajs/react'
+import { currency, getImageStoragePath } from '@/helper'
 
-const Card = ({ start, end, col, mt, isDesc, isUser }) => {
+const Card = ({ courses, col, mt, isDesc, isUser  }) => {
   return (
     <>
-      {CourseDetails &&
-        CourseDetails.courseDetails.slice(start, end).map((data, index) => (
+      {courses.map((data, index) => (
           <div
             className={`${col} ${mt}`}
             data-sal-delay="150"
@@ -18,7 +18,7 @@ const Card = ({ start, end, col, mt, isDesc, isUser }) => {
               <div className="rbt-card-img">
                 <Link href={`/course-details/${data.id}`}>
                   <img
-                    src={data.courseImg}
+                    src={getImageStoragePath(data.image)}
                     width={355}
                     height={244}
                     alt="Card image"
@@ -34,26 +34,6 @@ const Card = ({ start, end, col, mt, isDesc, isUser }) => {
                 </Link>
               </div>
               <div className="rbt-card-body">
-                <div className="rbt-card-top">
-                  <div className="rbt-review">
-                    <div className="rating">
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                    <span className="rating-count">
-                      ({data.review} Reviews)
-                    </span>
-                  </div>
-                  <div className="rbt-bookmark-btn">
-                    <Link className="rbt-round-btn" title="Bookmark" href="#">
-                      <i className="feather-bookmark"></i>
-                    </Link>
-                  </div>
-                </div>
-
                 <h4 className="rbt-card-title">
                   <Link href={`/course-details/${data.id}`}>
                     {data.courseTitle}
@@ -63,20 +43,16 @@ const Card = ({ start, end, col, mt, isDesc, isUser }) => {
                 <ul className="rbt-meta">
                   <li>
                     <i className="feather-book"></i>
-                    {data.lesson} Lessons
-                  </li>
-                  <li>
-                    <i className="feather-users"></i>
-                    {data.student} Students
+                    {data.course_lesson_count} Lessons
                   </li>
                 </ul>
-                {isDesc ? <p className="rbt-card-text">{data.desc}</p> : ""}
+                {isDesc ? <p className="rbt-card-text">{data.description}</p> : ""}
                 {isUser ? (
                   <div className="rbt-author-meta mb--10">
                     <div className="rbt-avater">
                       <Link href={`/profile/${data.id}`}>
                         <img
-                          src={data.userImg}
+                          src={getImageStoragePath(data.teacher?.image)}
                           width={33}
                           height={33}
                           alt="Sophia Jaymes"
@@ -84,9 +60,9 @@ const Card = ({ start, end, col, mt, isDesc, isUser }) => {
                       </Link>
                     </div>
                     <div className="rbt-author-info">
-                      By{" "}
-                      <Link href={`/profile/${data.id}`}>{data.userName}</Link>{" "}
-                      In <Link href="#">{data.userCategory}</Link>
+                      Giáo viên {" "}
+                      <Link href={`/profile/${data.id}`}>{data.teacher?.name}</Link>{" "}
+                      trong <Link href="#">{data.category?.name}</Link>
                     </div>
                   </div>
                 ) : (
@@ -94,8 +70,7 @@ const Card = ({ start, end, col, mt, isDesc, isUser }) => {
                 )}
                 <div className="rbt-card-bottom">
                   <div className="rbt-price">
-                    <span className="current-price">${data.price}</span>
-                    <span className="off-price">${data.offPrice}</span>
+                    <span className="current-price">{currency(data.price)}</span>
                   </div>
                   {data.button ? (
                     <Link
@@ -109,7 +84,7 @@ const Card = ({ start, end, col, mt, isDesc, isUser }) => {
                       className="rbt-btn-link"
                       href={`/course-details/${data.id}`}
                     >
-                      Learn More<i className="feather-arrow-right"></i>
+                      Xem thêm<i className="feather-arrow-right"></i>
                     </Link>
                   )}
                 </div>

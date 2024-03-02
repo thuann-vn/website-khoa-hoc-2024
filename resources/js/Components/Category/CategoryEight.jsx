@@ -3,15 +3,16 @@ import useCategoryCount from "@/context/useCategoryCount";
 
 import CourseDetails from "../../data/course-details/courseData.json";
 import { Link } from '@inertiajs/react'
+import { getImageStoragePath } from '@/helper'
 
-const CategoryEight = () => {
+const CategoryEight = ({categories}) => {
+  console.log(categories)
   const { categoryCounts } = useCategoryCount(CourseDetails.courseDetails);
 
   return (
     <>
-      {CourseDetails &&
-        CourseDetails.courseDetails.slice(0, 8).map((item, innerIndex) => {
-          const count = categoryCounts[item.category] || 0;
+      {categories.map((item, innerIndex) => {
+          const count = item.course_count || 0;
 
           return (
             <div className="col-lg-3 col-md-6 col-sm-6 col-12" key={innerIndex}>
@@ -22,17 +23,17 @@ const CategoryEight = () => {
                 <div className="inner">
                   <div className="thumbnail">
                     <img
-                      src={item.cateBigImg}
+                      src={getImageStoragePath(item.image)}
                       width={300}
                       height={300}
                       alt="Icons Images"
                     />
                   </div>
                   <div className="content">
-                    <h5 className="title">{item.category}</h5>
+                    <h5 className="title">{item.name}</h5>
                     <div className="read-more-btn">
                       <span className="rbt-btn-link">
-                        {count} Course{count !== 1 ? "s" : ""}
+                        {count} Khóa học
                         <i className="feather-arrow-right"></i>
                       </span>
                     </div>

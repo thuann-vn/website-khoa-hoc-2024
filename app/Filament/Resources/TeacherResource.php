@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherResource extends Resource
 {
@@ -43,8 +44,10 @@ class TeacherResource extends Resource
                 Forms\Components\TextInput::make('salary')
                     ->numeric(),
                 Forms\Components\TextInput::make('password')
+                    ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
+                    ->dehydrated(fn (?string $state): bool => filled($state))
+                    ->required(fn (string $operation): bool => $operation === 'create')
                     ->password()
-                    ->required()
                     ->maxLength(255),
                 Forms\Components\Hidden::make('type')->default('teacher'),
             ]);

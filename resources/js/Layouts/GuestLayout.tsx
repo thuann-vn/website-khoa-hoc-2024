@@ -17,9 +17,9 @@ export default function Guest({ children }: PropsWithChildren) {
       <Provider store={Store}>
         <Context>
           <MobileMenu />
-          <HeaderTopBar />
+          {/*<HeaderTopBar />*/}
           <HeaderStyleNine/>
-          <Marketplace />
+          {children}
           <BackToTop />
           <Separator />
           <FooterThree />
