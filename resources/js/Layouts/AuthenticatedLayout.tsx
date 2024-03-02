@@ -1,4 +1,4 @@
-import { useState, PropsWithChildren, ReactNode } from 'react';
+import { useState, PropsWithChildren, ReactNode, useEffect } from 'react'
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
@@ -8,6 +8,10 @@ import { User } from '@/types';
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+
+    useEffect(() => {
+      require("bootstrap/dist/js/bootstrap.bundle.min.js");
+    }, []);
 
     return (
         <div className="min-h-screen bg-gray-100">
