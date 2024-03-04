@@ -5,6 +5,8 @@ import CourseHead from '@/Components/Course-Details/Course-Sections/course-head'
 import CourseDetailsOne from '@/Components/Course-Details/CourseDetails-One'
 import CourseActionBottom from '@/Components/Course-Details/Course-Sections/Course-Action-Bottom'
 import SimilarCourses from '@/Components/Course-Details/Course-Sections/SimilarCourses'
+import { Button, Modal } from 'react-bootstrap'
+import { useState } from 'react'
 
 export default function CourseIndex({
                                       course
@@ -33,26 +35,6 @@ export default function CourseIndex({
         <CourseActionBottom
           checkMatchCourses={false}
         />
-
-        <div className="modal"  id="registerModal" tabIndex={1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Đăng ký khóa học</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div className="modal-body">
-                <p>Modal body text goes here.</p>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
       </Guest>
     </>
   )

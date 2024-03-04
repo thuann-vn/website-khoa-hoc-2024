@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAppContext } from "@/context/Context";
 import { addToCartAction } from "@/redux/action/CartAction";
 import { currency, getImageStoragePath } from '@/helper'
+import { Button, Modal } from 'react-bootstrap'
 
 const Viedo = ({ checkMatchCourses }) => {
   const { cartToggle, setCart } = useAppContext();
@@ -20,10 +21,10 @@ const Viedo = ({ checkMatchCourses }) => {
 
   const [amount, setAmount] = useState(1);
 
-  const buyNow = (id, amount, product) => {
-    dispatch(addToCartAction(id, amount, product));
-    setCart(!cartToggle);
-  };
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // =====> For video PopUp
   useEffect(() => {
@@ -81,21 +82,12 @@ const Viedo = ({ checkMatchCourses }) => {
           <div className="rbt-price">
             <span className="current-price">{currency(checkMatchCourses.price)}</span>
           </div>
-          {/*<div className="discount-time">*/}
-          {/*  <span className="rbt-badge color-danger bg-color-danger-opacity">*/}
-          {/*    <i className="feather-clock"></i> {checkMatchCourses.days} days left!*/}
-          {/*  </span>*/}
-          {/*</div>*/}
         </div>
 
         <div className="add-to-card-button mt--15">
           <Link
             className="rbt-btn btn-gradient icon-hover w-100 d-block text-center"
-            href="#"
-            onClick={(e) =>{
-              e.preventDefault();
-              buyNow()
-            }}
+            href={route("courses-checkout", {slug: checkMatchCourses.slug})}
           >
             <span className="btn-text">Mua trọn bộ khóa học</span>
             <span className="btn-icon">
