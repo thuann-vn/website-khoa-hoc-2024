@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react'
 import React from "react";
+import { currency } from '@/helper'
 
 const Content = ({ checkMatchCourses }) => {
   return (
@@ -16,66 +17,60 @@ const Content = ({ checkMatchCourses }) => {
                   className="accordion-header card-header"
                   id={`headingTwo${innerIndex}`}
                 >
-                  <button
-                    className={`accordion-button ${
-                      !item.collapsed ? "collapsed" : ""
+                  <div
+                    className={`accordion-button course-section-title ${
+                      !item.collapsed ? 'collapsed' : ''
                     }`}
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#collapseTwo${innerIndex + 1}`}
-                    aria-expanded={item.expand}
-                    aria-controls={`collapseTwo${innerIndex + 1}`}
                   >
-                    {item.name}
-                    <span className="rbt-badge-5 ml--10">{item.duration} phút</span>
-                  </button>
+                    <div className={"flex"}>
+                      {item.name}
+                    </div>
+
+                    <div className={'d-flex text-nowrap'}>
+                      <div className="rbt-price"><span className="current-price">{currency(item.price)}</span></div>
+
+                      <button className="rbt-btn rbt-switch-btn btn-gradient btn-sm hover-transform-none ms-3 px-3"
+                         href="http://localhost:8000/login"><span data-text="Mua phần này">Mua phần này</span></button>
+                    </div>
+                  </div>
                 </h2>
                 <div
                   id={`collapseTwo${innerIndex + 1}`}
-                  className={`accordion-collapse collapse ${
-                    item.isShow ? "show" : ""
-                  }`}
+                  className={`accordion-collapse collapse show`}
                   aria-labelledby={`headingTwo${innerIndex}`}
-                  data-bs-parent="#accordionExampleb2"
                 >
                   <div className="accordion-body card-body pr--0">
                     <ul className="rbt-course-main-content liststyle">
                       {item.chapters.map((chapter, subIndex) => (
                         <li>
-                          <h6>{chapter.name}</h6>
+                          <h6 className={"mt-5 mb-4"}>{chapter.name}</h6>
                           {
                             chapter.lessons.map((lesson, lessionIdx) => {
                               return <li key={subIndex}>
-                                <Link href="/lesson">
+                                <a href="#">
                                   <div className="course-content-left">
-                                    {chapter.playIcon ? (
-                                      <i className="feather-play-circle"></i>
-                                    ) : (
-                                      <i className="feather-file-text"></i>
-                                    )}
+                                    <i className="feather-play-circle"></i>
                                     <span className="text">{lesson.name}</span>
                                   </div>
-                                  {!chapter.lock ? (
+                                  {lesson.is_trial ? (
                                     <div className="course-content-right">
                                       <span className="min-lable">{lesson.time}</span>
                                       <span className="rbt-badge variation-03 bg-primary-opacity">
-                                  <i className="feather-eye"></i> Preview
+                                  <i className="feather-eye"></i> Xem
                                 </span>
                                     </div>
                                   ) : (
                                     <div className="course-content-right">
-                                <span className="course-lock">
-                                  <i className="feather-lock"></i>
-                                </span>
+                                      <span className="course-lock">
+                                        <i className="feather-lock"></i>
+                                      </span>
                                     </div>
                                   )}
-                                </Link>
+                                </a>
                               </li>
                             })
                           }
                         </li>
-
-
                       ))}
                     </ul>
                   </div>

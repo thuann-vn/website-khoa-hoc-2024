@@ -55,6 +55,9 @@ class CourseLessonResource extends NestedResource
                             ->default(0),
                         Forms\Components\Hidden::make('position')
                             ->default(0),
+                        Forms\Components\Toggle::make('is_trial')
+                            ->default(false)
+                            ->required(),
                         Forms\Components\Toggle::make('is_active')
                             ->default(true)
                             ->required(),
@@ -88,6 +91,8 @@ class CourseLessonResource extends NestedResource
                 Tables\Columns\TextColumn::make('video_url')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_url'),
+                Tables\Columns\IconColumn::make('is_trial')
+                    ->boolean(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')

@@ -7,7 +7,7 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
     <>
       <div className="rbt-card variation-01 rbt-hover">
         <div className="rbt-card-img">
-          <Link href={`/course-details/${data.id}`}>
+          <Link href={route('courses-detail', data.slug)}>
             <img
               src={getImageStoragePath(data.image)}
               width={355}
@@ -26,7 +26,7 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
         </div>
         <div className="rbt-card-body">
           <h4 className="rbt-card-title">
-            <Link href={`/course-details/${data.id}`}>
+            <Link href={route('courses-detail', data.slug)}>
               {data.name}
             </Link>
           </h4>
@@ -65,7 +65,7 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
             </div>
             <Link
               className="rbt-btn-link"
-              href={`/course-details/${data.id}`}
+              href={route('courses-detail', data.slug)}
             >
               Xem thêm<i className="feather-arrow-right"></i>
             </Link>

@@ -28,7 +28,7 @@ class EditCourseLesson extends NestedEditRecord
     {
         //Check if video is changed
         $oldVideoUrl = $this->record->video_url;
-//        if($oldVideoUrl != $data['video_url']){
+        if(!empty($data['video_url']) && $oldVideoUrl != $data['video_url']){
             $lessonVideo = CourseLessonVideo::where('course_lesson_id', $this->record->id)->first();
             if(!empty($lessonVideo)){
                 $lessonVideo->delete();
@@ -46,7 +46,7 @@ class EditCourseLesson extends NestedEditRecord
             $lessonVideo->save();
 
             dispatch(new ProcessVideo($lessonVideo));
-//        }
+        }
 
         return $data;
     }

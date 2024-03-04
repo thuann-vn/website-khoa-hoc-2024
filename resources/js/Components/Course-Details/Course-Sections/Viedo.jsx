@@ -20,15 +20,10 @@ const Viedo = ({ checkMatchCourses }) => {
 
   const [amount, setAmount] = useState(1);
 
-  const addToCartFun = (id, amount, product) => {
+  const buyNow = (id, amount, product) => {
     dispatch(addToCartAction(id, amount, product));
     setCart(!cartToggle);
   };
-
-  useEffect(() => {
-    dispatch({ type: "COUNT_CART_TOTALS" });
-    localStorage.setItem("hiStudy", JSON.stringify(cart));
-  }, [cart]);
 
   // =====> For video PopUp
   useEffect(() => {
@@ -97,11 +92,12 @@ const Viedo = ({ checkMatchCourses }) => {
           <Link
             className="rbt-btn btn-gradient icon-hover w-100 d-block text-center"
             href="#"
-            onClick={() =>
-              addToCartFun(checkMatchCourses.id, amount, checkMatchCourses)
-            }
+            onClick={(e) =>{
+              e.preventDefault();
+              buyNow()
+            }}
           >
-            <span className="btn-text">Đăng ký ngay</span>
+            <span className="btn-text">Mua trọn bộ khóa học</span>
             <span className="btn-icon">
               <i className="feather-arrow-right"></i>
             </span>

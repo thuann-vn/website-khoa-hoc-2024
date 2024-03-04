@@ -11,7 +11,7 @@ export default function CourseIndex({
                                     }: PageProps<{ course: any }>) {
   return (
     <>
-      <Head title="Tất cả các khóa học" />
+      <Head title={course.name} />
       <Guest>
         <div className="rbt-breadcrumb-default rbt-breadcrumb-style-3">
           <CourseHead
@@ -34,13 +34,25 @@ export default function CourseIndex({
           checkMatchCourses={false}
         />
 
-        {/*<div className="rbt-related-course-area bg-color-white pt--60 rbt-section-gapBottom">*/}
-        {/*  <SimilarCourses*/}
-        {/*    checkMatchCourses={*/}
-        {/*      course*/}
-        {/*    }*/}
-        {/*  />*/}
-        {/*</div>*/}
+        <div className="modal"  id="registerModal" tabIndex={1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Đăng ký khóa học</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                <p>Modal body text goes here.</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
       </Guest>
     </>
   )
