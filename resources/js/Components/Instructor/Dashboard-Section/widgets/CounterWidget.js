@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 import "odometer/themes/odometer-theme-default.css";
-import Image from "next/image";
+// import Image from "next/image";
 
 let loadedCallback = null;
 let loaded = false;

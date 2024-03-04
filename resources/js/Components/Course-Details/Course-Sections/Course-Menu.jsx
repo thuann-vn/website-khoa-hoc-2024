@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import { useState, useEffect } from "react";
 
 const CourseMenu = () => {
@@ -45,19 +45,13 @@ const CourseMenu = () => {
       <nav className="mainmenu-nav onepagenav">
         <ul className="mainmenu">
           <li className={currentSection === "#overview" ? "current" : ""}>
-            <Link href="#overview">Overview</Link>
+            <a href="#overview">Giới thiệu</a>
           </li>
           <li className={currentSection === "#coursecontent" ? "current" : ""}>
-            <Link href="#coursecontent">Course Content</Link>
-          </li>
-          <li className={currentSection === "#details" ? "current" : ""}>
-            <Link href="#details">Details</Link>
+            <a href="#coursecontent">Nội dung khóa học</a>
           </li>
           <li className={currentSection === "#intructor" ? "current" : ""}>
-            <Link href="#intructor">Instructor</Link>
-          </li>
-          <li className={currentSection === "#review" ? "current" : ""}>
-            <Link href="#review">Review</Link>
+            <a href="#intructor">Giáo viên</a>
           </li>
         </ul>
       </nav>

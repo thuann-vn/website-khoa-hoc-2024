@@ -19,6 +19,9 @@ use App\Livewire\Post\Show as PostShow;
 */
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/danh-sach-khoa-hoc', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
+Route::get('/danh-sach-khoa-hoc/{slug}', [App\Http\Controllers\CourseController::class, 'index'])->name('courses-category');
+Route::get('/khoa-hoc/{slug}', [App\Http\Controllers\CourseController::class, 'detail'])->name('courses-detail');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

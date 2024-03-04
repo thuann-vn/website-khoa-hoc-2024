@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import CategoryOne from "../Category/CategoryOne";
 import MainDemoBanner from "./MainDemoBanner";
 import Card from "../Cards/Card";

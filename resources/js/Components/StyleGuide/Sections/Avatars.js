@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 import author1 from "../../../public/images/testimonial/testimonial-1.jpg";
 import author2 from "../../../public/images/testimonial/testimonial-2.jpg";

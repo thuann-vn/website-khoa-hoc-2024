@@ -60,7 +60,7 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
                 <div className="section-title text-start">
                   <h2 className="title">Danh sách khóa học</h2>
                   <p className="description mt--20">
-                    Caác khóa học nổi bật về thiết kế trang sức.
+                    Các khóa học nổi bật về thiết kế trang sức.
                   </p>
                 </div>
               </div>
@@ -68,7 +68,7 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
                 <div className="load-more-btn text-start text-lg-end">
                   <Link
                     className="rbt-btn btn-border icon-hover radius-round"
-                    href="/course-filter-one-toggle"
+                    href={route("courses")}
                   >
                     <span className="btn-text">Xem tất cả các khóa học</span>
                     <span className="btn-icon">

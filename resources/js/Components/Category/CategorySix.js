@@ -1,5 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
+import { Link } from '@inertiajs/react'
+// import Image from "next/image";
 
 import CourseDetails from "../../data/course-details/courseData.json";
 import useCategoryCount from "@/context/useCategoryCount";

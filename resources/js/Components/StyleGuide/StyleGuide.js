@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 
 import ColorPalette from "./Sections/ColorPalette";
 import Gradient from "./Sections/Gradient";

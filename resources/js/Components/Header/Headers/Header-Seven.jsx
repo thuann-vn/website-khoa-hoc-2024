@@ -47,7 +47,7 @@ const HeaderSeven = ({
                 <div className="logo">
                   <Link href="/">
                     <img
-                      src={"/images/logo/logo.png"}
+                      src={"/images/logo.PNG"}
                       width={152}
                       height={50}
                       alt="Education Logo Images"

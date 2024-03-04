@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import Courses from "../../data/dashboard/instructor/instructor.json";
 import CourseWidgets from "./Dashboard-Section/widgets/CourseWidget";
 

@@ -1,5 +1,5 @@
 
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import { useState } from "react";
 import Select, { components } from "react-select";
 

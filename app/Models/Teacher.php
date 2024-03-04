@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Teacher extends User{
     protected $table =  'users';
+    protected $appends = ['course_count'];
     protected static function boot()
     {
         static::addGlobalScope('type', function (Builder $builder) {
@@ -20,5 +21,15 @@ class Teacher extends User{
         });
 
         parent::boot();
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
+    }
+
+    public function getCourseCountAttribute()
+    {
+        return $this->courses->count();
     }
 }

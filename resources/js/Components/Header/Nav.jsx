@@ -1,12 +1,6 @@
 
 import { useState } from "react";
 
-import MenuData from "../../data/MegaMenu";
-
-import CourseLayout from "./NavProps/CourseLayout";
-import PageLayout from "./NavProps/PageLayout";
-import ElementsLayout from "./NavProps/ElementsLayout";
-
 import { Link } from '@inertiajs/react'
 
 const Nav = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 
 const QuizAttempts = () => {
   return (

@@ -1,9 +1,9 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 import client1 from "../../../public/images/testimonial/client-04.png";
 import client2 from "../../../public/images/testimonial/client-05.png";
 import client3 from "../../../public/images/testimonial/client-06.png";
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 
 const Tooltips = () => {
   return (

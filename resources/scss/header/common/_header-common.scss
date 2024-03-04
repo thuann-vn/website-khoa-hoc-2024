@@ -1,13 +1,12 @@
 /*---------------------------
-    Header Common Styles  
+    Header Common Styles
 ----------------------------*/
 .logo {
     a {
         display: block;
 
         img {
-            max-height: 50px;
-            object-fit: cover;
+            object-fit: contain;
         }
     }
 }
@@ -25,7 +24,7 @@
 
 
 /*-----------------------------
-    Header Space Between  
+    Header Space Between
 ------------------------------*/
 .header-space-betwween {
     padding-left: 150px;
@@ -59,8 +58,8 @@
 }
 
 /*----------------------------
-    Header Top Information 
------------------------------*/ 
+    Header Top Information
+-----------------------------*/
 .rbt-information-list {
     display: flex;
     flex-direction: row;
@@ -99,7 +98,7 @@
 
 
 /*--------------------------
-    Dropdown Menu  
+    Dropdown Menu
 ----------------------------*/
 ul {
     &.rbt-dropdown-menu {
@@ -184,7 +183,7 @@ ul {
                 }
                 .sub-menu {
                     @extend %rbt-hover-dropdown-type-1;
-                   
+
                 }
             }
         }
@@ -306,7 +305,7 @@ ul {
     align-items: center;
     margin: 0 -3px;
     padding: 0;
-    
+
     @media #{$lg-layout} {
         border-right: 0 none;
     }
@@ -373,7 +372,7 @@ ul {
                 padding-left: 0;
                 margin-left: 5px;
             }
-            
+
             &::after {
                 background: var(--color-border);
                 width: 1px;
@@ -481,7 +480,7 @@ ul {
         padding-right: 65px;
         line-height: 47px;
     }
-    &.filed-solid { 
+    &.filed-solid {
         input {
             background: var(--color-gray-light);
         }
@@ -752,7 +751,7 @@ ul {
                 i {
                     font-size: 17px;
                 }
-    
+
                 span {
                     font-size: 14px;
                 }
@@ -799,7 +798,7 @@ ul {
             right: 20px;
             width: auto;
         }
-        
+
         .inner {
             padding: 20px;
             hr {
@@ -814,7 +813,7 @@ ul {
     &:hover {
         .rbt-user-menu-list-wrapper {
             @extend %rbt-hover-dropdown-type-1;
-            
+
         }
     }
     &.right-align-dropdown {
@@ -837,7 +836,7 @@ ul {
 
 .rbt-mini-cart {
     position: relative;
-    
+
     .rbt-cart-count {
         position: absolute;
         top: 4px;
@@ -868,14 +867,14 @@ ul {
             right: -4px;
             left: auto;
         }
-       
+
     }
 }
 
 
 
 /*-------------------------
-    Header Animation  
+    Header Animation
 --------------------------*/
 @keyframes headerSticky {
     0% {

@@ -1,6 +1,6 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import { useEffect, useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 
 const EventWidget = ({ event, widgetStyle = "card" }) => {
   const [eventDateMonth, setEventDateMonth] = useState(null);

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 
-import Image from "next/image";
-import Link from "next/link";
-
 import { useAppContext } from "@/context/Context";
-import Pagination from "@/components/Common/Pagination";
+import Pagination from "../../Common/Pagination";
+import { Link } from '@inertiajs/react'
 
 const CourseFilterOneOpen = ({ course }) => {
   const { toggle } = useAppContext();

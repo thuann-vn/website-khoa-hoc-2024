@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

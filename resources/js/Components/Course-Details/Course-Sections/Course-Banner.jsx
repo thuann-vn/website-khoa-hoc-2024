@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import React from "react";
 
 const CourseBanner = ({ bannerImg }) => {
@@ -9,7 +9,6 @@ const CourseBanner = ({ bannerImg }) => {
         src={bannerImg}
         width={800}
         height={550}
-        priority
         alt="Card image"
       />
     </>

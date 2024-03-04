@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 
 const Featured = ({ coursesFeatured }) => {
   const [toggle, setToggle] = useState(false);

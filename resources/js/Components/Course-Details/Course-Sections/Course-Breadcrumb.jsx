@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
+import { getImageStoragePath } from '@/helper'
 
 const CourseBreadcrumb = ({ getMatchCourse }) => {
   return (
@@ -16,31 +16,29 @@ const CourseBreadcrumb = ({ getMatchCourse }) => {
               </div>
             </li>
             <li className="rbt-breadcrumb-item active">
-              {getMatchCourse.category}
+              {getMatchCourse.category?.name}
             </li>
           </ul>
-          <h2 className="title">{getMatchCourse.courseTitle}</h2>
-          <p className="description">{getMatchCourse.desc}</p>
+          <h2 className="title">{getMatchCourse.name}</h2>
+          <p className="description">{getMatchCourse.description}</p>
 
           <div className="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
             <div className="feature-sin best-seller-badge">
               <span className="rbt-badge-2">
                 <span className="image">
-                  {getMatchCourse.awardImg && (
-                    <img
-                      src={getMatchCourse.awardImg}
-                      width={30}
-                      height={30}
-                      alt="Best Seller Icon"
-                    />
-                  )}
+                  <img
+                    src={'/images/card-icon-1.webp'}
+                    width={30}
+                    height={30}
+                    alt="Best Seller Icon"
+                  />
                 </span>
-                {getMatchCourse.sellsType}
+                <span className="text">Khóa học bán chạy</span>
               </span>
             </div>
 
             <div className="feature-sin rating">
-              <Link href="#">{getMatchCourse.star}</Link>
+              <Link href="#">{getMatchCourse.star || 5}</Link>
               <Link href="#">
                 <i className="fa fa-star"></i>
               </Link>
@@ -60,50 +58,32 @@ const CourseBreadcrumb = ({ getMatchCourse }) => {
 
             <div className="feature-sin total-rating">
               <Link className="rbt-badge-4" href="#">
-                {getMatchCourse.ratingNumber} rating
+                {getMatchCourse.course_lesson_count} bài học
               </Link>
-            </div>
-
-            <div className="feature-sin total-student">
-              <span> {getMatchCourse.studentNumber} students</span>
             </div>
           </div>
 
           <div className="rbt-author-meta mb--20">
             <div className="rbt-avater">
               <Link href={`/profile/${getMatchCourse.id}`}>
-                {getMatchCourse.userImg && (
+                {getMatchCourse.teacher.image && (
                   <img
                     width={40}
                     height={40}
-                    src={getMatchCourse.userImg}
-                    alt={getMatchCourse.userName}
+                    src={getImageStoragePath(getMatchCourse.teacher.image)}
+                    alt={getMatchCourse.teacher.name}
                   />
                 )}
               </Link>
             </div>
             <div className="rbt-author-info">
-              By{" "}
+              Giáo viên{" "}
               <Link href={`/profile/${getMatchCourse.id}`}>
-                {getMatchCourse.userName}
+                {getMatchCourse.teacher.name}
               </Link>{" "}
-              In <Link href="#">{getMatchCourse.userCategory}</Link>
+              trong <Link href="#">{getMatchCourse.category.name}</Link>
             </div>
           </div>
-
-          <ul className="rbt-meta">
-            <li>
-              <i className="feather-calendar"></i>Last updated{" "}
-              {getMatchCourse.date}
-            </li>
-            <li>
-              <i className="feather-globe"></i>
-              {getMatchCourse.language}
-            </li>
-            <li>
-              <i className="feather-award"></i> {getMatchCourse.courseAward}
-            </li>
-          </ul>
         </div>
       </div>
     </>

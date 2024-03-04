@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "plyr/dist/plyr.css";
 
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import Plyr from "plyr";
 
 import AboutData from "../../data/elements/about.json";

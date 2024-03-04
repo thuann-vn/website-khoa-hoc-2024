@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 
 import React, { useState, useEffect } from "react";
 

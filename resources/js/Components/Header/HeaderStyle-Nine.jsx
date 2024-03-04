@@ -13,6 +13,7 @@ const HeaderStyleNine = () => {
           navigationEnd="rbt-navigation-end"
           btnClass="rbt-switch-btn btn-gradient btn-sm hover-transform-none"
           btnText="Đăng nhập"
+          headerType="123"
         />
       </header>
     </>

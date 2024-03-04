@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+import { Link } from '@inertiajs/react'
 
 import img from "../../public/images/blog/blog-card-01.jpg";
 import bgImg from "../../public/images/bg/bg-image-10.jpg";

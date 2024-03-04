@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 
 import { useAppContext } from "@/context/Context";
 
-import Pagination from "@/components/Common/Pagination";
+import { Link } from '@inertiajs/react'
+import Pagination from '@/Components/Common/Pagination.jsx'
+import { currency, getImageStoragePath } from '@/helper'
 
 const CourseFilterOneToggle = ({ course, start, end }) => {
   const { toggle } = useAppContext();
@@ -44,84 +44,66 @@ const CourseFilterOneToggle = ({ course, start, end }) => {
               }`}
             >
               <div className="rbt-card-img">
-                <Link href={`/course-details/${data.id}`}>
+                <Link href={route("courses-detail", data.slug)}>
                   <img
-                    src={data.courseImg}
+                    src={getImageStoragePath(data.image)}
                     width={355}
                     height={244}
                     alt="Card image"
                   />
-                  <div className="rbt-badge-3 bg-white">
-                    <span>-{data.offPrice}%</span>
-                    <span>Off</span>
-                  </div>
+                  {data.offPrice > 0 ? (
+
+                    <div className="rbt-badge-3 bg-white">
+                      <span>-{data.offPrice}%</span>
+                      <span>Off</span>
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </Link>
               </div>
               <div className="rbt-card-body">
-                <div className="rbt-card-top">
-                  <div className="rbt-review">
-                    <div className="rating">
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                      <i className="fas fa-star"></i>
-                    </div>
-                    <span className="rating-count">
-                      ({data.review} Reviews)
-                    </span>
-                  </div>
-                  <div className="rbt-bookmark-btn">
-                    <Link className="rbt-round-btn" title="Bookmark" href="#">
-                      <i className="feather-bookmark"></i>
-                    </Link>
-                  </div>
-                </div>
-
                 <h4 className="rbt-card-title">
-                  <Link href={`/course-details/${data.id}`}>
-                    {data.courseTitle}
+                  <Link href={route("courses-detail", data.slug)}>
+                    {data.name}
                   </Link>
                 </h4>
 
                 <ul className="rbt-meta">
                   <li>
                     <i className="feather-book"></i>
-                    {data.lesson} Lessons
-                  </li>
-                  <li>
-                    <i className="feather-users"></i>
-                    {data.student} Students
+                    {data.course_lesson_count} bài học
                   </li>
                 </ul>
 
-                <p className="rbt-card-text">{data.desc}</p>
+                <p className="rbt-card-text">{data.description}</p>
                 <div className="rbt-author-meta mb--10">
                   <div className="rbt-avater">
-                    <Link href="#">
+                    <Link href={route("courses-detail", data.slug)}>
                       <img
-                        src={data.userImg}
+                        src={getImageStoragePath(data.teacher?.image)}
                         width={33}
                         height={33}
-                        alt="Sophia Jaymes"
+                        alt={data.teacher?.name}
                       />
                     </Link>
                   </div>
                   <div className="rbt-author-info">
-                    By <Link href={`/profile/${data.id}`}>{data.userName}</Link>{" "}
-                    In <Link href="#">{data.userCategory}</Link>
+                    Giáo viên {' '}
+                    <Link href={`/profile/${data.id}`}>{data.teacher?.name}</Link>{' '}
+                    trong <Link href="#">{data.category?.name}</Link>
                   </div>
                 </div>
                 <div className="rbt-card-bottom">
                   <div className="rbt-price">
-                    <span className="current-price">${data.price}</span>
-                    <span className="off-price">${data.offPrice}</span>
+
+                    <span className="current-price">{currency(data.price)}</span>
                   </div>
                   <Link
                     className="rbt-btn-link"
                     href={`/course-details/${data.id}`}
                   >
-                    Learn More<i className="feather-arrow-right"></i>
+                    Xem thêm<i className="feather-arrow-right"></i>
                   </Link>
                 </div>
               </div>

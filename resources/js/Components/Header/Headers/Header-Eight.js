@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { Link } from '@inertiajs/react'
+// import Image from "next/image";
 
 import HeaderRightTwo from "../Header-Right/HeaderRight-Two";
 import Search from "../Offcanvas/Search";

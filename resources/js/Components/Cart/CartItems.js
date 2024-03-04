@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+import { Link } from '@inertiajs/react'
 import { useDispatch } from "react-redux";
 
 import { deleteProduct, toggleAmount } from "@/redux/action/CartAction";

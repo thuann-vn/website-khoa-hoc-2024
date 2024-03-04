@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import ContactData from "../../data/pages/contact.json";
 
 const Contact = () => {

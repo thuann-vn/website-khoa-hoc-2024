@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 import img from "../../public/images/about/contact.jpg";
 

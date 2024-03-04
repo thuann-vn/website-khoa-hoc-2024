@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 import AboutData from "../../data/elements/about.json";
 

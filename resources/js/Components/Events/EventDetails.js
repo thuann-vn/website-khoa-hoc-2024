@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 import EventContent from "./Event-Section/EventContent";
 import EventDescription from "./Event-Section/EventDescription";

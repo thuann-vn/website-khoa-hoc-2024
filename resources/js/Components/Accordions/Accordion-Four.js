@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 import AccordionData from "../../data/elements/accordion.json";
 

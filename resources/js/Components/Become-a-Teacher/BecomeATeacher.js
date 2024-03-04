@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 
 import Teacher from "../../data/pages/become-A-Teacher.json";
 import InstructorRegistration from "./InstructorRegis";

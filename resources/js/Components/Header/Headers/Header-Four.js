@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+import { Link } from '@inertiajs/react'
 import { useSelector } from "react-redux";
 import { useAppContext } from "@/context/Context";
 

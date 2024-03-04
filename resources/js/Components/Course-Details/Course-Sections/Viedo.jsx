@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+import { Link } from '@inertiajs/react'
 
 import "venobox/dist/venobox.min.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useAppContext } from "@/context/Context";
 import { addToCartAction } from "@/redux/action/CartAction";
+import { currency, getImageStoragePath } from '@/helper'
 
 const Viedo = ({ checkMatchCourses }) => {
   const { cartToggle, setCart } = useAppContext();
@@ -61,10 +62,10 @@ const Viedo = ({ checkMatchCourses }) => {
         href="https://www.youtube.com/watch?v=nA1Aqp0sPQo"
       >
         <div className="video-content">
-          {checkMatchCourses.courseImg && (
+          {checkMatchCourses.image && (
             <img
               className="w-100 rbt-radius"
-              src={checkMatchCourses.courseImg}
+              src={getImageStoragePath(checkMatchCourses.image)}
               width={355}
               height={255}
               alt="Video Images"
@@ -76,22 +77,20 @@ const Viedo = ({ checkMatchCourses }) => {
             </span>
           </div>
           <span className="play-view-text d-block color-white">
-            <i className="feather-eye"></i> Preview this course
+            <i className="feather-eye"></i> Giới thiệu khóa học
           </span>
         </div>
       </Link>
       <div className="content-item-content">
         <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
           <div className="rbt-price">
-            <span className="current-price">${checkMatchCourses.price}</span>
-            <span className="off-price">${checkMatchCourses.offPrice}</span>
+            <span className="current-price">{currency(checkMatchCourses.price)}</span>
           </div>
-          <div className="discount-time">
-            <span className="rbt-badge color-danger bg-color-danger-opacity">
-              <i className="feather-clock"></i> {checkMatchCourses.days} days
-              left!
-            </span>
-          </div>
+          {/*<div className="discount-time">*/}
+          {/*  <span className="rbt-badge color-danger bg-color-danger-opacity">*/}
+          {/*    <i className="feather-clock"></i> {checkMatchCourses.days} days left!*/}
+          {/*  </span>*/}
+          {/*</div>*/}
         </div>
 
         <div className="add-to-card-button mt--15">
@@ -102,50 +101,15 @@ const Viedo = ({ checkMatchCourses }) => {
               addToCartFun(checkMatchCourses.id, amount, checkMatchCourses)
             }
           >
-            <span className="btn-text">Add to Cart</span>
-            <span className="btn-icon">
-              <i className="feather-arrow-right"></i>
-            </span>
-          </Link>
-        </div>
-
-        <div className="buy-now-btn mt--15">
-          <Link
-            className="rbt-btn btn-border icon-hover w-100 d-block text-center"
-            href="#"
-          >
-            <span className="btn-text">Buy Now</span>
+            <span className="btn-text">Đăng ký ngay</span>
             <span className="btn-icon">
               <i className="feather-arrow-right"></i>
             </span>
           </Link>
         </div>
         <span className="subtitle">
-          <i className="feather-rotate-ccw"></i> 30-Day Money-Back Guarantee
+          <i className="feather-rotate-ccw"></i> Hoàn tiền 30 ngày
         </span>
-        <div
-          className={`rbt-widget-details has-show-more ${
-            toggle ? "active" : ""
-          }`}
-        >
-          <ul className="has-show-more-inner-content rbt-course-details-list-wrapper">
-            {checkMatchCourses &&
-              checkMatchCourses.roadmap.map((item, innerIndex) => (
-                <li key={innerIndex}>
-                  <span>{item.text}</span>
-                  <span className="rbt-feature-value rbt-badge-5">
-                    {item.desc}
-                  </span>
-                </li>
-              ))}
-          </ul>
-          <div
-            className={`rbt-show-more-btn ${toggle ? "active" : ""}`}
-            onClick={() => setToggle(!toggle)}
-          >
-            Show More
-          </div>
-        </div>
 
         <div className="social-share-wrapper mt--30 text-center">
           <div className="rbt-post-share d-flex align-items-center justify-content-center">
@@ -174,11 +138,11 @@ const Viedo = ({ checkMatchCourses }) => {
           </div>
           <hr className="mt--20" />
           <div className="contact-with-us text-center">
-            <p>For details about the course</p>
+            <p>Thắc mắc về khoá học?</p>
             <p className="rbt-badge-2 mt--10 justify-content-center w-100">
-              <i className="feather-phone mr--5"></i> Call Us:{" "}
+              <i className="feather-phone mr--5"></i> Hotline:{" "}
               <Link href="#">
-                <strong>+444 555 666 777</strong>
+                <strong>0123456789</strong>
               </Link>
             </p>
           </div>

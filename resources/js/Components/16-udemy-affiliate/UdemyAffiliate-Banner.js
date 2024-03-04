@@ -1,5 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
+import { Link } from '@inertiajs/react'
+// import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";

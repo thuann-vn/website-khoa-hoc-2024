@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+import { Link } from '@inertiajs/react'
 import Pagination from "../Common/Pagination";
 
 const Events = ({

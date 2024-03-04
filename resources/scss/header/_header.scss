@@ -1,5 +1,5 @@
 /*----------------------------
-    Navigation Position  
+    Navigation Position
 ------------------------------*/
 
 .mainbar-row {
@@ -27,7 +27,7 @@
 }
 
 /*-----------------------
-    Header Style  
+    Header Style
 ---------------------------*/
 .rbt-header {
     position: relative;
@@ -36,8 +36,7 @@
     .logo {
         a {
             img {
-                max-height: 50px;
-                object-fit: cover;
+                object-fit: contain;
             }
 
             @media #{$large-mobile} {

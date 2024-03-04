@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from '@inertiajs/react'
 import HomeCourse from "../01-Main-Demo/Home-Sections/HomeCourse";
 import NewsletterThree from "../Newsletters/Newsletter-Three";
 import Card from "../Cards/Card";
