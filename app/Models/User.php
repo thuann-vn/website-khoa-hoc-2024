@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,15 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
+
+    protected static function boot(): void
+    {
+        static::addGlobalScope('type', function (Builder $builder) {
+            $builder->where('type', 'user');
+        });
+
+        parent::boot();
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -63,3 +73,4 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Post::class);
     }
 }
+

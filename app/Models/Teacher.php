@@ -14,16 +14,16 @@ use Laravel\Sanctum\HasApiTokens;
 class Teacher extends User{
     protected $table =  'users';
     protected $appends = ['course_count'];
-    protected static function boot()
+    protected static function boot(): void
     {
+
+        parent::boot();
         static::addGlobalScope('type', function (Builder $builder) {
             $builder->where('type', 'teacher');
         });
-
-        parent::boot();
     }
 
-    public function courses()
+    public function courses(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Course::class, 'teacher_id');
     }

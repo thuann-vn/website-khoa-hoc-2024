@@ -15,4 +15,19 @@ class Order extends Model
     ];
 
     protected $guarded = [];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function courseSection()
+    {
+        return $this->belongsTo(CourseSection::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(Student::class, 'user_id');
+    }
 }

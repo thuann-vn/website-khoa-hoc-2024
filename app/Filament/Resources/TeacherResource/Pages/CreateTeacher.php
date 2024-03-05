@@ -9,4 +9,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTeacher extends CreateRecord
 {
     protected static string $resource = TeacherResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['type'] = 'teacher';
+        return $data;
+    }
 }

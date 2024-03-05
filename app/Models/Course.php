@@ -60,4 +60,9 @@ class Course extends Model {
             })->sum();
         })->sum();
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'user_has_courses', 'course_id', 'user_id')->withPivot('course_section_id');
+    }
 }
