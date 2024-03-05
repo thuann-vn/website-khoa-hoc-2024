@@ -1,7 +1,8 @@
 // import Image from "next/image";
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 
 const StudentDashboardHeader = () => {
+  const {auth} = usePage().props;
   return (
     <>
       <div className="rbt-dashboard-content-wrapper">
@@ -17,22 +18,19 @@ const StudentDashboardHeader = () => {
               />
             </div>
             <div className="tutor-content">
-              <h5 className="title">Emily Hannah</h5>
+              <h5 className="title">{auth.user?.name}</h5>
               <ul className="rbt-meta rbt-meta-white mt--5">
                 <li>
-                  <i className="feather-book"></i>5 Courses Enroled
-                </li>
-                <li>
-                  <i className="feather-award"></i>4 Certificate
+                  <i className="feather-book"></i>{} khóa học đã đăng ký
                 </li>
               </ul>
             </div>
           </div>
           <div className="rbt-tutor-information-right">
             <div className="tutor-btn">
-              <Link className="rbt-btn btn-md hover-icon-reverse" href="#">
+              <Link className="rbt-btn btn-md hover-icon-reverse" href={route('courses')}>
                 <span className="icon-reverse-wrapper">
-                  <span className="btn-text">Create Link New Course</span>
+                  <span className="btn-text">Đăng ký thêm khóa học</span>
                   <span className="btn-icon">
                     <i className="feather-arrow-right" />
                   </span>

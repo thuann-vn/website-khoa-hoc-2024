@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 import "odometer/themes/odometer-theme-default.css";
-// import Image from "next/image";
 
 let loadedCallback = null;
 let loaded = false;
 
-const Odometer = dynamic(() => import("react-odometerjs"), {
-  ssr: false,
-  loading: () => <span>00</span>,
-});
+import Odometer from "react-odometerjs";
 const CounterWidget = ({
   counterStyle = "one",
   icon,

@@ -1,10 +1,8 @@
 
-import { useRouter } from "next/router";
 import SidebarData from "../../data/dashboard/student/siderbar.json";
 
 const StudentDashboardSidebar = () => {
-    const router = useRouter();
-    const path = router.pathname;
+    const path = location.pathname;
   return (
     <>
       <div className="rbt-default-sidebar sticky-top rbt-shadow-box rbt-gradient-border">

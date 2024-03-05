@@ -28,7 +28,7 @@ Route::get('/khoa-hoc/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseCo
 
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Account/Dashboard');
 })->name('dashboard');
 
 

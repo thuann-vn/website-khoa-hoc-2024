@@ -4,7 +4,10 @@ import { PageProps } from '@/types';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import React from 'react'
-export default function Dashboard({ auth, onReady }: PageProps) {
+import StudentDashboardSidebar from '@/Components/Student/StudentDashboardSidebar'
+import StudentDashboardHeader from '@/Components/Student/StudentDashboardHeader'
+import Dashboard from '@/Components/Student/Dashboard'
+export default function DashboardPage({ auth, onReady }: PageProps) {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const options = {
@@ -68,22 +71,43 @@ export default function Dashboard({ auth, onReady }: PageProps) {
   }, [playerRef]);
 
   return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
-        >
-            <Head title="Dashboard" />
+    <AuthenticatedLayout
+      user={auth.user}
+      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+    >
+      <Head title="Dashboard" />
+      <div className="rbt-page-banner-wrapper">
+        <div className="rbt-banner-image" />
+      </div>
+      <div className="rbt-dashboard-area rbt-section-overlayping-top rbt-section-gapBottom">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <StudentDashboardHeader />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                  <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div className="p-6 text-gray-900">You're logged in!</div>
-                    <div data-vjs-player>
-                      <div ref={videoRef} />
-                    </div>
-                  </div>
+              <div className="row g-5">
+                <div className="col-lg-3">
+                  <StudentDashboardSidebar />
                 </div>
+
+                <div className="col-lg-9">
+                  <Dashboard />
+                </div>
+              </div>
             </div>
-        </AuthenticatedLayout>
-    );
+          </div>
+        </div>
+      </div>
+      <div className="py-12">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 text-gray-900">You're logged in!</div>
+            <div data-vjs-player>
+              <div ref={videoRef} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </AuthenticatedLayout>
+  );
 }
