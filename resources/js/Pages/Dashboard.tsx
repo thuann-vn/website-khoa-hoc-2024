@@ -31,10 +31,13 @@ export default function Dashboard({ auth, onReady }: PageProps) {
       const videoElement = document.createElement("video-js");
 
       videoElement.classList.add('vjs-big-play-centered');
+      // @ts-ignore
       videoRef.current.appendChild(videoElement);
 
+      // @ts-ignore
       const player = playerRef.current = videojs(videoElement, options, () => {
         videojs.log('player is ready');
+        // @ts-ignore
         onReady && onReady(player);
       });
 
@@ -43,7 +46,9 @@ export default function Dashboard({ auth, onReady }: PageProps) {
     } else {
       const player = playerRef.current;
 
+      // @ts-ignore
       player.autoplay(options.autoplay);
+      // @ts-ignore
       player.src(options.sources);
     }
   }, [options, videoRef]);
@@ -53,7 +58,9 @@ export default function Dashboard({ auth, onReady }: PageProps) {
     const player = playerRef.current;
 
     return () => {
+      // @ts-ignore
       if (player && !player.isDisposed()) {
+        // @ts-ignore
         player.dispose();
         playerRef.current = null;
       }
