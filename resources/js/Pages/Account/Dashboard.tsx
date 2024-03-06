@@ -20,8 +20,6 @@ export default function DashboardPage({ auth, onReady }: PageProps) {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <StudentDashboardHeader />
-
               <div className="row g-5">
                 <div className="col-lg-3">
                   <StudentDashboardSidebar />

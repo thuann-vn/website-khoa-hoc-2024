@@ -61,7 +61,7 @@ class Course extends Model {
         })->sum();
     }
 
-    public function students()
+    public function students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Student::class, 'user_has_courses', 'course_id', 'user_id')->withPivot('course_section_id');
     }

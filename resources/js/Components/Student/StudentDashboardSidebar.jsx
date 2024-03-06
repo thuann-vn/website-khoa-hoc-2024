@@ -1,8 +1,10 @@
 
 import SidebarData from "../../data/dashboard/student/siderbar.json";
+import { usePage } from '@inertiajs/react'
 
 const StudentDashboardSidebar = () => {
     const path = location.pathname;
+    const {auth} = usePage().props;
   return (
     <>
       <div className="rbt-default-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
@@ -10,12 +12,12 @@ const StudentDashboardSidebar = () => {
           <div className="content-item-content">
             <div className="rbt-default-sidebar-wrapper">
               <div className="section-title mb--20">
-                <h6 className="rbt-title-style-2">Welcome, Jone Due</h6>
+                <h6 className="rbt-title-style-2">Chào bạn, {auth.user.name}</h6>
               </div>
               <nav className="mainmenu-nav">
                 <ul className="dashboard-mainmenu rbt-default-sidebar-list">
                   {SidebarData &&
-                    SidebarData.siderbar.slice(0, 7).map((data, index) => (
+                    SidebarData.siderbar.slice(0, 3).map((data, index) => (
                       <li className="nav-item" key={index} role="presentation">
                         <a
                           className={`${path === data.link ? "active" : ""}`}
@@ -30,13 +32,13 @@ const StudentDashboardSidebar = () => {
               </nav>
 
               <div className="section-title mt--40 mb--20">
-                <h6 className="rbt-title-style-2">User</h6>
+                <h6 className="rbt-title-style-2">Khác</h6>
               </div>
 
               <nav className="mainmenu-nav">
                 <ul className="dashboard-mainmenu rbt-default-sidebar-list">
                   {SidebarData &&
-                    SidebarData.siderbar.slice(7, 10).map((data, index) => (
+                    SidebarData.siderbar.slice(3, 10).map((data, index) => (
                       <li key={index}>
                         <a
                           href={data.link}

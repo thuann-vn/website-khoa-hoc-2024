@@ -9,7 +9,7 @@ class CourseLesson extends Model {
 
     protected $guarded = [];
 
-    protected $hidden = ['created_at', 'updated_at', 'video_url'];
+    protected $hidden = ['created_at', 'updated_at'];
     public function chapter(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(CourseChapter::class, 'course_chapter_id');

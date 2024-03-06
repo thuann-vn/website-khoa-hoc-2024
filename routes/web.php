@@ -26,12 +26,6 @@ Route::get('/khoa-hoc/{slug}/dang-ky', [App\Http\Controllers\CourseController::c
 Route::post('/khoa-hoc/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'checkoutStore'])->name('courses-checkout-store');
 Route::get('/khoa-hoc/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseController::class, 'checkoutSuccess'])->name('courses-checkout-success');
 
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Account/Dashboard');
-})->name('dashboard');
-
-
 Route::get('/watch', function () {
     return \ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::dynamicHLSPlaylist('videos')
         ->open('01HQNQ6VGJ5PXPD0KK0B556T0P_0_250.m3u8')
@@ -52,23 +46,20 @@ Route::get('/video/secret/{key}', function ($key) {
     return Storage::disk('videos')->download($key);
 })->name('video.key');
 
-Route::get('/video/{id}', function (Request $request) {
-    $id = $request->id;
-    $filename = $request->filename;
-    $video = \App\Models\CourseLessonVideo::where('course_lesson_id', $id)->first();
-    return \ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::
-        dynamicHLSPlaylist('public')
-        ->fromDisk('public')
-        ->open(!empty($filename) ? 'lesson_' . $video->courseLesson->id . '/' . $filename : $video->video_url)
-        ->setMediaUrlResolver(function ($mediaFilename) use ($video, $request){
-            return Storage::disk('public')->url('lesson_' . $video->courseLesson->id . '/' . $mediaFilename);
-        })
-        ->setPlaylistUrlResolver(function ($playlistFilename) use ($id){
-            return route('video.playlist', ['id' => $id, 'filename' => $playlistFilename]);
-        });
-})->name('video.playlist');
+Route::get('/video/{id}', [\App\Http\Controllers\LearningController::class, 'learnVideo'])
+    ->name('video.playlist');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Account/Dashboard');
+    })->name('dashboard');
+    Route::get('/enrolled-course', function () {
+        $courses = auth()->user()->enrolledCourses;
+        return Inertia::render('Account/Courses', compact('courses'));
+    })->name('enrolled-course');
+
+    Route::get('/enrolled-course/{slug}', [\App\Http\Controllers\LearningController::class, 'index'])->name('enrolled-course.learn');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

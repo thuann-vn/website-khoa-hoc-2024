@@ -16,23 +16,21 @@ const Content = ({ checkMatchCourses }) => {
                 <h2
                   className="accordion-header card-header"
                   id={`headingTwo${innerIndex}`}
+
                 >
-                  <div
-                    className={`accordion-button course-section-title ${
+                  <button
+                    className={`accordion-button ${
                       !item.collapsed ? 'collapsed' : ''
                     }`}
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapseTwo${innerIndex + 1}`}
+                    aria-expanded={item.expand}
+                    aria-controls={`collapseTwo${innerIndex + 1}`}
                   >
-                    <div className={"flex"}>
-                      {item.name}
-                    </div>
-
-                    <div className={'d-flex text-nowrap'}>
-                      <div className="rbt-price"><span className="current-price">{currency(item.price)}</span></div>
-
-                      <button className="rbt-btn rbt-switch-btn btn-gradient btn-sm hover-transform-none ms-3 px-3"
-                         href="http://localhost:8000/login"><span data-text="Mua phần này">Mua phần này</span></button>
-                    </div>
-                  </div>
+                    {item.name}
+                    <span className="rbt-badge-5 ml--10">{item.duration} phút</span>
+                  </button>
                 </h2>
                 <div
                   id={`collapseTwo${innerIndex + 1}`}
@@ -43,7 +41,7 @@ const Content = ({ checkMatchCourses }) => {
                     <ul className="rbt-course-main-content liststyle">
                       {item.chapters.map((chapter, subIndex) => (
                         <li>
-                          <h6 className={"mt-5 mb-4"}>{chapter.name}</h6>
+                          <h6 className={'mt-5 mb-4'}>{chapter.name}</h6>
                           {
                             chapter.lessons.map((lesson, lessionIdx) => {
                               return <li key={subIndex}>

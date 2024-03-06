@@ -16,4 +16,15 @@ class EditTeacher extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['type'] = 'teacher';
+        if(!empty($data['password'])){
+            $data['password'] = \Hash::make($data['password']);
+        }else{
+            unset($data['password']);
+        }
+        return $data;
+    }
 }

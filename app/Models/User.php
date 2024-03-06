@@ -17,9 +17,9 @@ class User extends Authenticatable implements FilamentUser
 
     protected static function boot(): void
     {
-        static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', 'user');
-        });
+//        static::addGlobalScope('type', function (Builder $builder) {
+//            $builder->where('type', 'user');
+//        });
 
         parent::boot();
     }
@@ -32,6 +32,7 @@ class User extends Authenticatable implements FilamentUser
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'image'
     ];
@@ -60,7 +61,7 @@ class User extends Authenticatable implements FilamentUser
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->type == 'user';
     }
 
     /**
@@ -71,6 +72,13 @@ class User extends Authenticatable implements FilamentUser
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function enrolledCourses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'user_has_courses', 'user_id', 'course_id')
+            ->withPivot('course_section_id')
+            ->using(UserCourse::class);
     }
 }
 

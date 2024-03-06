@@ -18,3 +18,110 @@
 .input-error{
   font-size: 14px;
 }
+
+
+.learning-header{
+  background-color: #000;
+}
+
+.lesson-nav{
+  display: inline-flex;
+  align-self: flex-end;
+  align-items: center;
+  padding: 10px 20px;
+  margin-right: 20px;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 15px;
+
+  button{
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+.header-left{
+  font-size: 16px;
+  color: #fff;
+  padding: 7px 20px;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #fff;
+
+  i{
+    font-size: 24px;
+    margin-right: 10px;
+  }
+}
+
+.bottom-left{
+  border-right: 1px solid #777;
+  max-height: 100vh;
+  max-height: calc(100vh - 103px);
+  overflow: auto;
+}
+
+.lesson-outer-container{
+  max-height: 100vh;
+  max-height: calc(100vh - 103px);
+  overflow: auto;
+}
+
+.lesson-container{
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.course-name{
+  padding: 20px;
+  font-size: 18px;
+}
+
+.course-progress-bar{
+  font-size: 20px;
+  height: 12px;
+  margin-top: 20px;
+}
+
+.course-progress{
+  text-align: center;
+  color: #777;
+  margin-top: 10px;
+}
+
+.course-lesson-list{
+  padding: 20px;
+  h2{
+    text-transform: uppercase;
+    font-size: 18px;
+  }
+
+  h6{
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .lesson-icon{
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-right: 10px;
+  }
+
+  .rbt-course-main-content{
+    li li{
+      border-bottom: 1px solid #efefef;
+      padding-bottom: 7px;
+    }
+  }
+}
+
+.lesson-title{
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+.lesson-description{
+  margin-top: 20px;
+}

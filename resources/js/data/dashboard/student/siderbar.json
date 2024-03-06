@@ -1,48 +1,23 @@
 {
   "siderbar": [
     {
-      "link": "/student/student-dashboard",
-      "text": "Dashboard",
+      "link": "/dashboard",
+      "text": "Bảng điều khiển",
       "icon": "feather-home"
     },
     {
-      "link": "/student/student-profile",
-      "text": "My Profile",
+      "link": "/profile",
+      "text": "Hồ sơ",
       "icon": "feather-user"
     },
     {
-      "link": "/student/student-enrolled-course",
-      "text": "Enrolled Courses",
+      "link": "/enrolled-course",
+      "text": "Khóa học đã đăng ký",
       "icon": "feather-book-open"
     },
     {
-      "link": "/student/student-wishlist",
-      "text": "Wishlist",
-      "icon": "feather-bookmark"
-    },
-    {
-      "link": "/student/student-reviews",
-      "text": "Reviews",
-      "icon": "feather-star"
-    },
-    {
-      "link": "/student/student-quiz-attempts",
-      "text": "My Quiz Attempts",
-      "icon": "feather-help-circle"
-    },
-    {
-      "link": "/student/student-order-history",
-      "text": "Order History",
-      "icon": "feather-shopping-bag"
-    },
-    {
-      "link": "/student/student-settings",
-      "text": "Settings",
-      "icon": "feather-settings"
-    },
-    {
-      "link": "/",
-      "text": "Logout",
+      "link": "/logout",
+      "text": "Đăng xuất",
       "icon": "feather-log-out"
     }
   ]

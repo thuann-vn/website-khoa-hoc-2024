@@ -28,15 +28,15 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
                   <div className="slider-btn rbt-button-group justify-content-start">
                     <Link
                       className="rbt-btn btn-border icon-hover color-white radius-round"
-                      href="#"
+                      href={route('courses')}
                     >
-                      <span className="btn-text">Explore Courses</span>
+                      <span className="btn-text">Khám phá các khóa học</span>
                       <span className="btn-icon">
                       <i className="feather-arrow-right"></i>
                     </span>
                     </Link>
-                    <Link className="rbt-btn-link color-white" href="#">
-                      Start learning<i className="feather-arrow-right"></i>
+                    <Link className="rbt-btn-link color-white" href={route('dashboard' )}>
+                      Bắt đầu học<i className="feather-arrow-right"></i>
                     </Link>
                   </div>
                 </div>

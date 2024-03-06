@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from '@inertiajs/react'
+import { getImageStoragePath } from '@/helper'
 // import Image from "next/image";
 
 const CourseWidget = ({
@@ -20,37 +21,21 @@ const CourseWidget = ({
     setDiscountPercentage(discount.toFixed(0));
   };
 
-  const getTotalReviews = () => {
-    let reviews =
-      data.reviews.oneStar +
-      data.reviews.twoStar +
-      data.reviews.threeStar +
-      data.reviews.fourStar +
-      data.reviews.fiveStar;
-    setTotalReviews(reviews);
-  };
-
-  const getTotalRating = () => {
-    let ratingStar = data.rating.average;
-    setRating(ratingStar.toFixed(0));
-  };
 
   useEffect(() => {
     getDiscountPercentage();
-    getTotalReviews();
-    getTotalRating();
   });
 
   return (
     <>
       <div className="rbt-card variation-01 rbt-hover">
         <div className="rbt-card-img">
-          <Link href={`/course-details/${data.id}`}>
+          <Link href={route('enrolled-course.learn', data.slug)}>
             <img
               width={330}
               height={227}
-              src={data.courseThumbnail}
-              alt={data.title}
+              src={getImageStoragePath(data.image)}
+              alt={data.name}
             />
             <div className="rbt-badge-3 bg-white">
               <span>{`-${discountPercentage}%`}</span>
@@ -61,34 +46,19 @@ const CourseWidget = ({
         <div className="rbt-card-body">
           {courseStyle === "two" && (
             <>
-              <div className="rbt-card-top">
-                <div className="rbt-review">
-                  <div className="rating">
-                    {Array.from({ length: rating }, (_, i) => (
-                      <i className="fas fa-star" key={i} />
-                    ))}
-                  </div>
-                  <span className="rating-count">({totalReviews} Reviews)</span>
-                </div>
-                <div className="rbt-bookmark-btn">
-                  <Link className="rbt-round-btn" title="Bookmark" href="#">
-                    <i className="feather-bookmark" />
-                  </Link>
-                </div>
-              </div>
               <h4 className="rbt-card-title">
-                <Link href={`/course-details/${data.id}`}>{data.title}</Link>
+                <Link href={route('enrolled-course.learn', data.slug)}>{data.name}</Link>
               </h4>
             </>
           )}
           <ul className="rbt-meta">
             <li>
               <i className="feather-book" />
-              {data.lectures} Lessons
+              {data.lectures} Bài học
             </li>
             <li>
               <i className="feather-users" />
-              {data.enrolledStudent} Students
+              {data.enrolledStudent} Học viên
             </li>
           </ul>
 
@@ -96,7 +66,7 @@ const CourseWidget = ({
             <>
               <div className="rbt-progress-style-1 mb--20 mt--10">
                 <div className="single-progress">
-                  <h6 className="rbt-title-style-2 mb--10">Complete</h6>
+                  <h6 className="rbt-title-style-2 mb--10">Hoàn thành</h6>
                   {isCompleted ? (
                     <div className="progress">
                       <div
@@ -132,15 +102,6 @@ const CourseWidget = ({
                   )}
                 </div>
               </div>
-
-              <div className="rbt-card-bottom">
-                <Link
-                  className="rbt-btn btn-sm bg-primary-opacity w-100 text-center"
-                  href="#"
-                >
-                  Download Certificate
-                </Link>
-              </div>
             </>
           ) : (
             ""
@@ -174,17 +135,6 @@ const CourseWidget = ({
                 By <Link href="#">Patrick</Link> In{" "}
                 <Link href="#">Languages</Link>
               </div>
-            </div>
-          )}
-
-          {courseStyle === "one" && (
-            <div className="rbt-review">
-              <div className="rating">
-                {Array.from({ length: rating }, (_, i) => (
-                  <i className="fas fa-star" key={i} />
-                ))}
-              </div>
-              <span className="rating-count"> ({totalReviews} Reviews)</span>
             </div>
           )}
 

@@ -13,6 +13,11 @@ class CreateTeacher extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['type'] = 'teacher';
+        if(!empty($data['password'])){
+            $data['password'] = \Hash::make($data['password']);
+        }else{
+            unset($data['password']);
+        }
         return $data;
     }
 }
