@@ -7,24 +7,16 @@
       "address": "North America, USA",
       "usefulLinks": [
         {
-          "text": "Marketplace",
-          "link": "/12-marketplace"
+          "text": "Trang chủ",
+          "link": "/"
         },
         {
-          "text": "kindergarten",
-          "link": "/04-kindergarten"
+          "text": "Khóa học",
+          "link": "/khoa-hoc"
         },
         {
-          "text": "University",
-          "link": "/13-university-classic"
-        },
-        {
-          "text": "Classic Lms",
-          "link": "/05-classic-lms"
-        },
-        {
-          "text": "FAQ",
-          "link": "/pages/faqs"
+          "text": "Kiến thức",
+          "link": "/kien-thuc"
         }
       ],
       "ourCompany": [

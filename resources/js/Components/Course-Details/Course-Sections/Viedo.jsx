@@ -28,12 +28,6 @@ const Viedo = ({ checkMatchCourses }) => {
 
   // =====> For video PopUp
   useEffect(() => {
-    import("venobox/dist/venobox.min.js").then((venobox) => {
-      new venobox.default({
-        selector: ".popup-video",
-      });
-    });
-
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
       const isHide = currentScrollPos > 200;
@@ -50,12 +44,11 @@ const Viedo = ({ checkMatchCourses }) => {
 
   return (
     <>
-      <Link
-        className={`video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15 ${
+      <a
+        className={`video-popup-with-text video-popup-wrapper text-center sidebar-video-hidden mb--15 ${
           hideOnScroll ? "d-none" : ""
         }`}
-        data-vbtype="video"
-        href="https://www.youtube.com/watch?v=nA1Aqp0sPQo"
+        href="#demo-video"
       >
         <div className="video-content">
           {checkMatchCourses.image && (
@@ -76,7 +69,7 @@ const Viedo = ({ checkMatchCourses }) => {
             <i className="feather-eye"></i> Giới thiệu khóa học
           </span>
         </div>
-      </Link>
+      </a>
       <div className="content-item-content">
         <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
           <div className="rbt-price">
@@ -95,6 +88,29 @@ const Viedo = ({ checkMatchCourses }) => {
             </span>
           </Link>
         </div>
+        {
+          checkMatchCourses.one_on_one_price ? (
+            <>
+              <hr/>
+              <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+                <div className="rbt-price">
+                  <span className="current-price">{currency(checkMatchCourses.one_on_one_price)}</span>
+                </div>
+              </div>
+              <div className="add-to-card-button mt--15">
+                <Link
+                  className="rbt-btn btn-gradient icon-hover w-100 d-block text-center"
+                  href={route('courses-checkout', { slug: checkMatchCourses.slug, type: 'one-on-one' })}
+                >
+                  <span className="btn-text">Học 1-1 với giáo viên</span>
+                  <span className="btn-icon">
+              <i className="feather-arrow-right"></i>
+            </span>
+                </Link>
+              </div>
+            </>
+          ) : null
+        }
         <span className="subtitle">
           <i className="feather-rotate-ccw"></i> Hoàn tiền 30 ngày
         </span>
@@ -113,7 +129,7 @@ const Viedo = ({ checkMatchCourses }) => {
                 </Link>
               </li>
               <li>
-                <Link href="https://www.instagram.com/">
+              <Link href="https://www.instagram.com/">
                   <i className="feather-instagram"></i>
                 </Link>
               </li>

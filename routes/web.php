@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
     })->name('enrolled-course');
 
     Route::get('/enrolled-course/{slug}', [\App\Http\Controllers\LearningController::class, 'index'])->name('enrolled-course.learn');
+    Route::post('/update-progress', [\App\Http\Controllers\LearningController::class, 'updateLearningProgress'])->name('update-progress');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

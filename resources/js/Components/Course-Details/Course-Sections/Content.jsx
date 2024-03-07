@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import React from "react";
-import { currency } from '@/helper'
+import { currency, durationToTime } from '@/helper'
 
 const Content = ({ checkMatchCourses }) => {
   return (
@@ -45,17 +45,19 @@ const Content = ({ checkMatchCourses }) => {
                           {
                             chapter.lessons.map((lesson, lessionIdx) => {
                               return <li key={subIndex}>
-                                <a href="#">
+                                <a href="javascript:void">
                                   <div className="course-content-left">
                                     <i className="feather-play-circle"></i>
-                                    <span className="text">{lesson.name}</span>
+                                    <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
                                   </div>
                                   {lesson.is_trial ? (
                                     <div className="course-content-right">
-                                      <span className="min-lable">{lesson.time}</span>
-                                      <span className="rbt-badge variation-03 bg-primary-opacity">
-                                  <i className="feather-eye"></i> Xem
-                                </span>
+                                      <span>
+                                        <a href={'#demo-video'} className="rbt-badge variation-03 bg-primary-opacity">
+                                          <i className="feather-eye"></i> Xem
+                                        </a>
+                                      </span>
+
                                     </div>
                                   ) : (
                                     <div className="course-content-right">

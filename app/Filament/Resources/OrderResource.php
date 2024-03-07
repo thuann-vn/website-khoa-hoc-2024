@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\OrderStatusEnum;
+use App\Enums\OrderTypeEnum;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Course;
@@ -43,6 +44,10 @@ class OrderResource extends Resource
                     ->options(function(Forms\Get $get){
                         return \App\Models\Student::pluck('name', 'id');
                     })
+                    ->required(),
+                Forms\Components\Select::make('type')
+                    ->enum(OrderTypeEnum::class)
+                    ->options(OrderTypeEnum::class)
                     ->required(),
                 Forms\Components\TextInput::make('total_price')
                     ->required()
@@ -88,6 +93,9 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('total_price')
                     ->numeric(locale: 'vi')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->badge()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->searchable(),

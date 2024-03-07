@@ -4,13 +4,14 @@ import CheckoutForm from "./CheckoutForm";
 import { currency } from '@/helper'
 import { useForm } from '@inertiajs/react'
 
-const Checkout = ({course, courseSection}) => {
+const Checkout = ({course, courseSection, type}) => {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
     email: '',
     phone: '',
     course_id: course.id,
-    course_section_id: courseSection?.id
+    course_section_id: courseSection?.id,
+    type: type
   });
   const _submit = (e) => {
     e.preventDefault();
@@ -31,12 +32,12 @@ const Checkout = ({course, courseSection}) => {
                 <div className="checkout-cart-total">
                   <ul>
                     <li>
-                      {courseSection ? `${courseSection.name} - ` : ''} {course.name}
-                      <span>{currency(courseSection && courseSection.price ? courseSection.price : course.price)}</span>
+                      {courseSection ? `${courseSection.name} - ` : ''} {course.name} {type === 'one-on-one' ? '(1-1 với giáo viên)' : ''}
+                      <span>{currency(type === 'one-on-one' ? course.one_on_one_price : course.price)}</span>
                     </li>
                   </ul>
                   <h4 className="mt--30">
-                    Thành tiền <span>{currency(courseSection && courseSection.price ? courseSection.price : course.price)}</span>
+                    Thành tiền <span>{currency(type === 'one-on-one' ? course.one_on_one_price : course.price)}</span>
                   </h4>
                 </div>
               </div>

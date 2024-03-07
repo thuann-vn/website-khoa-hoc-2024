@@ -35,7 +35,7 @@ const FooterThree = () => {
                           href="#"
                         >
                           <div className="icon-reverse-wrapper">
-                            <span className="btn-text">Contact With Us</span>
+                            <span className="btn-text">Liên hệ chúng tôi</span>
                             <span className="btn-icon">
                               <i className="feather-arrow-right"></i>
                             </span>
@@ -49,20 +49,13 @@ const FooterThree = () => {
                   </div>
 
                   <SingleFooter
-                    classOne="offset-lg-1 col-lg-2 col-md-6 col-sm-6 col-12 mt--30"
-                    title="Useful Links"
+                    classOne="offset-lg-1 col-lg-4 col-md-6 col-sm-6 col-12 mt--30"
+                    title="Đường dẫn"
                     footerType={footer.usefulLinks}
                   />
-
-                  <SingleFooter
-                    classOne="col-lg-2 col-md-6 col-sm-6 col-12 mt--30"
-                    title="Our Company"
-                    footerType={footer.ourCompany}
-                  />
-
                   <div className="col-lg-3 col-md-6 col-sm-6 col-12 mt--30">
                     <div className="footer-widget">
-                      <h5 className="ft-title">Get Contact</h5>
+                      <h5 className="ft-title">Liên hệ</h5>
                       <ul className="ft-link">
                         <li>
                           <span>Phone:</span>{" "}
@@ -75,7 +68,7 @@ const FooterThree = () => {
                           </Link>
                         </li>
                         <li>
-                          <span>Location:</span> {footer.address}
+                          <span>Địa chỉ:</span> {footer.address}
                         </li>
                       </ul>
                       <ul className="social-icon social-default icon-naked justify-content-start mt--20">

@@ -15,8 +15,20 @@ class LearningController extends Controller
         $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'sections.chapters.lessons'])->where('slug', $slug)->first();
         //Check if user is enrolled in the course
         $userCourse = \App\Models\UserCourse::where('user_id', auth()->user()->id)->where('course_id', $course->id)->first();
+
+        //Learning progress
+        $learningProgress = [];
         if(!empty($userCourse)){
-            return Inertia::render('Account/CourseLearning', compact('course', 'userCourse'));
+            $userProgress = \App\Models\CourseLessonProgress::where('user_id', auth()->user()->id)
+                ->where('course_id', $course->id)
+                ->get();
+            foreach ($userProgress as $progress){
+                $learningProgress[$progress->course_lesson_id] = $progress;
+            }
+        }
+
+        if(!empty($userCourse)){
+            return Inertia::render('Account/CourseLearning', compact('course', 'userCourse', 'learningProgress'));
         }else{
             return redirect()->route('enrolled-course');
         }
@@ -51,5 +63,25 @@ class LearningController extends Controller
             ->setPlaylistUrlResolver(function ($playlistFilename) use ($id){
                 return route('video.playlist', ['id' => $id, 'filename' => $playlistFilename]);
             });
+    }
+
+    public function updateLearningProgress(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        $course_id = $request->course_id;
+        $course_lesson_id = $request->course_lesson_id;
+        $progress = $request->progress;
+        $status = $request->status;
+        $lessonProgress = \App\Models\CourseLessonProgress::where('user_id', $user_id)->where('course_lesson_id', $course_lesson_id)->first();
+        if(empty($lessonProgress)){
+            $lessonProgress = new \App\Models\CourseLessonProgress();
+            $lessonProgress->course_id = $course_id;
+            $lessonProgress->user_id = $user_id;
+            $lessonProgress->course_lesson_id = $course_lesson_id;
+        }
+        $lessonProgress->progress = $progress;
+        $lessonProgress->status = $status;
+        $lessonProgress->save();
+        return response()->json(['message' => 'Progress updated successfully']);
     }
 }

@@ -4,13 +4,10 @@ import Guest from '@/Layouts/GuestLayout'
 import CourseHead from '@/Components/Course-Details/Course-Sections/course-head'
 import CourseDetailsOne from '@/Components/Course-Details/CourseDetails-One'
 import CourseActionBottom from '@/Components/Course-Details/Course-Sections/Course-Action-Bottom'
-import SimilarCourses from '@/Components/Course-Details/Course-Sections/SimilarCourses'
-import { Button, Modal } from 'react-bootstrap'
-import { useState } from 'react'
 
 export default function CourseIndex({
-                                      course
-                                    }: PageProps<{ course: any }>) {
+                                      course, demoLesson
+                                    }: PageProps<{ course: any,demoLesson :any }>) {
   return (
     <>
       <Head title={course.name} />
@@ -27,6 +24,7 @@ export default function CourseIndex({
               <CourseDetailsOne
                 checkMatchCourses={false}
                 course={course}
+                demoLesson={demoLesson}
               />
             </div>
           </div>
