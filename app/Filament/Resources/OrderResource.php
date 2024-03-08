@@ -8,6 +8,7 @@ use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Course;
 use App\Models\CourseSection;
+use App\Models\MasterCourse;
 use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,12 +28,16 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('master_course_id')
+                    ->label('Master course')
+                    ->options(function(Forms\Get $get){
+                        return MasterCourse::pluck('name', 'id');
+                    }),
                 Forms\Components\Select::make('course_id')
                     ->label('Course')
                     ->options(function(Forms\Get $get){
                         return Course::pluck('name', 'id');
-                    })
-                    ->required(),
+                    }),
                 Forms\Components\Select::make('course_section_id')
                     ->options(function(Forms\Get $get){
                         $courseId = $get('course_id');
@@ -85,6 +90,9 @@ class OrderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('masterCourse.name')
+                    ->default('-')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('course.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('courseSection.name')

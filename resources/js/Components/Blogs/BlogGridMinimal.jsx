@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import BlogData from "../../data/blog/blog.json";
 import Pagination from "../Common/Pagination";
 import { Link } from '@inertiajs/react'
+import { formatDateTime } from '@/helper'
 
-const BlogGridMinimal = ({ isPagination, start, end }) => {
+const BlogGridMinimal = ({ isPagination, start, end, data }) => {
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -21,7 +22,7 @@ const BlogGridMinimal = ({ isPagination, start, end }) => {
   };
 
   useEffect(() => {
-    setBlogs(BlogData.blogGrid);
+    setBlogs(data);
     setTotalPages(Math.ceil(BlogData.blogGrid.length / 9));
   }, [setTotalPages, setBlogs]);
   return (
@@ -41,7 +42,7 @@ const BlogGridMinimal = ({ isPagination, start, end }) => {
                   <ul className="meta-list justify-content-start mb--30">
                     <li className="list-item">
                       <i className="feather-clock"></i>
-                      <span>{data.date}</span>
+                      <span>{formatDateTime(data.published_at)}</span>
                     </li>
                   </ul>
                   <h4 className="rbt-card-title">
@@ -52,7 +53,7 @@ const BlogGridMinimal = ({ isPagination, start, end }) => {
                       className="transparent-button"
                       href={`/blog-details/${data.id}`}
                     >
-                      Learn More
+                      Đọc tiếp
                       <i>
                         <svg
                           width="17"

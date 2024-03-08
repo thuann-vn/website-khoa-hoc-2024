@@ -7,7 +7,6 @@ use App\Models\Post;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Components\Tables\CuratorColumn;
 use Filament\Forms;
-use Filament\Forms\Components\Builder;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -77,41 +76,8 @@ class PostResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
-
-                                Forms\Components\Builder::make('content')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->default([
-                                        ['type' => 'markdown'],
-                                    ])
-                                    ->blocks([
-                                        Builder\Block::make('markdown')
-                                            ->schema([
-                                                Forms\Components\MarkdownEditor::make('content')
-                                                    ->required(),
-                                            ]),
-
-                                        Builder\Block::make('figure')
-                                            ->schema([
-                                                CuratorPicker::make('image')
-                                                    ->required(),
-
-                                                Forms\Components\Fieldset::make()
-                                                    ->label('Details')
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('alt')
-                                                            ->label('Alt Text')
-                                                            ->placeholder('Enter alt text')
-                                                            ->required()
-                                                            ->maxLength(255),
-
-                                                        Forms\Components\TextInput::make('caption')
-                                                            ->placeholder('Enter a caption')
-                                                            ->maxLength(255),
-                                                    ]),
-
-                                            ]),
-                                    ]),
+                                Forms\Components\RichEditor::make('content')
+                                    ->required(),
                             ]),
 
                         Forms\Components\Section::make()
@@ -146,6 +112,9 @@ class PostResource extends Resource
 
                                 Forms\Components\Toggle::make('is_published')
                                     ->label('Published')
+                                    ->required(),
+                                Forms\Components\Toggle::make('is_featured')
+                                    ->label('Featured')
                                     ->required(),
                             ]),
                     ]),

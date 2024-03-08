@@ -6,13 +6,13 @@ import { currency } from '@/helper'
 
 export default function CheckoutPage({
   order,
-                                      course, courseSection
-                                    }: PageProps<{ course: any, courseSection:any, order: any }>) {
+  course
+}: PageProps<{ course: any, order: any }>) {
   const { generalSettings = {}}  = usePage<any>().props
   const { bankNumber = "123456789", bankName = "Ngân hàng ABC", bankOwner = "Nguy ễn Văn A"} = generalSettings
   return (
     <>
-      <Head title={"Mua khóa học"} />
+      <Head title={"Mua khóa học thành công"} />
       <Guest>
         <BreadCrumb title="Đăng ký khóa học thành công" text={course.name} />
         <div className="checkout_area bg-color-white rbt-section-gap">

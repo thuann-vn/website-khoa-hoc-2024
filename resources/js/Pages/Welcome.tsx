@@ -6,8 +6,10 @@ import CounterFive from '@/Components/Counters/Counter-Five'
 import TestimonialFive from '@/Components/Testimonials/TestimonialFive'
 import BlogGridMinimal from '@/Components/Blogs/BlogGridMinimal'
 import Guest from '@/Layouts/GuestLayout'
+import CardSingle from '@/Components/Cards/CardSingle'
+import MasterClassCardSingle from '@/Components/Cards/MasterClassCardSingle'
 
-export default function Welcome({ categories, courses }: PageProps<{ categories: any[], courses: any[] }>) {
+export default function Welcome({ categories, courses, masterCourses, featuredPosts }: PageProps<{ categories: any[], courses: any[], masterCourses: any[], featuredPosts: [] }>) {
   return (
     <>
       <Head title="Home page" />
@@ -18,8 +20,8 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
               <div className="col-md-12">
                 <div className="inner text-start">
                   <h2 className="title">
-                    <span className="text-decoration-underline">Histudy</span>{' '}
-                    Starter is a community for creative people
+                    <span className="text-decoration-underline">AMILY</span>{' '}<br />
+                    Đào tạo thiết kế trang sức online!
                   </h2>
                   <p className="description">
                     We just don&apos;t give our student only lecture but real life
@@ -35,7 +37,7 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
                       <i className="feather-arrow-right"></i>
                     </span>
                     </Link>
-                    <Link className="rbt-btn-link color-white" href={route('dashboard' )}>
+                    <Link className="rbt-btn-link color-white" href={route('dashboard')}>
                       Bắt đầu học<i className="feather-arrow-right"></i>
                     </Link>
                   </div>
@@ -53,6 +55,39 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
           </div>
         </div>
 
+        {
+          masterCourses.length > 0 && (
+            <div className="rbt-featured-course bg-color-white rbt-section-gap">
+              <div className="container">
+                <div className="row g-5 align-items-end mb--60">
+                  <div className="col-lg-6 col-md-12 col-12">
+                    <div className="section-title text-start">
+                      <h2 className="title">Master Class</h2>
+                      <p className="description mt--20">
+                        Các combo khóa học nổi bật về thiết kế trang sức.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row g-5">
+                  {masterCourses.map((data, index) => (
+                    <div
+                      className={`col-lg-4 col-md-6 col-sm-12 col-12`}
+                      data-sal-delay="150"
+                      data-sal="slide-up"
+                      data-sal-duration="800"
+                      key={index}
+                    >
+                      <MasterClassCardSingle data={data} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        }
+
         <div className="rbt-featured-course bg-color-white rbt-section-gap">
           <div className="container">
             <div className="row g-5 align-items-end mb--60">
@@ -68,7 +103,7 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
                 <div className="load-more-btn text-start text-lg-end">
                   <Link
                     className="rbt-btn btn-border icon-hover radius-round"
-                    href={route("courses")}
+                    href={route('courses')}
                   >
                     <span className="btn-text">Xem tất cả các khóa học</span>
                     <span className="btn-icon">
@@ -114,9 +149,7 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
                   <div className="section-title text-start">
                     <h2 className="title color-white">Kiến Thức</h2>
                     <p className="description color-white-off mt--20">
-                      Learning communicate to global world and build Link bright
-                      future and career development, increase your skill with our
-                      histudy.
+                      Tổng hợp kiến thức về thiết kế trang sức và chiari sẻ kinh nghiệm từ các chuyên gia.
                     </p>
                   </div>
                 </div>
@@ -134,7 +167,7 @@ export default function Welcome({ categories, courses }: PageProps<{ categories:
                   </div>
                 </div>
               </div>
-              <BlogGridMinimal start={0} end={3} isPagination={false} />
+              <BlogGridMinimal data={featuredPosts} start={0} end={3} isPagination={false} />
             </div>
           </div>
         </div>

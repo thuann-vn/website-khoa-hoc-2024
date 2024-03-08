@@ -42,6 +42,21 @@ class CourseController extends Controller
         ]);
     }
 
+
+    public function masterCourseDetail(Request $request)
+    {
+        $slug = $request->slug;
+        $course = \App\Models\MasterCourse::with('courses')->whereSlug($slug)->first();
+        $includeCourses =$course->courses()
+            ->with(['teacher','category'])
+            ->whereIsActive(true)
+            ->get();
+        return Inertia::render('Courses/MasterCourse', [
+            'course' => $course,
+            'includeCourses' => $includeCourses
+        ]);
+    }
+
     public function checkout(Request $request)
     {
         $slug = $request->slug;
@@ -96,6 +111,57 @@ class CourseController extends Controller
             'order' => $order,
             'course' => $course,
             'courseSection' => $courseSection
+        ]);
+    }
+
+
+    public function masterCheckout(Request $request)
+    {
+        $slug = $request->slug;
+        $course = \App\Models\MasterCourse::whereSlug($slug)->first();
+        return Inertia::render('Courses/MasterCourseCheckout', [
+            'course' => $course
+        ]);
+    }
+
+    public function masterCheckoutStore(Request $request)
+    {
+        \Validator::validate($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'course_id' => 'required',
+        ]);
+        $course = \App\Models\MasterCourse::whereId($request->course_id)->first();
+        $order = \App\Models\Order::create([
+            'total_price' =>  $course->price,
+            'status' => OrderStatusEnum::Pending,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'master_course_id' => $course->id,
+            'course_id' => null,
+            'course_section_id' => null,
+            'payment_status' => 'pending',
+            'user_id' => auth()->check() ? auth()->id() : null,
+            'type' => $request->type ?? 'default', // 'course' or 'section
+            'discount' => 0,
+            'notes' => $request->notes,
+        ]);
+
+        session()->put('order_id', $order->id);
+
+        return redirect()->route('master-class-checkout-success', ['slug' => $course->slug]);
+    }
+
+    public function masterCheckoutSuccess()
+    {
+        $orderId = session()->get('order_id');
+        $order = \App\Models\Order::whereId($orderId)->firstOrFail();
+        $course = \App\Models\MasterCourse::whereId($order->master_course_id)->first();
+        return Inertia::render('Courses/MasterCourseCheckoutSuccess', [
+            'order' => $order,
+            'course' => $course
         ]);
     }
 }

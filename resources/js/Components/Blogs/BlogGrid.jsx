@@ -1,5 +1,5 @@
 // import Image from "next/image";
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 
 import { useEffect, useState } from "react";
 
@@ -7,7 +7,7 @@ import BlogData from "../../data/blog/blog.json";
 import BlogGridTop from "./Blog-Sections/BlogGrid-Top";
 import Pagination from "../Common/Pagination";
 
-const BlogGrid = ({ isPagination, top, start, end }) => {
+const BlogGrid = ({ isPagination, top, start, end, posts, featuredPosts }) => {
   const [blogs, setBlogs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -17,6 +17,7 @@ const BlogGrid = ({ isPagination, top, start, end }) => {
 
   const handleClick = (num) => {
     setPage(num);
+    location.href = route('blog', {page:num})
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -24,14 +25,14 @@ const BlogGrid = ({ isPagination, top, start, end }) => {
   };
 
   useEffect(() => {
-    setBlogs(BlogData.blogGrid);
-    setTotalPages(Math.ceil(BlogData.blogGrid.length / 10));
+    setBlogs(posts.data);
+    setTotalPages(posts.last_page);
   }, [setTotalPages, setBlogs]);
   return (
     <>
-      {top ? (
+      {featuredPosts.length ? (
         <BlogGridTop
-          BlogData={BlogData}
+          BlogData={featuredPosts}
           selectedGridBlogs={selectedGridBlogs}
         />
       ) : (
@@ -40,31 +41,30 @@ const BlogGrid = ({ isPagination, top, start, end }) => {
 
       <div className="row g-5 mt--15">
         {BlogData &&
-          selectedGridBlogs.slice(start, end).map((data, index) => (
+          selectedGridBlogs.map((data, index) => (
             <div className="col-lg-4 col-md-6 col-sm-12 col-12" key={index}>
               <div className="rbt-card variation-02 rbt-hover">
                 <div className="rbt-card-img">
-                  <Link href={`/blog-details/${data.id}`}>
+                  <Link href={route('blog.detail', {slug: data.slug})}>
                     <img
-                      src={data.img}
+                      src={data.image?.url || '/images/blog/blog-single-03.png'}
                       width={450}
                       height={267}
-                      priority
                       alt="Card image"
                     />{" "}
                   </Link>
                 </div>
                 <div className="rbt-card-body">
                   <h5 className="rbt-card-title">
-                    <Link href={`/blog-details/${data.id}`}>{data.title}</Link>
+                    <Link href={route('blog.detail', {slug: data.slug})}>{data.title}</Link>
                   </h5>
                   <p className="rbt-card-text">{data?.desc}</p>
                   <div className="rbt-card-bottom">
                     <Link
                       className="transparent-button"
-                      href={`/blog-details/${data.id}`}
+                      href={route('blog.detail', {slug: data.slug})}
                     >
-                      Learn More
+                      Đọc thêm
                       <i>
                         {" "}
                         <svg
@@ -94,7 +94,7 @@ const BlogGrid = ({ isPagination, top, start, end }) => {
           <div className="col-lg-12 mt--60">
             <Pagination
               totalPages={totalPages}
-              pageNumber={page}
+              pageNumber={posts.current_page}
               handleClick={handleClick}
             />
           </div>

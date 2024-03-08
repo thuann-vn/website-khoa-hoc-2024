@@ -16,14 +16,19 @@ class Order extends Model
 
     protected $guarded = [];
 
-    public function course()
+    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function courseSection()
+    public function courseSection(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(CourseSection::class);
+    }
+
+    public function masterCourse(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(MasterCourse::class);
     }
 
     public function user()

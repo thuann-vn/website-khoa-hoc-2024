@@ -26,25 +26,18 @@ Route::get('/khoa-hoc/{slug}/dang-ky', [App\Http\Controllers\CourseController::c
 Route::post('/khoa-hoc/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'checkoutStore'])->name('courses-checkout-store');
 Route::get('/khoa-hoc/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseController::class, 'checkoutSuccess'])->name('courses-checkout-success');
 
-Route::get('/watch', function () {
-    return \ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::dynamicHLSPlaylist('videos')
-        ->open('01HQNQ6VGJ5PXPD0KK0B556T0P_0_250.m3u8')
-        ->setMediaUrlResolver(function ($segment) {
-            return Storage::disk('public')->url($segment);
-        });
-    return Storage::disk('videos')->response(
-        '01HQNQ6VGJ5PXPD0KK0B556T0P_0_250.m3u8',
-        "01HQNQ6VGJ5PXPD0KK0B556T0P_0_250.m3u8",
-        [
-            'Content-Type' => 'application/x-mpegURL',
-            'isHls' => true
-        ]
-    );
-})->name('watch');
+Route::get('/master-class/{slug}', [App\Http\Controllers\CourseController::class, 'masterCourseDetail'])->name('master-class-detail');
+Route::get('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'masterCheckout'])->name('master-class-checkout');
+Route::post('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'masterCheckoutStore'])->name('master-class-checkout-store');
+Route::get('/master-class/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseController::class, 'masterCheckoutSuccess'])->name('master-class-checkout-success');
 
-Route::get('/video/secret/{key}', function ($key) {
-    return Storage::disk('videos')->download($key);
-})->name('video.key');
+
+Route::group(['prefix' => 'blog'], function () {
+    Route::get('/', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog');
+    Route::get('/category/{category}', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.category');
+    Route::get('/tag/{tag}', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.tag');
+    Route::get('/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])->name('blog.detail');
+});
 
 Route::get('/video/{id}', [\App\Http\Controllers\LearningController::class, 'learnVideo'])
     ->name('video.playlist');

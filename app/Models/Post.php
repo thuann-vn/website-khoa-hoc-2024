@@ -6,7 +6,6 @@ use App\Filament\Resources\PostResource;
 use Awcodes\Curator\Models\Media;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -34,10 +33,12 @@ class Post extends Model
      * @var array
      */
     protected $casts = [
-        'content' => 'array',
         'is_published' => 'boolean',
         'published_at' => 'datetime',
+        'content' => 'string',
     ];
+
+    protected $appends = ['excerpt'];
 
     /**
      * Get the user that owns the post.
@@ -79,17 +80,6 @@ class Post extends Model
         return PostResource::getUrl('edit', ['record' => $this]);
     }
 
-    /**
-     * Retrieve the post content blocks as an object.
-     *
-     * @return object
-     */
-    public function getBlocksAttribute()
-    {
-        return json_decode(
-            collect($this->content ?? [])->toJson()
-        );
-    }
 
     /**
      * Retrieve the post excerpt.
@@ -98,15 +88,7 @@ class Post extends Model
      */
     public function getExcerptAttribute()
     {
-        $excerpt = collect($this->content)
-            ->where('type', 'markdown')
-            ->first() ?? [];
-
-        $excerpt = collect(
-            explode("\n", Arr::get($excerpt, 'data.content', ''))
-        )->first();
-
-        return Str::limit($excerpt, 160);
+        return Str::limit(strip_tags($this->content), 160);
     }
 
     /**

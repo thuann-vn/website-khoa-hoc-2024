@@ -15,6 +15,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
+use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
 
 class MasterCourseResource extends Resource
 {
@@ -44,9 +46,18 @@ class MasterCourseResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
+                MoneyInput::make('price')
+                    ->required()
+                    ->default(0)
+                    ->prefix('$'),
+                MoneyInput::make('old_price')
+                    ->default(0)
+                    ->prefix('$'),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->maxLength(65535)
+                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('content')
                     ->columnSpanFull(),
             ]);
     }
@@ -58,6 +69,9 @@ class MasterCourseResource extends Resource
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                MoneyColumn::make('price')
+                    ->money('VND')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

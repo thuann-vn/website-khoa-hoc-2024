@@ -24,18 +24,18 @@ const Nav = () => {
         </li>
         <li className="">
           <Link
-            className={`${activeMenuItem === "home" ? "open" : ""}`}
-            onClick={() => toggleMenuItem("home")}
-            href="/"
+            className={`${activeMenuItem === "courses" ? "open" : ""}`}
+            onClick={() => toggleMenuItem("courses")}
+            href={route('courses')}
           >
             Khóa học
           </Link>
         </li>
         <li className="">
           <Link
-            className={`${activeMenuItem === "home" ? "open" : ""}`}
-            onClick={() => toggleMenuItem("home")}
-            href="/"
+            className={`${activeMenuItem === "blog" ? "open" : ""}`}
+            onClick={() => toggleMenuItem("blog")}
+            href={route('blog')}
           >
             Kiến thức
           </Link>

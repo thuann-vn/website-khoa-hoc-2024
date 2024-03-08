@@ -14,7 +14,7 @@ const Banner = ({ text, col, getBlog }) => {
                 <div className={col}>
                   <ul className="page-list">
                     <li className="rbt-breadcrumb-item">
-                      <Link href="/">Home</Link>
+                      <Link href="/">Trang chủ</Link>
                     </li>
                     <li>
                       <div className="icon-right">
@@ -28,12 +28,12 @@ const Banner = ({ text, col, getBlog }) => {
                     <h1 className="title mb--0">{text}</h1>
                     <Link href="#" className="rbt-badge-2">
                       <div className="image">🎉</div>{" "}
-                      {getBlog ? `${getBlog.length} Articles` : "50 Articles"}
+                      {getBlog ? `${getBlog.total} Bài viết` : "50 Articles"}
                     </Link>
                   </div>
 
                   <p className="description">
-                    Blog that help beginner designers become true unicorns.{" "}
+                    Tổng hợp kiến thức về thiết kế trang sức và chiari sẻ kinh nghiệm từ các chuyên gia.
                   </p>
                 </div>
               </div>

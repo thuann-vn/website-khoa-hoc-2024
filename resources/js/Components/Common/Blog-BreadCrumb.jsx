@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react'
+import { formatDateTime } from '@/helper'
 
 const BlogBreadCrumb = ({ matchedBlog }) => {
   return (
@@ -13,34 +14,22 @@ const BlogBreadCrumb = ({ matchedBlog }) => {
               <div className="author-thumbnail">
                 {matchedBlog && (
                   <img
-                    src={matchedBlog.authorImg}
+                    src={matchedBlog.media?.url}
                     width={494}
                     height={494}
-                    alt="blog-image"
+                    style={{objectFit: "cover"}}
                   />
                 )}
               </div>
-              {matchedBlog && (
-                <div className="author-info">
-                  <Link href="#">
-                    <strong>{matchedBlog.name}</strong>
-                  </Link>{" "}
-                  in{" "}
-                  <Link href="#">
-                    <strong>{matchedBlog.position}</strong>
-                  </Link>
-                </div>
-              )}
             </li>
             {matchedBlog && (
               <li className="list-item">
                 <i className="feather-clock"></i>
-                <span>{matchedBlog.date}</span>
+                <span>{formatDateTime(matchedBlog.published_at)}</span>
               </li>
             )}
           </ul>
           {matchedBlog && <h1 className="title">{matchedBlog.title}</h1>}
-          {matchedBlog && <p>{matchedBlog.desc}</p>}
         </div>
       </div>
     </>
