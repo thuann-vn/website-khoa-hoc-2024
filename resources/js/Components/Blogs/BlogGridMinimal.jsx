@@ -46,12 +46,12 @@ const BlogGridMinimal = ({ isPagination, start, end, data }) => {
                     </li>
                   </ul>
                   <h4 className="rbt-card-title">
-                    <Link href={`/blog-details/${data.id}`}>{data.title}</Link>
+                    <Link href={route('blog.detail', {slug: data.slug})}>{data.title}</Link>
                   </h4>
                   <div className="rbt-card-bottom mt--40">
                     <Link
                       className="transparent-button"
-                      href={`/blog-details/${data.id}`}
+                      href={route('blog.detail', {slug: data.slug})}
                     >
                       Đọc tiếp
                       <i>

@@ -126,20 +126,20 @@ export default function Welcome({ categories, courses, masterCourses, featuredPo
           </div>
         </div>
 
-        <div
-          className="rbt-counterup-area bg_image bg_image_fixed bg_image--20 ptb--170 bg-black-overlay"
-          data-black-overlay="2"
-        >
-          <CounterFive />
-        </div>
+        {/*<div*/}
+        {/*  className="rbt-counterup-area bg_image bg_image_fixed bg_image--20 ptb--170 bg-black-overlay"*/}
+        {/*  data-black-overlay="2"*/}
+        {/*>*/}
+        {/*  <CounterFive />*/}
+        {/*</div>*/}
 
-        <div className="rbt-testimonial-area bg-color-extra2 rbt-section-gap">
-          <div className="container">
-            <div className="testimonial-item-3-activation swiper rbt-arrow-between gutter-swiper-30">
-              <TestimonialFive isDesc={true} />
-            </div>
-          </div>
-        </div>
+        {/*<div className="rbt-testimonial-area bg-color-extra2 rbt-section-gap">*/}
+        {/*  <div className="container">*/}
+        {/*    <div className="testimonial-item-3-activation swiper rbt-arrow-between gutter-swiper-30">*/}
+        {/*      <TestimonialFive isDesc={true} />*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
         <div className="rbt-rbt-blog-area rbt-section-gapTop bg-gradient-8 rbt-round-bottom-shape">
           <div className="wrapper pb--50 rbt-index-upper">
@@ -157,7 +157,7 @@ export default function Welcome({ categories, courses, masterCourses, featuredPo
                   <div className="load-more-btn text-start text-lg-end">
                     <Link
                       className="rbt-btn btn-border icon-hover radius-round color-white-off"
-                      href="/blog-list"
+                      href={route('blog')}
                     >
                       <span className="btn-text">Xem tất cả bài viết</span>
                       <span className="btn-icon">
