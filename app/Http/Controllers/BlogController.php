@@ -17,7 +17,7 @@ class BlogController extends Controller
         $category = null;
         if($categorySlug) {
             $category = PostCategory::whereSlug($categorySlug)->firstOrFail();
-            $query->whereHas('category', function ($query) use ($categorySlug) {
+            $query->whereHas('categories', function ($query) use ($categorySlug) {
                 $query->whereSlug($categorySlug);
             });
         }
