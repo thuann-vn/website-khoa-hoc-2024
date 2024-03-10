@@ -8,7 +8,7 @@ import StudentDashboardSidebar from '@/Components/Student/StudentDashboardSideba
 import StudentDashboardHeader from '@/Components/Student/StudentDashboardHeader'
 import Dashboard from '@/Components/Student/Dashboard'
 import Guest from '@/Layouts/GuestLayout'
-export default function DashboardPage({ auth, onReady }: PageProps) {
+export default function DashboardPage({ data }: PageProps) {
   return (
     <Guest
     >
@@ -26,7 +26,7 @@ export default function DashboardPage({ auth, onReady }: PageProps) {
                 </div>
 
                 <div className="col-lg-9">
-                  <Dashboard />
+                  <Dashboard data={data}/>
                 </div>
               </div>
             </div>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Student extends User{
     protected $table =  'users';
+    protected $guarded = [];
     protected static function boot(): void
     {
         parent::boot();

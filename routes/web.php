@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\UserCourse;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +45,12 @@ Route::get('/video/{id}', [\App\Http\Controllers\LearningController::class, 'lea
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Account/Dashboard');
+        $enrolledCourses = auth()->user()->enrolledCourses->count();
+        $activeCourses = UserCourse::where('user_id', auth()->id())->where('status', 'active')->count();
+        $completedCourses = UserCourse::where('user_id', auth()->id())->where('status', 'completed')->count();
+        return Inertia::render('Account/Dashboard', [
+            'data' => compact('enrolledCourses', 'activeCourses', 'completedCourses')
+        ]);
     })->name('dashboard');
     Route::get('/enrolled-course', function () {
         $courses = auth()->user()->enrolledCourses;

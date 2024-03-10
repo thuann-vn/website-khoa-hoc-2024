@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import Nav from "../Nav";
 import Category from "../Category/Category";
 import { useAppContext } from "@/context/Context";
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
+import User from '@/Components/Header/Offcanvas/User.jsx'
 
 const HeaderSeven = ({
   gapSpaceBetween,
@@ -16,6 +17,7 @@ const HeaderSeven = ({
 }) => {
   const { mobile, setMobile } = useAppContext();
   const [isSticky, setIsSticky] = useState(false);
+  const {auth} = usePage().props
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,11 +63,27 @@ const HeaderSeven = ({
               <Nav />
             </div>
             <div className="header-right">
-              <div className="rbt-btn-wrapper d-none d-xl-block">
-                <Link className={`rbt-btn ${btnClass}`} href={route('login')}>
-                  <span data-text={`${btnText}`}>{btnText}</span>
-                </Link>
-              </div>
+              {
+                auth.user ? (
+                  <ul className="quick-access">
+
+                    <li className="account-access rbt-user-wrapper d-none d-xl-block">
+                      <Link href="#">
+                        <i className="feather-user"></i>
+                        {auth.user.name}
+                      </Link>
+                      <User user={auth.user}/>
+                    </li>
+                  </ul>
+                ) : (
+                  <div className="rbt-btn-wrapper d-none d-xl-block">
+                    <Link className={`rbt-btn ${btnClass}`} href={route('login')}>
+                      <span data-text={`${btnText}`}>{btnText}</span>
+                    </Link>
+                  </div>
+                )
+              }
+
 
               <div className="mobile-menu-bar d-block d-xl-none">
                 <div className="hamberger">

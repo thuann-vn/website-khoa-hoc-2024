@@ -63,7 +63,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->defaultAvatarProvider(GravatarProvider::class)
             ->favicon(asset('/favicon-32x32.png'))
-            ->brandLogo(fn () => view('components.logo'))
+            ->brandLogo(asset('/images/logo.PNG'))
+            ->brandLogoHeight('60px')
             ->navigationGroups([
                 'Collections',
                 'Media',

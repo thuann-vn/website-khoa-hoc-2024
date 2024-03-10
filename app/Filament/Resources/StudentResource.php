@@ -31,6 +31,7 @@ class StudentResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->unique('users', 'email', ignoreRecord: true)
                     ->email()
                     ->required()
                     ->maxLength(255),

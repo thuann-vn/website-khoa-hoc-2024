@@ -1,7 +1,7 @@
 import CounterWidget from "../Instructor/Dashboard-Section/widgets/CounterWidget";
 
 
-const Dashboard = () => {
+const Dashboard = ({data}) => {
   return (
     <>
       <div className="rbt-dashboard-content bg-color-white rbt-shadow-box mb--60">
@@ -18,7 +18,7 @@ const Dashboard = () => {
                 numberClass="color-primary"
                 icon="feather-book-open"
                 title="Enrolled Courses"
-                value={30}
+                value={data.enrolledCourses}
               />
             </div>
             <div className="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -29,7 +29,7 @@ const Dashboard = () => {
                 numberClass="color-secondary"
                 icon="feather-monitor"
                 title="ACTIVE COURSES"
-                value={10}
+                value={data.activeCourses}
               />
             </div>
             <div className="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -40,7 +40,7 @@ const Dashboard = () => {
                 numberClass="color-violet"
                 icon="feather-award"
                 title="Completed Courses"
-                value={7}
+                value={data.completedCourses}
               />
             </div>
           </div>

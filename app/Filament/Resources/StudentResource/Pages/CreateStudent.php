@@ -12,7 +12,6 @@ class CreateStudent extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['type'] = 'student';
-        $data['password'] = \Hash::make($data['password']);
         return $data;
     }
 }
