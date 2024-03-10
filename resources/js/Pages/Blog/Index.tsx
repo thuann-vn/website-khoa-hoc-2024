@@ -15,9 +15,9 @@ export default function BlogIndex({ posts, category, featuredPosts }: PageProps<
   console.log(posts)
   return (
     <>
-      <Head title="Kiến thức" />
+      <Head title={category ? category.name :'Kiến thức'} />
       <Guest>
-        <Banner col="col-lg-12" text="Kiến thức" getBlog={posts} />
+        <Banner category={category} col="col-lg-12" text={category ? category.name :'Kiến thức'} getBlog={posts} />
         <div className="rbt-blog-area rbt-section-overlayping-top rbt-section-gapBottom">
           <div className="container">
             <BlogGrid posts={posts} featuredPosts={posts} isPagination={true} top={true} start={0} end={6} />
