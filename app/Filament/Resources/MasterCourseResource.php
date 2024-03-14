@@ -34,7 +34,7 @@ class MasterCourseResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->live()
+                    ->live(onBlur: true)
                     ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
                         if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
                             return;
