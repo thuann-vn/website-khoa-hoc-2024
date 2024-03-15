@@ -51,6 +51,7 @@ class MasterCourseResource extends Resource
                     ->default(0)
                     ->prefix('$'),
                 MoneyInput::make('old_price')
+                    ->readOnly()
                     ->default(0)
                     ->prefix('$'),
                 Forms\Components\Textarea::make('description')

@@ -9,6 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\Component;
 
 class CoursesRelationManager extends RelationManager
 {
@@ -38,10 +39,16 @@ class CoursesRelationManager extends RelationManager
 //                Tables\Actions\CreateAction::make(),
                 Tables\Actions\AttachAction::make()
                     ->label('Add Course')
+                    ->preloadRecordSelect()
+                    ->after(function (Component $livewire) {
+                        $livewire->dispatch('refreshOldPrice');
+                    })
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DetachAction::make()
+                    ->after(function (Component $livewire) {
+                        $livewire->dispatch('refreshOldPrice');
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -19,4 +19,9 @@ class MasterCourse extends Model {
     {
         return $this->courses->count();
     }
+
+    public function getOldPriceAttribute()
+    {
+        return $this->courses->sum('price');
+    }
 }
