@@ -42,6 +42,16 @@ class CourseController extends Controller
         ]);
     }
 
+    public function teacherDetail(Request $request)
+    {
+        $id = $request->id;
+        $teacher = \App\Models\Teacher::with('courses')->whereId($id)->first();
+        $includeCourses = $teacher->courses()
+            ->with(['teacher','category'])
+            ->whereIsActive(true)
+            ->get();
+        return Inertia::render('Teacher/Detail', compact('teacher', 'includeCourses'));
+    }
 
     public function masterCourseDetail(Request $request)
     {

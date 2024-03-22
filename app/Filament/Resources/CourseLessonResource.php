@@ -51,7 +51,8 @@ class CourseLessonResource extends NestedResource
                         Forms\Components\Textarea::make('description')
                             ->maxLength(65535)
                             ->columnSpanFull(),
-                        Forms\Components\Hidden::make('duration')
+                        Forms\Components\TextInput::make('duration')
+                            ->numeric()
                             ->default(0),
                         Forms\Components\Hidden::make('position')
                             ->default(0),

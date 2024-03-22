@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MasterCourse extends Model {
+    use SoftDeletes;
     protected $table = 'master_courses';
     protected $guarded = [];
 
-    protected $appends = ['course_count'];
+    protected $appends = ['course_count', 'course_duration_sum'];
+
 
     public function courses()
     {
@@ -18,6 +21,16 @@ class MasterCourse extends Model {
     public function getCourseCountAttribute()
     {
         return $this->courses->count();
+    }
+
+    public function getCourseDurationSumAttribute()
+    {
+        //Count all the lessons in the course
+        $sum = 0;
+        foreach ($this->courses as $course) {
+            $sum += $course->course_sum_duration;
+        }
+        return $sum;
     }
 
     public function getOldPriceAttribute()

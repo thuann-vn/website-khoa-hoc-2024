@@ -36,10 +36,14 @@ const CardSingle = ({ data, isDesc = true, isUser= true }) => {
               <i className="feather-book"></i>
               {data.course_count} khóa học
             </li>
+            <li>
+              <i className="feather-clock"></i>
+              {data.course_duration_sum} giờ học
+            </li>
           </ul>
-          {isDesc ? <p className="rbt-card-text">{data.description}</p> : ""}
+          {isDesc ? <p className="rbt-card-text">{data.description}</p> : ''}
           <div className="rbt-card-bottom">
-            <div className="rbt-price">
+          <div className="rbt-price">
               <span className="current-price">{currency(data.price)}</span>
               {
                 data.old_price > 0 ? (

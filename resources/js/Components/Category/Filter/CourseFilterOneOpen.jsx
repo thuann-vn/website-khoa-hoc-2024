@@ -108,7 +108,7 @@ const CourseFilterOneOpen = ({ course }) => {
                     </div>
                     <div className="rbt-author-info">
                       By{" "}
-                      <Link href={`/profile/${data.id}`}>{data.userName}</Link>{" "}
+                      <Link href={`/teacher/${data.id}`}>{data.userName}</Link>{" "}
                       In <Link href="#">{data.userCategory}</Link>
                     </div>
                   </div>

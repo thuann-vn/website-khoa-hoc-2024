@@ -81,7 +81,7 @@ const SimilarCourses = ({ checkMatchCourses }) => {
 
                     <div className="rbt-author-meta mb--20">
                       <div className="rbt-avater">
-                        <Link href={`/profile/${item.id}`}>
+                        <Link href={`/teacher/${item.id}`}>
                           <img
                             src={item.avatar}
                             width={33}
@@ -92,7 +92,7 @@ const SimilarCourses = ({ checkMatchCourses }) => {
                       </div>
                       <div className="rbt-author-info">
                         By{" "}
-                        <Link href={`/profile/${item.id}`}>{item.author}</Link>{" "}
+                        <Link href={`/teacher/${item.id}`}>{item.author}</Link>{" "}
                         In
                         <Link href="#">{item.post}</Link>
                       </div>

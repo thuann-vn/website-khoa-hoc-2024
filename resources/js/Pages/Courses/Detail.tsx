@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react'
+import { Head } from '@inertiajs/react'
 import { PageProps } from '@/types'
 import Guest from '@/Layouts/GuestLayout'
 import CourseHead from '@/Components/Course-Details/Course-Sections/course-head'
@@ -6,8 +6,8 @@ import CourseDetailsOne from '@/Components/Course-Details/CourseDetails-One'
 import CourseActionBottom from '@/Components/Course-Details/Course-Sections/Course-Action-Bottom'
 
 export default function CourseIndex({
-                                      course, demoLesson
-                                    }: PageProps<{ course: any,demoLesson :any }>) {
+                                      course, demoLesson,
+                                    }: PageProps<{ course: any, demoLesson: any }>) {
   return (
     <>
       <Head title={course.name} />

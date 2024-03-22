@@ -65,7 +65,7 @@ const CourseBreadcrumb = ({ getMatchCourse }) => {
 
           <div className="rbt-author-meta mb--20">
             <div className="rbt-avater">
-              <Link href={`/profile/${getMatchCourse.id}`}>
+              <Link href={`/teacher/${getMatchCourse.id}`}>
                 {getMatchCourse.teacher.image && (
                   <img
                     width={40}
@@ -78,7 +78,7 @@ const CourseBreadcrumb = ({ getMatchCourse }) => {
             </div>
             <div className="rbt-author-info">
               Giáo viên{" "}
-              <Link href={`/profile/${getMatchCourse.id}`}>
+              <Link href={`/teacher/${getMatchCourse.id}`}>
                 {getMatchCourse.teacher.name}
               </Link>{" "}
               trong <Link href="#">{getMatchCourse.category.name}</Link>

@@ -27,7 +27,7 @@ const Instructor = ({ checkMatchCourses }) => {
               <h5 className="title">
                 <Link
                   className="hover-flip-item-wrapper"
-                  href={`/profile/${teacher.id}`}
+                  href={`/teacher/${teacher.id}`}
                 >
                   {teacher.name}
                 </Link>

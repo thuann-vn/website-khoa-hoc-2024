@@ -5,6 +5,7 @@ namespace App\Filament\Resources\MasterCourseResource\Pages;
 use App\Filament\Resources\MasterCourseResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 
 class EditMasterCourse extends EditRecord
@@ -19,8 +20,8 @@ class EditMasterCourse extends EditRecord
     }
 
     #[On('refreshOldPrice')]
-    public function refreshOldPrice()
+    public function refresh():void
     {
-        $this->record->refresh();
+        $this->refreshFormData(['old_price' => $this->record->courses->sum('price')]);
     }
 }

@@ -24,7 +24,7 @@ class Course extends Model {
         'updated_by'
     ];
 
-    protected $appends = ['course_lesson_count'];
+    protected $appends = ['course_lesson_count', 'course_duration_sum'];
 
     public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -59,6 +59,16 @@ class Course extends Model {
                 return $chapter->lessons->count();
             })->sum();
         })->sum();
+    }
+
+    public function getCourseDurationSumAttribute()
+    {
+        //Count all the lessons in the course
+        return round($this->courseSections->map(function (CourseSection $section) {
+                return $section->chapters->map(function (CourseChapter $chapter) {
+                    return $chapter->lessons->sum('duration');
+                })->sum();
+            })->sum() / 3600, 0);
     }
 
     public function students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

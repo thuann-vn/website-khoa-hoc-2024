@@ -17,6 +17,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 
 class OrderResource extends Resource
 {
@@ -30,15 +31,36 @@ class OrderResource extends Resource
             ->schema([
                 Forms\Components\Select::make('master_course_id')
                     ->label('Master course')
+                    ->afterStateUpdated(function(Forms\Get $get, Forms\Set $set){
+                        if($get('master_course_id')){
+                            $courseSection = MasterCourse::find($get('master_course_id'));
+                            $set('total_price', intval($courseSection->price));
+                        }
+                    })
+                    ->live()
                     ->options(function(Forms\Get $get){
                         return MasterCourse::pluck('name', 'id');
                     }),
                 Forms\Components\Select::make('course_id')
                     ->label('Course')
+                    ->live()
+                    ->afterStateUpdated(function(Forms\Get $get, Forms\Set $set){
+                        if($get('course_id')){
+                            $course = Course::find($get('course_id'));
+                            $set('total_price', $course->price);
+                        }
+                    })
                     ->options(function(Forms\Get $get){
                         return Course::pluck('name', 'id');
                     }),
                 Forms\Components\Select::make('course_section_id')
+                    ->live()
+                    ->afterStateUpdated(function(Forms\Get $get, Forms\Set $set){
+                        if($get('course_section_id')){
+                            $courseSection = CourseSection::find($get('course_section_id'));
+                            $set('total_price', $courseSection->price);
+                        }
+                    })
                     ->options(function(Forms\Get $get){
                         $courseId = $get('course_id');
                         return CourseSection::whereCourseId($courseId)->pluck('name', 'id');
@@ -54,9 +76,10 @@ class OrderResource extends Resource
                     ->enum(OrderTypeEnum::class)
                     ->options(OrderTypeEnum::class)
                     ->required(),
-                Forms\Components\TextInput::make('total_price')
+                MoneyInput::make('total_price')
                     ->required()
-                    ->numeric(),
+                    ->default(0)
+                    ->prefix('$'),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Teacher extends User{
     protected $table =  'users';
-    protected $appends = ['course_count'];
+    protected $appends = ['course_count', 'student_count'];
     protected static function boot(): void
     {
 
@@ -31,5 +31,10 @@ class Teacher extends User{
     public function getCourseCountAttribute()
     {
         return $this->courses->count();
+    }
+
+    public function getStudentCountAttribute()
+    {
+        return $this->courses->sum('students_count');
     }
 }

@@ -36,12 +36,16 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
               <i className="feather-book"></i>
               {data.course_lesson_count} bài học
             </li>
+            <li>
+              <i className="feather-clock"></i>
+              {data.course_duration_sum} giờ học
+            </li>
           </ul>
-          {isDesc ? <p className="rbt-card-text">{data.description}</p> : ""}
+          {isDesc ? <p className="rbt-card-text">{data.description}</p> : ''}
           {isUser ? (
             <div className="rbt-author-meta mb--10">
               <div className="rbt-avater">
-                <Link href={`/profile/${data.id}`}>
+                <Link href={`/teacher/${data.id}`}>
                   <img
                     src={getImageStoragePath(data.teacher?.image)}
                     width={33}
@@ -52,7 +56,7 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
               </div>
               <div className="rbt-author-info">
                 Giáo viên {" "}
-                <Link href={`/profile/${data.id}`}>{data.teacher?.name}</Link>{" "}
+                <Link href={`/teacher/${data.id}`}>{data.teacher?.name}</Link>{" "}
                 trong <Link href="#">{data.category?.name}</Link>
               </div>
             </div>

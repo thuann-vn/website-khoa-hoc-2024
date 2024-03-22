@@ -32,6 +32,7 @@ Route::get('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseControlle
 Route::post('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'masterCheckoutStore'])->name('master-class-checkout-store');
 Route::get('/master-class/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseController::class, 'masterCheckoutSuccess'])->name('master-class-checkout-success');
 
+Route::get('/teacher/{id}', [App\Http\Controllers\CourseController::class, 'teacherDetail'])->name('teacher-detail');
 
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog');

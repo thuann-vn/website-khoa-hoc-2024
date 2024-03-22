@@ -38,7 +38,7 @@ class TeacherResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->tel()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('bio')
+                Forms\Components\RichEditor::make('bio')
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('salary')
