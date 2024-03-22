@@ -24,7 +24,7 @@ class Course extends Model {
         'updated_by'
     ];
 
-    protected $appends = ['course_lesson_count', 'course_duration_sum'];
+    protected $appends = ['course_lesson_count', 'course_duration_sum', 'progress'];
 
     public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -74,5 +74,22 @@ class Course extends Model {
     public function students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Student::class, 'user_has_courses', 'course_id', 'user_id')->withPivot('course_section_id');
+    }
+
+    public function getProgressAttribute()
+    {
+        //Check if logged in user is a student
+        if(auth()->check()){
+            if(auth()->user()->enrolledCourses()->where('course_id', $this->id)->exists()){
+                $course = auth()->user()->enrolledCourses()->where('course_id', $this->id)->first();
+                $total_lessons = $this->course_lesson_count;
+                $completed_lessons = CourseLessonProgress::where('user_id', auth()->user()->id)
+                    ->where('course_id', $this->id)
+                    ->where('status', 'completed')
+                    ->count();
+                return round(($completed_lessons / $total_lessons) * 100, 0);
+            }
+        }
+        return false;
     }
 }

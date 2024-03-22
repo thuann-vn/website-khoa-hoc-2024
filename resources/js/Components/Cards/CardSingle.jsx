@@ -1,8 +1,9 @@
 
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import { currency, getImageStoragePath } from '@/helper'
 
 const CardSingle = ({ data, isDesc, isUser  }) => {
+  const {auth} = usePage().props
   return (
     <>
       <div className="rbt-card variation-01 rbt-hover">
@@ -41,6 +42,52 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
               {data.course_duration_sum} giờ học
             </li>
           </ul>
+
+          {
+            auth.user && data.progress !== false ? (
+              <>
+                <div className="rbt-progress-style-1 mb--20 mt--10">
+                  <div className="single-progress">
+                    <h6 className="rbt-title-style-2 mb--10">Hoàn thành</h6>
+                    {data.progress == 100 ? (
+                      <div className="progress">
+                        <div
+                          className="progress-bar wow fadeInLeft bar-color-success"
+                          data-wow-duration="0.5s"
+                          data-wow-delay=".3s"
+                          role="progressbar"
+                          style={{ width: `100%` }}
+                          aria-valuenow={100}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                        ></div>
+                        <span className="rbt-title-style-2 progress-number">
+                        100%
+                      </span>
+                      </div>
+                    ) : (
+                      <div className="progress">
+                        <div
+                          className="progress-bar wow fadeInLeft bar-color-success"
+                          data-wow-duration="0.5s"
+                          data-wow-delay=".3s"
+                          role="progressbar"
+                          style={{ width: `${data.progress}%` }}
+                          aria-valuenow={data.progress}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                        ></div>
+                        <span className="rbt-title-style-2 progress-number">
+                        {data.progress}%
+                      </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
+            ) : null
+          }
+
           {isDesc ? <p className="rbt-card-text">{data.description}</p> : ''}
           {isUser ? (
             <div className="rbt-author-meta mb--10">

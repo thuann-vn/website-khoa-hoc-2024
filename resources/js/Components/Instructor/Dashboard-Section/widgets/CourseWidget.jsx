@@ -67,7 +67,7 @@ const CourseWidget = ({
               <div className="rbt-progress-style-1 mb--20 mt--10">
                 <div className="single-progress">
                   <h6 className="rbt-title-style-2 mb--10">Hoàn thành</h6>
-                  {isCompleted ? (
+                  {data.progress == 100 ? (
                     <div className="progress">
                       <div
                         className="progress-bar wow fadeInLeft bar-color-success"
@@ -90,13 +90,13 @@ const CourseWidget = ({
                         data-wow-duration="0.5s"
                         data-wow-delay=".3s"
                         role="progressbar"
-                        style={{ width: `${data.progressValue}%` }}
-                        aria-valuenow={data.progressValue}
+                        style={{ width: `${data.progress}%` }}
+                        aria-valuenow={data.progress}
                         aria-valuemin={0}
                         aria-valuemax={100}
                       ></div>
                       <span className="rbt-title-style-2 progress-number">
-                        {data.progressValue}%
+                        {data.progress}%
                       </span>
                     </div>
                   )}
