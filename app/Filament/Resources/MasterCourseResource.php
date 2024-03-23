@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MasterCourseResource\Pages;
 use App\Filament\Resources\MasterCourseResource\RelationManagers;
+use App\Models\Course;
 use App\Models\MasterCourse;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
@@ -32,6 +34,21 @@ class MasterCourseResource extends Resource
                     ->image()
                     ->columnSpanFull()
                     ->required(),
+                Forms\Components\Select::make('courses')
+                    ->live()
+                    ->afterStateUpdated(function (Get $get, Set $set) {
+                        $courses = $get('courses');
+                        $price = 0;
+                        foreach ($courses as $courseId) {
+                            $course   = Course::find($courseId);
+                            $price += $course->price;
+                        }
+                        $set('old_price', $price);
+                    })
+                    ->multiple()
+                    ->preload()
+                    ->columnSpanFull()
+                    ->relationship('courses', 'name'),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->live(onBlur: true)
@@ -101,7 +118,7 @@ class MasterCourseResource extends Resource
     {
         return [
             //
-            RelationManagers\CoursesRelationManager::class
+//            RelationManagers\CoursesRelationManager::class
         ];
     }
 

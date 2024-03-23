@@ -70,8 +70,7 @@ class OrderResource extends Resource
                     ->hint('After creating the user, assign the order to see history.')
                     ->options(function(Forms\Get $get){
                         return \App\Models\Student::pluck('name', 'id');
-                    })
-                    ->required(),
+                    }),
                 Forms\Components\Select::make('type')
                     ->enum(OrderTypeEnum::class)
                     ->options(OrderTypeEnum::class)
