@@ -1,31 +1,29 @@
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, usePage } from '@inertiajs/react'
 import { PageProps } from '@/types'
 import CategoryEight from '@/Components/Category/CategoryEight'
 import Card from '@/Components/Cards/Card'
-import CounterFive from '@/Components/Counters/Counter-Five'
-import TestimonialFive from '@/Components/Testimonials/TestimonialFive'
 import BlogGridMinimal from '@/Components/Blogs/BlogGridMinimal'
 import Guest from '@/Layouts/GuestLayout'
-import CardSingle from '@/Components/Cards/CardSingle'
 import MasterClassCardSingle from '@/Components/Cards/MasterClassCardSingle'
+import { getImageStoragePath } from '@/helper'
 
 export default function Welcome({ categories, courses, masterCourses, featuredPosts }: PageProps<{ categories: any[], courses: any[], masterCourses: any[], featuredPosts: [] }>) {
+  const {site_settings, app_url} = usePage<PageProps>().props;
   return (
     <>
       <Head title="Home page" />
       <Guest>
-        <div className="rbt-banner-5 height-650 bg_image bg_image--19">
+        <div className={"rbt-banner-5 height-650 bg_image"}
+        style={{
+          backgroundImage: "url('" + getImageStoragePath(site_settings.banner_image, app_url) + "')",
+        }}>
           <div className="container">
             <div className="row">
               <div className="col-md-12">
                 <div className="inner text-start">
-                  <h2 className="title">
-                    <span className="text-decoration-underline">AMILY</span>{' '}<br />
-                    Đào tạo thiết kế trang sức online!
+                  <h2 className="title" dangerouslySetInnerHTML={{__html: site_settings.banner_title}}>
                   </h2>
-                  <p className="description">
-                    We just don&apos;t give our student only lecture but real life
-                    experience.
+                  <p className="description" dangerouslySetInnerHTML={{__html: site_settings.banner_description}}>
                   </p>
                   <div className="slider-btn rbt-button-group justify-content-start">
                     <Link

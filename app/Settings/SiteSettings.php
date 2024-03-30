@@ -30,6 +30,12 @@ class SiteSettings extends Settings
 
     public string $bank_name;
 
+    public string $banner_title;
+
+    public string $banner_description;
+
+    public string $banner_image;
+
     public static function group(): string
     {
         return 'general';

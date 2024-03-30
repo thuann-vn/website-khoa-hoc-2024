@@ -97,6 +97,17 @@ class ManageSite extends SettingsPage
                             ->options($banks)
                             ->label('Bank Name')
                             ->required(),
+                    ]),
+                Forms\Components\Tabs\Tab::make('Home Banner')
+                    ->schema([
+                        Forms\Components\TextInput::make('banner_title')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('banner_description')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\FileUpload::make('banner_image')
+                            ->required(),
                     ])
             ])
 

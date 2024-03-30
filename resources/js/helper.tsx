@@ -1,7 +1,7 @@
 import moment from 'moment'
 
-export const getImageStoragePath = (path: string) => {
-    return `/storage/${path}`
+export const getImageStoragePath = (path: string, appUrl = '') => {
+    return `${appUrl}/storage/${path}`
 }
 
 export const currency = (value: number) => {
