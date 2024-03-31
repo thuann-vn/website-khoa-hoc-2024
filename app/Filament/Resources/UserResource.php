@@ -129,9 +129,8 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
         ];
     }
-
-    public static function modifyGlobalSearchQuery(Builder $query, string $search): void
-    {
-        $query->where('type', 'user');
-    }
+public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()->where('type', 'user');
+}
 }

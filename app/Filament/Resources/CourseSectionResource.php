@@ -26,6 +26,9 @@ class CourseSectionResource extends NestedResource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $breadcrumbTitleAttribute = 'name';
 
+    protected static ?string $label = 'Phần học';
+    protected static ?string $pluralLabel = 'Phần học';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -35,7 +38,7 @@ class CourseSectionResource extends NestedResource
 //                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->live()
+                    ->live(onBlur: true)
                     ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
                         if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
                             return;

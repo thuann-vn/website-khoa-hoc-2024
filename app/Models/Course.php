@@ -87,7 +87,7 @@ class Course extends Model {
                     ->where('course_id', $this->id)
                     ->where('status', 'completed')
                     ->count();
-                return round(($completed_lessons / $total_lessons) * 100, 0);
+                return $total_lessons ? round(($completed_lessons / $total_lessons) * 100, 0):  0;
             }
         }
         return false;

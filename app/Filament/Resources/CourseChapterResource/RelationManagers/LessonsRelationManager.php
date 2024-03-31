@@ -14,6 +14,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class LessonsRelationManager extends NestedRelationManager
 {
     protected static string $relationship = 'lessons';
+    protected static ?string $label = 'Bài học';
+    protected static ?string $pluralLabel = 'Bài học';
+
+    protected static ?string $title = 'Bài học';
 
     public function form(Form $form): Form
     {

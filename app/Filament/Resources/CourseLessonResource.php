@@ -27,6 +27,9 @@ class CourseLessonResource extends NestedResource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $breadcrumbTitleAttribute = 'name';
 
+    protected static ?string $label = 'Bài học';
+    protected static ?string $pluralLabel = 'Bài học';
+
     public static function form(Form $form): Form
     {
         return $form

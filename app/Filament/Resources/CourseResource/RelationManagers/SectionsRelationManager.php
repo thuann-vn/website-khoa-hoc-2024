@@ -15,6 +15,9 @@ class SectionsRelationManager extends NestedRelationManager
 {
     protected static string $relationship = 'sections';
 
+    protected static ?string $label = 'Phần học';
+    protected static ?string $pluralLabel = 'Phần học';
+    protected static ?string $title = 'Phần học';
     public function form(Form $form): Form
     {
         return $form

@@ -15,6 +15,11 @@ class ChaptersRelationManager extends NestedRelationManager
 {
     protected static string $relationship = 'chapters';
 
+    protected static ?string $label = 'Chương học';
+    protected static ?string $pluralLabel = 'Chương học';
+
+    protected static ?string $title = 'Chương học';
+
     public function form(Form $form): Form
     {
         return $form
