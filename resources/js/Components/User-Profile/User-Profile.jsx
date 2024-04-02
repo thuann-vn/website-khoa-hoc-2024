@@ -19,7 +19,7 @@ const UserProfile = ({ checkMatchProfile }) => {
                   src={getImageStoragePath(checkMatchProfile.image)}
                   width={250}
                   height={250}
-                  alt="Instructor"
+                  alt="Giáo viên"
                 />
               </div>
               <div className="tutor-content">
