@@ -25,6 +25,10 @@ class TeacherResource extends Resource
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
+                    ->avatar()
+                    ->image()
+                    ->columnSpanFull(),
+                Forms\Components\FileUpload::make('banner')
                     ->image()
                 ->columnSpanFull(),
                 Forms\Components\TextInput::make('name')

@@ -29,7 +29,7 @@ export default function CheckoutPage({
                   - Số tài khoản: <b>{site_settings.bank_number}</b> <br />
                   - Chủ tài khoản: <b>{site_settings.bank_account}</b> <br />
                   - Ngân hàng: <b>{banks[site_settings.bank_name]}</b> <br />
-                  - Nội dung chuyển khoản: <b>Thanh toan don hang {order.id}</b> <br />
+                  - Nội dung chuyển khoản: <b>Tên học viên - Số điện thoại</b> <br />
                   <br />
                   Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi qua: <br />
                   Email: <b>{site_settings.email}</b> <br />

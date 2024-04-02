@@ -12900,13 +12900,15 @@ ul.rbt-dropdown-menu.currency-menu li .sub-menu {
 @media only screen and (max-width: 767px) {
   .rbt-header .rbt-header-wrapper .header-right {
     justify-content: flex-end;
-    flex-basis: 60%;
+    flex-basis: 20%;
   }
 }
 
 @media only screen and (max-width: 767px) {
   .rbt-header .rbt-header-wrapper .header-left {
-    flex-basis: 40%;
+    text-align:  center;
+    width: 100%;
+    flex-basis: 80%;
   }
 }
 
