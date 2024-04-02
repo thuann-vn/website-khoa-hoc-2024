@@ -10,7 +10,7 @@ const UserProfile = ({ checkMatchProfile }) => {
       <div className="col-lg-12">
         <div className="rbt-dashboard-content-wrapper">
           <div className="tutor-bg-photo bg_image bg_image--22 height-350">
-            <img src={teacher.banner ? getImageStoragePath(teacher.banner): bgImage} alt="" />
+            <img src={checkMatchProfile.banner ? getImageStoragePath(checkMatchProfile.banner): bgImage} alt="" />
           </div>
           <div className="rbt-tutor-information">
             <div className="rbt-tutor-information-left">
