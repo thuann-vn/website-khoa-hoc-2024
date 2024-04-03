@@ -63,6 +63,10 @@ class CourseLessonResource extends NestedResource
                                         return CourseChapter::where('course_section_id', $get('course_section_id'))->pluck('name', 'id')->toArray();
                                     }
                                 )
+                                ->createOptionForm(fn (Form $form) => CourseChapterResource::form($form))
+                                ->createOptionUsing(function (array $data, Get $get, ) {
+                                    return CourseChapter::create($data + ['course_section_id' => $get('course_section_id')]);
+                                })
                         ])->columns(3),
 
                         Forms\Components\TextInput::make('name')
