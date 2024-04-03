@@ -33,9 +33,8 @@ class CourseChapterResource extends NestedResource
     {
         return $form
             ->schema([
-//                Forms\Components\Select::make('course_section_id')
-//                    ->required()
-//                ->relationship('section', 'name'),
+                Forms\Components\FileUpload::make('image_url')
+                    ->image(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->live(onBlur: true)
@@ -55,10 +54,6 @@ class CourseChapterResource extends NestedResource
                 ->default(0),
                 Forms\Components\Hidden::make('position')
                     ->default(0),
-                Forms\Components\TextInput::make('video_url')
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image_url')
-                    ->image(),
                 Forms\Components\Toggle::make('is_active')
                     ->default(true)
                     ->required(),

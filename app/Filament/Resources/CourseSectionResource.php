@@ -36,6 +36,9 @@ class CourseSectionResource extends NestedResource
 //                Forms\Components\Select::make('course_id')
 //                    ->relationship('course', 'name')
 //                    ->required(),
+                Forms\Components\FileUpload::make('image_url')
+                    ->columnSpanFull()
+                    ->image(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->live(onBlur: true)
@@ -50,20 +53,13 @@ class CourseSectionResource extends NestedResource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('video_url')
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image_url')
-                    ->image(),
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('position')
                     ->default(0)
                     ->required()
                     ->numeric(),
-                Forms\Components\Toggle::make('is_active')
-                    ->default(true)
-                    ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('duration')
                     ->default(0)
                     ->required()
@@ -77,10 +73,13 @@ class CourseSectionResource extends NestedResource
                     ->required()
                     ->numeric()
                     ->prefix('$'),
+                Forms\Components\Toggle::make('is_active')
+                    ->default(true)
+                    ->required(),
                 Forms\Components\Toggle::make('locked')
                     ->default(true)
                     ->required(),
-            ]);
+            ])->columns(2);
     }
 
     public static function table(Table $table): Table

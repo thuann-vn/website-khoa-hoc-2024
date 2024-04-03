@@ -1,6 +1,5 @@
-import { Link } from '@inertiajs/react'
-import React from "react";
-import { currency, durationToTime } from '@/helper'
+import React from 'react'
+import { durationToTime } from '@/helper'
 
 const Content = ({ checkMatchCourses }) => {
   return (
@@ -39,7 +38,7 @@ const Content = ({ checkMatchCourses }) => {
                 >
                   <div className="accordion-body card-body pr--0">
                     <ul className="rbt-course-main-content liststyle">
-                      {item.chapters.map((chapter, subIndex) => (
+                      {item.chapters.length > 0 ? item.chapters.map((chapter, subIndex) => (
                         <li>
                           <h6 className={'mt-5 mb-4'}>{chapter.name}</h6>
                           {
@@ -71,6 +70,30 @@ const Content = ({ checkMatchCourses }) => {
                             })
                           }
                         </li>
+                      )) : item.lessons.map((lesson, subIndex) => (
+                        <li key={subIndex}>
+                          <a href="javascript:void">
+                            <div className="course-content-left">
+                              <i className="feather-play-circle"></i>
+                              <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
+                            </div>
+                            {lesson.is_trial ? (
+                              <div className="course-content-right">
+                                  <span>
+                                    <a href={'#demo-video'} className="rbt-badge variation-03 bg-primary-opacity">
+                                      <i className="feather-eye"></i> Xem
+                                    </a>
+                                  </span>
+                              </div>
+                            ) : (
+                              <div className="course-content-right">
+                                      <span className="course-lock">
+                                        <i className="feather-lock"></i>
+                                      </span>
+                              </div>
+                            )}
+                          </a>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -81,7 +104,7 @@ const Content = ({ checkMatchCourses }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Content;
+export default Content

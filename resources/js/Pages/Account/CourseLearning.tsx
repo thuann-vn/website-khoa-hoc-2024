@@ -79,13 +79,11 @@ export default function DashboardPage({ course, learningProgress }: { course: an
     }
   }, [playerRef])
 
-  const startLesson = (lesson: any, sectionIndex: number, chapterIndex: number, lessonIndex: number) => {
+  const startLesson = (lesson: any, lessonIndex: number) => {
     if(!lesson){
       return
     }
     setActiveLessonIndex(lessonIndex)
-    setActiveChapterIndex(chapterIndex)
-    setActiveSectionIndex(sectionIndex)
     setActiveLesson(lesson)
     const player = playerRef.current
     courseProgress[lesson.id] = {
@@ -105,7 +103,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
     }
   }
 
-  const updateLessonStatus = (lesson: any, status: string, progress: number, sectionIndex: number, chapterIndex: number, lessonIndex: number) => {
+  const updateLessonStatus = (lesson: any, status: string, progress: number) => {
     courseProgress[lesson.id] = {
       status: status,
       progress: progress,
@@ -129,41 +127,26 @@ export default function DashboardPage({ course, learningProgress }: { course: an
     let total = 0
 
     //Count completed lessons
-    course.sections.forEach((section: any) => {
-      section.chapters.forEach((chapter: any) => {
-        chapter.lessons.forEach((lesson: any) => {
-          total++
-          if(courseProgress[lesson.id] && courseProgress[lesson.id].status == 'completed'){
-            completed++
-          }
-        })
-      })
+    course.lessons.forEach((lesson: any) => {
+      total++
+      if(courseProgress[lesson.id] && courseProgress[lesson.id].status == 'completed'){
+        completed++
+      }
     })
     return Math.round((completed / total) * 100)
   }
   const prevLesson = () => {
     let prevLesson = null
     let prevLessonIndex = activeLessonIndex
-    let prevChapterIndex = activeChapterIndex
-    let prevSectionIndex = activeSectionIndex
     if(activeLessonIndex > 0){
-      prevLesson = course.sections[activeSectionIndex]['chapters'][activeChapterIndex]['lessons'][activeLessonIndex - 1]
+      prevLesson = course.lessons[activeLessonIndex - 1]
       prevLessonIndex = activeLessonIndex - 1
-    }else if(activeChapterIndex > 0){
-      prevLesson = course.sections[activeSectionIndex]['chapters'][activeChapterIndex - 1]['lessons'][course.sections[activeSectionIndex]['chapters'][activeChapterIndex - 1]['lessons'].length - 1]
-      prevChapterIndex = activeChapterIndex - 1
-      prevLessonIndex = course.sections[activeSectionIndex]['chapters'][activeChapterIndex - 1]['lessons'].length - 1
-    }else if(activeSectionIndex > 0){
-      prevLesson = course.sections[activeSectionIndex - 1]['chapters'][course.sections[activeSectionIndex - 1]['chapters'].length - 1]['lessons'][course.sections[activeSectionIndex - 1]['chapters'][course.sections[activeSectionIndex - 1]['chapters'].length - 1]['lessons'].length - 1]
-      prevSectionIndex = activeSectionIndex - 1
-      prevChapterIndex = course.sections[activeSectionIndex - 1]['chapters'].length - 1
-      prevLessonIndex = course.sections[activeSectionIndex - 1]['chapters'][course.sections[activeSectionIndex - 1]['chapters'].length - 1]['lessons'].length - 1
     }else{
       prevLesson = null
     }
     setActiveLesson(prevLesson)
     if(prevLesson){
-      startLesson(prevLesson, prevSectionIndex, prevChapterIndex, prevLessonIndex)
+      startLesson(prevLesson, prevLessonIndex)
     }else{
       setActiveLesson(null)
     }
@@ -172,27 +155,16 @@ export default function DashboardPage({ course, learningProgress }: { course: an
   const nextLesson = () => {
     let nextLesson = null
     let nextLessonIndex = activeLessonIndex
-    let nextChapterIndex = activeChapterIndex
-    let nextSectionIndex = activeSectionIndex
 
-    if(course.sections[activeSectionIndex]['chapters'][activeChapterIndex]['lessons'].length > activeLessonIndex + 1 && course.sections[activeSectionIndex]['chapters'][activeChapterIndex]['lessons'][activeLessonIndex + 1]){
-      nextLesson = course.sections[activeSectionIndex]['chapters'][activeChapterIndex]['lessons'][activeLessonIndex + 1]
-     nextLessonIndex = activeLessonIndex + 1
-    }else if(course.sections[activeSectionIndex]['chapters'].length > activeChapterIndex + 1 && course.sections[activeSectionIndex]['chapters'][activeChapterIndex + 1]['lessons'].length > 0){
-      nextLesson = course.sections[activeSectionIndex]['chapters'][activeChapterIndex + 1]['lessons'][0]
-      nextChapterIndex = activeChapterIndex + 1
-      nextLessonIndex = 0
-    }else if(course.sections.length > activeSectionIndex + 1 && course.sections[activeSectionIndex + 1]['chapters'].length > 0 && course.sections[activeSectionIndex + 1]['chapters'][0]['lessons'].length > 0){
-      nextLesson = course.sections[activeSectionIndex + 1]['chapters'][0]['lessons'][0]
-      nextSectionIndex = activeSectionIndex + 1
-      nextChapterIndex = 0
-      nextLessonIndex = 0
+    if(course.lessons.length > activeLessonIndex + 1){
+      nextLesson = course.lessons[activeLessonIndex + 1]
+      nextLessonIndex = activeLessonIndex + 1
     }else{
       nextLesson = null
     }
     setActiveLesson(nextLesson)
     if(nextLesson){
-      startLesson(nextLesson, nextSectionIndex, nextChapterIndex, nextLessonIndex)
+      startLesson(nextLesson, nextLessonIndex)
     }
   }
 
@@ -217,7 +189,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
               </Button>
 
               <Button variant={'success'} disabled={!activeLesson} onClick={()=>{
-                updateLessonStatus(activeLesson, 'completed', 100, activeSectionIndex, activeChapterIndex, activeLessonIndex)
+                updateLessonStatus(activeLesson, 'completed', 100)
               }}>
                 Hoàn thành và tiếp tục <i className="feather-arrow-right"></i>
               </Button>
@@ -243,6 +215,10 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                   expand: string | boolean | undefined;
                   name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined;
                   duration: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined;
+                  lessons: {
+                    name: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined;
+                    duration: number;
+                  }[];
                   chapters: {
                     name: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined;
                     lessons: {
@@ -276,7 +252,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                     >
                       <div className="accordion-body card-body pr--0">
                         <ul className="rbt-course-main-content liststyle">
-                          {item.chapters.map((chapter: {
+                          {item.chapters.length ? item.chapters.map((chapter: {
                             name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined;
                             lessons: {
                               name: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined;
@@ -287,10 +263,10 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                               <h6 className={'mt-5 mb-4 text-uppercase text-bold'}>{chapter.name}</h6>
                               {
                                 chapter.lessons.map((lesson: any, lessionIdx: any) => {
-                                  return <li key={chapterIndex}>
+                                  return <li key={lessionIdx}>
                                     <a href="#" onClick={(event) => {
                                       event.preventDefault()
-                                      startLesson(lesson, sectionIndex, sectionIndex, lessionIdx)
+                                      startLesson(lesson, sectionIndex)
                                     }}>
                                       <div className="course-content-left">
                                         {
@@ -312,7 +288,30 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                                 })
                               }
                             </li>
-                          ))}
+                          )) : item.lessons.map((lesson: any, lessionIdx: any) => {
+                            return <li key={lessionIdx}>
+                              <a href="#" onClick={(event) => {
+                                event.preventDefault()
+                                startLesson(lesson, lessionIdx)
+                              }}>
+                                <div className="course-content-left">
+                                  {
+                                    activeLesson && activeLesson?.id == lesson?.id ? (
+                                      <i className="lesson-icon feather-play-circle"></i>
+                                    ) : courseProgress[lesson.id] ? (
+                                      courseProgress[lesson.id].status == 'completed' ? (
+                                        <i className="lesson-icon feather-check-circle"></i>
+                                      ) : (<i className="lesson-icon feather-pause-circle"></i>)
+
+                                    ) : (
+                                      <i className="lesson-icon feather-circle"></i>
+                                    )
+                                  }
+                                  <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
+                                </div>
+                              </a>
+                            </li>
+                          })}
                         </ul>
                       </div>
                     </div>
@@ -339,7 +338,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                     <div className="lesson-action">
                       <PrimaryButton onClick={(e)=>{
                         e.preventDefault()
-                        updateLessonStatus(activeLesson, 'completed', 100, activeSectionIndex, activeChapterIndex, activeLessonIndex)
+                        updateLessonStatus(activeLesson, 'completed', 100)
                       }}>
                         Hoàn thành bài học
                       </PrimaryButton>
@@ -354,7 +353,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                   <div className="lesson-action">
                     <PrimaryButton onClick={(e) => {
                       e.preventDefault()
-                      startLesson(course.sections[0]['chapters'][0]['lessons'][0], 0, 0, 0)
+                      startLesson(course.sections[0]['chapters'][0]['lessons'][0], 0)
                     }}>
                       Bắt đầu học
                     </PrimaryButton>

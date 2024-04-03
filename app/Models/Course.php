@@ -54,20 +54,14 @@ class Course extends Model {
     public function getCourseLessonCountAttribute()
     {
         //Count all the lessons in the course
-        return $this->courseSections->map(function (CourseSection $section) {
-            return $section->chapters->map(function (CourseChapter $chapter) {
-                return $chapter->lessons->count();
-            })->sum();
-        })->sum();
+        return $this->lessons()->count();
     }
 
     public function getCourseDurationSumAttribute()
     {
         //Count all the lessons in the course
-        return round($this->courseSections->map(function (CourseSection $section) {
-                return $section->chapters->map(function (CourseChapter $chapter) {
-                    return $chapter->lessons->sum('duration');
-                })->sum();
+        return round($this->lessons->map(function ($lesson) {
+                return $lesson->duration ?? 0;
             })->sum() / 3600, 0);
     }
 
@@ -91,5 +85,10 @@ class Course extends Model {
             }
         }
         return false;
+    }
+
+    public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CourseLesson::class, 'course_id');
     }
 }

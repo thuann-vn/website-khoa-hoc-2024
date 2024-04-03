@@ -3,29 +3,25 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CourseLessonResource\Pages;
-use App\Filament\Resources\CourseLessonResource\RelationManagers;
+use App\Models\Course;
+use App\Models\CourseChapter;
 use App\Models\CourseLesson;
-use FFMpeg\Format\Video\X264;
+use App\Models\CourseSection;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Guava\Filament\NestedResources\Ancestor;
 use Guava\Filament\NestedResources\Resources\NestedResource;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class CourseLessonResource extends NestedResource
 {
     protected static ?string $model = CourseLesson::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $breadcrumbTitleAttribute = 'name';
 
     protected static ?string $label = 'Bài học';
     protected static ?string $pluralLabel = 'Bài học';
@@ -35,10 +31,40 @@ class CourseLessonResource extends NestedResource
         return $form
             ->schema([
                 Forms\Components\Tabs::make('Tabs')->tabs([
+
                     Forms\Components\Tabs\Tab::make('Lesson Info')->schema([
                         Forms\Components\FileUpload::make('image_url')
                             ->image()
                             ->columnSpanFull(),
+                        Forms\Components\Group::make([
+                            Forms\Components\Select::make('course_id')
+                                ->label('Khóa học')
+                                ->options(
+                                    Course::all()->pluck('name', 'id')->toArray()
+                                )
+                                ->required()
+                                ->live(),
+                            Forms\Components\Select::make('course_section_id')
+                                ->label('Phần học')
+                                ->options(
+                                    function (Get $get) {
+                                        return CourseSection::where('course_id', $get('course_id'))->pluck('name', 'id')->toArray();
+                                    }
+                                )
+                                ->createOptionForm(fn (Form $form) => CourseSectionResource::form($form))
+                                ->createOptionUsing(function (array $data, Get $get, ) {
+                                    return CourseSection::create($data + ['course_id' => $get('course_id')]);
+                                })
+                                ->live(),
+                            Forms\Components\Select::make('course_chapter_id')
+                                ->label('Chương học')
+                                ->options(
+                                    function (Get $get) {
+                                        return CourseChapter::where('course_section_id', $get('course_section_id'))->pluck('name', 'id')->toArray();
+                                    }
+                                )
+                        ])->columns(3),
+
                         Forms\Components\TextInput::make('name')
                             ->required()
                             ->live(onBlur: true)
@@ -51,6 +77,7 @@ class CourseLessonResource extends NestedResource
                             })
                             ->maxLength(255)
                             ->columnSpanFull(),
+
                         Forms\Components\Textarea::make('description')
                             ->maxLength(65535)
                             ->columnSpanFull(),
@@ -81,9 +108,18 @@ class CourseLessonResource extends NestedResource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('course_section_id')
+                Tables\Columns\ImageColumn::make('image_url'),
+                Tables\Columns\TextColumn::make('course.name')
+                    ->description(function ($record) {
+                        if($record->course?->section?->name && $record->course?->chapter?->name){
+                            return $record->course?->section?->name . ' - ' . $record->course?->chapter?->name;
+                        }else if($record->course?->section?->name) {
+                            return $record->course?->section?->name;
+                        }
+                        return '';
+                    })
                     ->numeric()
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('duration')
@@ -92,9 +128,6 @@ class CourseLessonResource extends NestedResource
                 Tables\Columns\TextColumn::make('position')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('video_url')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('image_url'),
                 Tables\Columns\IconColumn::make('is_trial')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_active')
@@ -136,13 +169,12 @@ class CourseLessonResource extends NestedResource
             'edit' => Pages\EditCourseLesson::route('/{record}/edit'),
         ];
     }
+
     public static function getAncestor() : ?Ancestor
     {
         // This is just a simple configuration with a few helper methods
         return Ancestor::make(
-            CourseChapterResource::class, // Parent Resource Class
-            'chapter', // Parent Resource Name
+            CourseResource::class, // Parent Resource Class
         );
     }
-
 }

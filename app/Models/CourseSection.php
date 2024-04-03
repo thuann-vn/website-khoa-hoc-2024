@@ -33,4 +33,9 @@ class CourseSection extends Model {
     {
         return $this->hasMany(CourseChapter::class, 'course_section_id');
     }
+
+    public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CourseLesson::class, 'course_section_id');
+    }
 }

@@ -14,4 +14,14 @@ class CourseLesson extends Model {
     {
         return $this->belongsTo(CourseChapter::class, 'course_chapter_id');
     }
+
+    public function section(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(CourseSection::class, 'course_section_id');
+    }
+
+    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
 }

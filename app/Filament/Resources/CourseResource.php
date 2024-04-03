@@ -129,7 +129,7 @@ class CourseResource extends NestedResource
     {
         return [
             //
-            RelationManagers\SectionsRelationManager::class
+            RelationManagers\LessonsRelationManager::class
         ];
     }
 

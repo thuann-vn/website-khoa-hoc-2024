@@ -30,12 +30,10 @@ class CourseController extends Controller
     public function detail(Request $request)
     {
         $slug = $request->slug;
-        $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'sections.chapters.lessons'])->whereSlug($slug)->first();
+        $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'sections.chapters.lessons', 'sections.lessons'])->whereSlug($slug)->firstOrFail();
 
         //Demo video
-        $demoLesson = CourseLesson::whereIsTrial(true)->whereHas('chapter.section.course', function($query) use ($course){
-            $query->where('id', $course->id);
-        })->first();
+        $demoLesson = $course->lessons->where('is_trial', true)->first();
         return Inertia::render('Courses/Detail', [
             'course' => $course,
             'demoLesson' => $demoLesson
