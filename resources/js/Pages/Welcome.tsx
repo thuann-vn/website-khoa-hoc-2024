@@ -6,16 +6,18 @@ import BlogGridMinimal from '@/Components/Blogs/BlogGridMinimal'
 import Guest from '@/Layouts/GuestLayout'
 import MasterClassCardSingle from '@/Components/Cards/MasterClassCardSingle'
 import { getImageStoragePath } from '@/helper'
+import useWindowDimensions from '@/hooks/useWindowDimensions'
 
 export default function Welcome({ categories, courses, masterCourses, featuredPosts }: PageProps<{ categories: any[], courses: any[], masterCourses: any[], featuredPosts: [] }>) {
   const {site_settings, app_url} = usePage<PageProps>().props;
+  const { height, width } = useWindowDimensions();
   return (
     <>
       <Head title="Home page" />
       <Guest>
         <div className={"rbt-banner-5 height-650 bg_image"}
         style={{
-          backgroundImage: "url('" + getImageStoragePath(site_settings.banner_image, app_url) + "')",
+          backgroundImage: "url('" + getImageStoragePath(width && width <= 767 ?  site_settings.mobile_banner_image : site_settings.banner_image, app_url) + "')",
         }}>
           <div className="container">
             <div className="row">

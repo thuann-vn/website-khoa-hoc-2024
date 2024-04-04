@@ -36,6 +36,12 @@ class SiteSettings extends Settings
 
     public string $banner_image;
 
+    public string $mobile_banner_image;
+
+
+    public string $company_name;
+    public string $company_tax_text;
+
     public static function group(): string
     {
         return 'general';

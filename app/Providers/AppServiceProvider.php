@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\CourseLesson;
 use App\Models\Order;
+use App\Observers\CourseLessonObserver;
 use App\Observers\OrderObserver;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\ServiceProvider;
@@ -27,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Order::observe(OrderObserver::class);
+        CourseLesson::observe(CourseLessonObserver::class);
     }
 }

@@ -68,17 +68,23 @@ const FooterThree = () => {
                       <h5 className="ft-title">Liên hệ</h5>
                       <ul className="ft-link">
                         <li>
-                          <span>Hotline:</span>{" "}
+                          <span>Hotline:</span>{' '}
                           <Link href="#">{site_settings.phone}</Link>
                         </li>
                         <li>
-                          <span>E-mail:</span>{" "}
+                          <span>E-mail:</span>{' '}
                           <Link href="mailto:hr@example.com">
                             {site_settings.email}
                           </Link>
                         </li>
                         <li>
                           <span>Địa chỉ:</span> {site_settings.address}
+                        </li>
+                        <li>
+                          <b>{site_settings.company_name}</b>
+                        </li>
+                        <li>
+                          {site_settings.company_tax_text}
                         </li>
                       </ul>
                       <ul className="social-icon social-default icon-naked justify-content-start mt--20">

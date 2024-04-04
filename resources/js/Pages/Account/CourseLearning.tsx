@@ -5,7 +5,7 @@ import React from 'react'
 import LearningLayout from '@/Layouts/LearningLayout'
 import PrimaryButton from '@/Components/PrimaryButton'
 import { Button, ProgressBar } from 'react-bootstrap'
-import { durationToTime } from '@/helper'
+import { durationToTime, getImageStoragePath } from '@/helper'
 import axios from 'axios'
 
 export default function DashboardPage({ course, learningProgress }: { course: any, learningProgress: any }) {
@@ -167,6 +167,8 @@ export default function DashboardPage({ course, learningProgress }: { course: an
       startLesson(nextLesson, nextLessonIndex)
     }
   }
+
+  console.log(activeLesson?.attachments)
 
   // @ts-ignore
   return (
@@ -335,6 +337,24 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                   <div className={'lesson-content'}>
                     <p className="lesson-description"
                        dangerouslySetInnerHTML={{ __html: activeLesson?.description }}></p>
+                    {
+                      activeLesson.attachments?.length ? (
+                        <>
+                          <p>
+                            <strong>Tệp đính kèm:</strong>
+                            <ul>
+                              {
+                                activeLesson.attachments.map((attachment: any, index: number) => {
+                                  return <li key={index}>
+                                    <a className={"text-blue-600"} href={getImageStoragePath(attachment)} target="_blank">{attachment}</a>
+                                  </li>
+                                })
+                              }
+                            </ul>
+                          </p>
+                        </>
+                      ) : null
+                    }
                     <div className="lesson-action">
                       <PrimaryButton onClick={(e)=>{
                         e.preventDefault()
@@ -349,7 +369,24 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                 <div>
                   <h3 className="lesson-title">{course?.name}</h3>
                   <p className="lesson-description"
-                     dangerouslySetInnerHTML={{ __html: course?.description }}></p>
+                     dangerouslySetInnerHTML={{ __html: course?.description }}></p>{
+                  activeLesson.attachments?.length ? (
+                    <>
+                      <p>
+                        <strong>Tệp đính kèm:</strong>
+                        <ul>
+                          {
+                            activeLesson.attachments.map((attachment: any, index: number) => {
+                              return <li key={index}>
+                                <a className={"text-blue-600"} href={getImageStoragePath(attachment)} target="_blank">{attachment}</a>
+                              </li>
+                            })
+                          }
+                        </ul>
+                      </p>
+                    </>
+                  ) : null
+                }
                   <div className="lesson-action">
                     <PrimaryButton onClick={(e) => {
                       e.preventDefault()

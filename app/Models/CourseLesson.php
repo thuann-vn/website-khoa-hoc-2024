@@ -9,6 +9,10 @@ class CourseLesson extends Model {
 
     protected $guarded = [];
 
+    protected $casts = [
+        'attachments' => 'array'
+    ];
+
     protected $hidden = ['created_at', 'updated_at'];
     public function chapter(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

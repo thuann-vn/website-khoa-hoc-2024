@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\CourseLessonResource\Pages;
 
 use App\Filament\Resources\CourseLessonResource;
+use App\Jobs\ProcessVideo;
+use App\Models\CourseLessonVideo;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Guava\Filament\NestedResources\Pages\NestedCreateRecord;

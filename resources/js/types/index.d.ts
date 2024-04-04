@@ -16,6 +16,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     banner_title: string;
     banner_description: string;
     banner_image: string;
+    mobile_banner_image: string;
   },
   app_url: string;
 };

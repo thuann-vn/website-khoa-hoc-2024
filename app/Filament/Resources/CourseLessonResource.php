@@ -97,10 +97,18 @@ class CourseLessonResource extends NestedResource
                             ->default(true)
                             ->required(),
                     ]),
+                    Forms\Components\Tabs\Tab::make('Attachments')->schema([
+                        Forms\Components\FileUpload::make('attachments')
+                            ->multiple()
+                            ->previewable(false)
+                            ->preserveFilenames()
+                            ->columnSpanFull(),
+                    ]),
                     Forms\Components\Tabs\Tab::make('Video')->schema([
                         Forms\Components\FileUpload::make('video_url')
                             ->visibility('private')
                             ->acceptedFileTypes(['video/*'])
+                            ->previewable(false)
                             ->columnSpanFull(),
                     ])
                 ])->columnSpanFull()

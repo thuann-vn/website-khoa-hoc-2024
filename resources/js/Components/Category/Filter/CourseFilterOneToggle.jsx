@@ -90,7 +90,7 @@ const CourseFilterOneToggle = ({ course, start, end }) => {
                   </div>
                   <div className="rbt-author-info">
                     Giáo viên {' '}
-                    <Link href={`/teacher/${data.id}`}>{data.teacher?.name}</Link>{' '}
+                    <Link href={`/teacher/${data.teacher?.id}`}>{data.teacher?.name}</Link>{' '}
                     trong <Link href="#">{data.category?.name}</Link>
                   </div>
                 </div>

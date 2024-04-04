@@ -81,6 +81,14 @@ class ManageSite extends SettingsPage
                         ->label('Address')
                         ->required()
                         ->maxLength(65535),
+                    Forms\Components\TextInput::make('company_name')
+                        ->label('Company name')
+                        ->required()
+                        ->maxLength(65535),
+                    Forms\Components\TextInput::make('company_tax_text')
+                        ->label('Tax Text')
+                        ->required()
+                        ->maxLength(65535),
                 ]),
                 Forms\Components\Tabs\Tab::make('Bank Information')
                     ->schema([
@@ -107,6 +115,8 @@ class ManageSite extends SettingsPage
                             ->required()
                             ->maxLength(255),
                         Forms\Components\FileUpload::make('banner_image')
+                            ->required(),
+                        Forms\Components\FileUpload::make('mobile_banner_image')
                             ->required(),
                     ])
             ])
