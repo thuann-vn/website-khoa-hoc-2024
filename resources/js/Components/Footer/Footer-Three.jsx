@@ -68,6 +68,12 @@ const FooterThree = () => {
                       <h5 className="ft-title">Liên hệ</h5>
                       <ul className="ft-link">
                         <li>
+                          <b>{site_settings.company_name}</b>
+                        </li>
+                        <li>
+                          {site_settings.company_tax_text}
+                        </li>
+                        <li>
                           <span>Hotline:</span>{' '}
                           <Link href="#">{site_settings.phone}</Link>
                         </li>
@@ -80,17 +86,11 @@ const FooterThree = () => {
                         <li>
                           <span>Địa chỉ:</span> {site_settings.address}
                         </li>
-                        <li>
-                          <b>{site_settings.company_name}</b>
-                        </li>
-                        <li>
-                          {site_settings.company_tax_text}
-                        </li>
                       </ul>
                       <ul className="social-icon social-default icon-naked justify-content-start mt--20">
                         {socialLink.map((value, innerIndex) => (
                           <li key={innerIndex}>
-                            <Link href={value.link}>
+                          <Link href={value.link}>
                               {
                                 value.icon === 'feather-zalo' ?
                                   <svg style={{width: "36px", height: "36px"}} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
