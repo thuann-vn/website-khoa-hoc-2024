@@ -1,5 +1,5 @@
 /*====================
-    Breadcrump Area 
+    Breadcrump Area
 ======================*/
 
 .rbt-breadcrumb-default {
@@ -24,7 +24,7 @@
 
 
 /*-----------------------------
-    Breadcrumd Page List  
+    Breadcrumd Page List
 -------------------------------*/
 .page-list {
     padding: 0;
@@ -72,7 +72,7 @@
 
 
 /*----------------------------
-    Breadcrumb Style Two  
+    Breadcrumb Style Two
 ------------------------------*/
 .breadcrumb-style-max-width {
     max-width: 1085px;
@@ -200,7 +200,7 @@
 }
 
 /*----------------------------
-    Breadcrumb Style Main  
+    Breadcrumb Style Main
 ------------------------------*/
 
 .rbt-page-banner-wrapper {
@@ -254,7 +254,6 @@
             align-items: center;
             margin-top: 20px;
             margin-bottom: 20px;
-
             @media #{$large-mobile} {
                 display: block;
             }
@@ -270,7 +269,8 @@
         }
 
         .title {
-            font-size: 42px;
+            font-size:25px;
+            text-transform: uppercase;
 
             @media #{$sm-layout} {
                 font-size: 32px;
@@ -292,7 +292,7 @@
 
 
 /*-----------------------------
-    Breadcrumb Style Three  
+    Breadcrumb Style Three
 ------------------------------*/
 .rbt-breadcrumb-default {
     &.rbt-breadcrumb-style-3 {

@@ -40,8 +40,7 @@ const BlogGrid = ({ isPagination, top, start, end, posts, featuredPosts }) => {
       )}
 
       <div className="row g-5 mt--15">
-        {BlogData &&
-          selectedGridBlogs.map((data, index) => (
+        {selectedGridBlogs.map((data, index) => (
             <div className="col-lg-4 col-md-6 col-sm-12 col-12" key={index}>
               <div className="rbt-card variation-02 rbt-hover">
                 <div className="rbt-card-img">
@@ -89,7 +88,7 @@ const BlogGrid = ({ isPagination, top, start, end, posts, featuredPosts }) => {
           ))}
       </div>
 
-      {isPagination ? (
+      {isPagination && selectedGridBlogs.length ? (
         <div className="row">
           <div className="col-lg-12 mt--60">
             <Pagination

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import Image from "next/image";
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 
 import "venobox/dist/venobox.min.css";
 
@@ -14,6 +14,7 @@ const Viedo = ({ checkMatchCourses }) => {
   const { cartToggle, setCart } = useAppContext();
   const [toggle, setToggle] = useState(false);
   const [hideOnScroll, setHideOnScroll] = useState(false);
+  const { site_settings  } = usePage().props;
 
   // =====> Start ADD-To-Cart
   const dispatch = useDispatch();
@@ -112,31 +113,21 @@ const Viedo = ({ checkMatchCourses }) => {
           ) : null
         }
         <span className="subtitle">
-          <i className="feather-rotate-ccw"></i> Hoàn tiền 30 ngày
+          <i className="feather-rotate-ccw"></i> {site_settings.refund_text}
         </span>
 
         <div className="social-share-wrapper mt--30 text-center">
           <div className="rbt-post-share d-flex align-items-center justify-content-center">
-            <ul className="social-icon social-default transparent-with-border justify-content-center">
+            <ul className="social-icon social-default justify-content-center">
               <li>
-                <Link href="https://www.facebook.com/">
-                  <i className="feather-facebook"></i>
-                </Link>
+                <a href={site_settings.facebook} target={"_blank"}>
+                    <img src={"/images/facebook.png"} width={36} height={36}/>
+                </a>
               </li>
               <li>
-                <Link href="https://www.twitter.com">
-                  <i className="feather-twitter"></i>
-                </Link>
-              </li>
-              <li>
-              <Link href="https://www.instagram.com/">
-                  <i className="feather-instagram"></i>
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.linkdin.com/">
-                  <i className="feather-linkedin"></i>
-                </Link>
+                <a href={site_settings.zalo} target={"_blank"}>
+                  <img src={'/images/zalo.png'} width={36} height={36} />
+                </a>
               </li>
             </ul>
           </div>
@@ -145,9 +136,9 @@ const Viedo = ({ checkMatchCourses }) => {
             <p>Thắc mắc về khoá học?</p>
             <p className="rbt-badge-2 mt--10 justify-content-center w-100">
               <i className="feather-phone mr--5"></i> Hotline:{" "}
-              <Link href="#">
-                <strong>0123456789</strong>
-              </Link>
+              <a href={`tel:${site_settings.phone}`} target={"_blank"}>
+                <strong>{site_settings.phone}</strong>
+              </a>
             </p>
           </div>
         </div>

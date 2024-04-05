@@ -89,6 +89,10 @@ class ManageSite extends SettingsPage
                         ->label('Tax Text')
                         ->required()
                         ->maxLength(65535),
+                    Forms\Components\TextInput::make('refund_text')
+                        ->label('Refund Text')
+                        ->required()
+                        ->maxLength(65535),
                 ]),
                 Forms\Components\Tabs\Tab::make('Bank Information')
                     ->schema([

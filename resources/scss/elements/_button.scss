@@ -1,5 +1,5 @@
 /*===================
-Button Area 
+Button Area
 ====================*/
 .rbt-button-group {
     display: flex;
@@ -39,7 +39,7 @@ fieldset:disabled {
     outline: none;
     text-decoration: none;
 
-    // Color Varient 
+    // Color Varient
     &.btn-secondary {
         background: var(--color-secondary);
 
@@ -83,7 +83,7 @@ fieldset:disabled {
         }
     }
 
-    // Border Varient 
+    // Border Varient
     &.btn-border {
         background: transparent;
         border: 2px solid var(--color-border);
@@ -108,7 +108,7 @@ fieldset:disabled {
     }
 
 
-    // Gradient varient 
+    // Gradient varient
     &.btn-gradient {
         color: var(--color-white);
         background-size: 300% 100%;
@@ -130,7 +130,7 @@ fieldset:disabled {
     }
 
 
-    // Marquee 
+    // Marquee
     &.rbt-marquee-btn {
         overflow: hidden;
 
@@ -167,7 +167,7 @@ fieldset:disabled {
         }
     }
 
-    // Switch 
+    // Switch
     &.rbt-switch-btn {
         overflow: hidden;
 
@@ -208,6 +208,7 @@ fieldset:disabled {
             display: inline-block;
             transition: transform 0.5s;
             transform: translateX(7px);
+            font-size:18px
         }
 
         .btn-icon {
@@ -517,7 +518,7 @@ fieldset:disabled {
 
     &:hover {
 
-        // Switch 
+        // Switch
         &.rbt-switch-btn {
             span {
                 transform: translateX(-200%);
@@ -539,7 +540,7 @@ fieldset:disabled {
             }
         }
 
-        // Marquee 
+        // Marquee
         &.rbt-marquee-btn {
             span {
                 animation: btnTxtMarqueeX 2s linear infinite;
@@ -679,7 +680,7 @@ fieldset:disabled {
 
 
 /*-------------------------------
-    Button Bg Color Variation 
+    Button Bg Color Variation
 --------------------------------*/
 
 
@@ -797,7 +798,7 @@ button {
 
 
 /*-----------------------
-    Modern Button  
+    Modern Button
 ------------------------*/
 a {
     &.rbt-moderbt-btn {
@@ -856,7 +857,7 @@ a {
 
 
 /*----------------------------------
-    Education Transparent Button 
+    Education Transparent Button
 ------------------------------------*/
 a,
 button,
@@ -936,7 +937,7 @@ span {
 
 
 /*-----------------------
- Video Player Button 
+ Video Player Button
 -------------------------*/
 .video-popup-wrapper {
     position: relative;

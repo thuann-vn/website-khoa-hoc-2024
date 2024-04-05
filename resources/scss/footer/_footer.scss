@@ -1,8 +1,8 @@
 /*===========================
-    Start Footer Area 
+    Start Footer Area
 =============================*/
 /*-----------------------
-    Footer Style One  
+    Footer Style One
 -------------------------*/
 .footer-style-1 {
     .footer-top {
@@ -16,6 +16,7 @@
     .ft-title {
         color: var(--color-heading);
         margin-bottom: 20px;
+      text-transform: uppercase;
         @media #{$lg-layout} {
             font-size: 18px;
         }
@@ -51,7 +52,7 @@
     }
 
 
-    
+
 }
 
 .footer-widget {

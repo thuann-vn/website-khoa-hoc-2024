@@ -1,5 +1,5 @@
 /*--------------------------
-    Navigation Styles 
+    Navigation Styles
 ----------------------------*/
 
 @media (prefers-reduced-motion: no-preference) {
@@ -20,7 +20,7 @@
             >li {
                 >a {
                     color: var(--color-heading);
-                    font-size: 16px;
+                    font-size: 18px;
                     font-weight: 500;
                     padding: 0 17px;
                     display: flex;
@@ -80,7 +80,7 @@
                     }
                 }
 
-                // Dropdown Menu 
+                // Dropdown Menu
                 &.has-dropdown {
                     .submenu {
                         min-width: 240px;
@@ -137,7 +137,7 @@
                     }
                 }
 
-                // Mega Menu 
+                // Mega Menu
                 &.with-megamenu {
                     position: relative;
 
@@ -378,7 +378,7 @@
 
 
 /*----------------------------
-    Mega Menu Options  
+    Mega Menu Options
 ------------------------------*/
 
 .mega-top-banner {
@@ -502,7 +502,7 @@
 }
 
 /*-----------------------
-    Single Demo  
+    Single Demo
 ------------------------*/
 .single-dropdown-menu-presentation {
     .single-mega-item {
@@ -672,7 +672,7 @@
 
 
 /*----------------------
-    Load More Btn  
+    Load More Btn
 -----------------------*/
 .rbt-megamenu {
     .load-demo-btn {
@@ -687,7 +687,7 @@
 
 
 /*----------------------
-    Extra Css  
+    Extra Css
 ------------------------*/
 
 .rbt-header .rbt-border-bottom-light .mainmenu-nav .mainmenu li.with-megamenu .rbt-megamenu .wrapper {

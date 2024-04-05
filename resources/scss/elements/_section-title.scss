@@ -81,7 +81,7 @@
             &.has-medium-font-size {
                 padding: 0 23%;
                 letter-spacing: -0.5px;
-                
+
                 @media #{$lg-layout} {
                     padding: 0 10%;
                 }
@@ -140,6 +140,7 @@
     font-size: 20px;
     padding-bottom: 20px;
     border-bottom: 2px solid var(--color-border-2);
+  text-transform: uppercase
 }
 
 
