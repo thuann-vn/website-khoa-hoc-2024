@@ -29,7 +29,7 @@ class EditCourseLesson extends NestedEditRecord
         //Check if video is changed
         $oldVideoUrl = $this->record->video_url;
         $lessonVideo = CourseLessonVideo::where('course_lesson_id', $this->record->id)->first();
-        if((!empty($data['video_url']) && $oldVideoUrl != $data['video_url']) || empty($lessonVideo) || ($lessonVideo->status == 2) || ($lessonVideo->status == 1 && $lessonVideo->progress <= 100)){
+        if(true || (!empty($data['video_url']) && $oldVideoUrl != $data['video_url']) || empty($lessonVideo) || ($lessonVideo->status == 2) || ($lessonVideo->status == 1 && $lessonVideo->progress <= 100)){
             if(!empty($lessonVideo)){
                 $lessonVideo->delete();
             }
