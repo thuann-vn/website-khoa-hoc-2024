@@ -47,8 +47,12 @@ class ProcessVideo implements ShouldQueue
             FFMpeg::fromDisk('public')
                 ->open($this->lessonVideo->video_url)
                 ->exportForHLS()
-                ->addFormat($lowBitrate)
-                ->addFormat($midBitrate)
+                ->addFormat($lowBitrate, function($media) {
+                    $media->addFilter('scale=640:480');
+                })
+                ->addFormat($midBitrate, function($media) {
+                    $media->scale(960, 720);
+                })
                 ->addFormat($highBitrate)
                 ->toDisk('public')
                 ->onProgress(function ($percentage) use ($lessonVideo) {

@@ -5,19 +5,25 @@ import Instructor from "./Course-Sections/Instructor";
 import Overview from "./Course-Sections/Overview";
 import Viedo from "./Course-Sections/Viedo";
 import { getImageStoragePath } from '@/helper'
-import React from 'react'
+import React, { useState } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
-
+import qualitySelector from "jb-videojs-hls-quality-selector";
 const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
 
   const videoRef = React.useRef(null)
   const playerRef = React.useRef(null)
+  const [player, setPlayer] = useState(undefined);
   const options = {
+    playbackRates: [0.25, 0.5, 1, 1.5, 2],
     autoplay: true,
     controls: true,
     responsive: true,
     fluid: true,
+    seekButtons: {
+      forward: 5,
+      back: 5,
+    },
     html5: {
       hls: {
         withCredentials: true,
@@ -40,8 +46,6 @@ const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
       // @ts-ignore
       const player = playerRef.current = videojs(videoElement, options, () => {
         videojs.log('player is ready')
-        // @ts-ignore
-        onReady && onReady(player)
       })
 
       player.src({
@@ -49,6 +53,7 @@ const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
         type: 'application/x-mpegURL',
         withCredentials: true,
       })
+      setPlayer(player);
     } else {
       const player = playerRef.current
 
@@ -60,6 +65,10 @@ const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
       })
     }
   }, [options, videoRef, demoLesson])
+
+  React.useEffect(() => {
+    if (player) player.hlsQualitySelector({ displayCurrentQuality: true });
+  }, [player]);
 
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
@@ -74,7 +83,6 @@ const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
       }
     }
   }, [playerRef])
-
 
   return (
     <>
