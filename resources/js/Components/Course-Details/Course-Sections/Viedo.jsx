@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import Image from "next/image";
 import { Link, usePage } from '@inertiajs/react'
 
 import "venobox/dist/venobox.min.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useAppContext } from "@/context/Context";
-import { addToCartAction } from "@/redux/action/CartAction";
 import { currency, getImageStoragePath } from '@/helper'
-import { Button, Modal } from 'react-bootstrap'
 
-const Viedo = ({ checkMatchCourses }) => {
+const Viedo = ({ checkMatchCourses, onChangeVideo }) => {
   const { cartToggle, setCart } = useAppContext();
   const [toggle, setToggle] = useState(false);
   const [hideOnScroll, setHideOnScroll] = useState(false);

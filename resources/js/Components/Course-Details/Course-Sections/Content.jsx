@@ -1,7 +1,7 @@
 import React from 'react'
 import { durationToTime } from '@/helper'
 
-const Content = ({ checkMatchCourses }) => {
+const Content = ({ checkMatchCourses, onChangeVideo }) => {
   return (
     <>
       <div className="rbt-course-feature-inner">
@@ -52,7 +52,9 @@ const Content = ({ checkMatchCourses }) => {
                                   {lesson.is_trial ? (
                                     <div className="course-content-right">
                                       <span>
-                                        <a href={'#demo-video'} className="rbt-badge variation-03 bg-primary-opacity">
+                                        <a href={'#demo-video'} onClick={()=>{
+                                          onChangeVideo(lesson)
+                                        }} className="rbt-badge variation-03 bg-primary-opacity">
                                           <i className="feather-eye"></i> Xem
                                         </a>
                                       </span>
@@ -80,7 +82,9 @@ const Content = ({ checkMatchCourses }) => {
                             {lesson.is_trial ? (
                               <div className="course-content-right">
                                   <span>
-                                    <a href={'#demo-video'} className="rbt-badge variation-03 bg-primary-opacity">
+                                    <a href={'#demo-video'} onClick={()=>{
+                                      onChangeVideo(lesson)
+                                    }} className="rbt-badge variation-03 bg-primary-opacity">
                                       <i className="feather-eye"></i> Xem
                                     </a>
                                   </span>

@@ -26,10 +26,14 @@ class EditCourseLesson extends NestedEditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        $data['duration'] = $data['minutes'] * 60 + $data['seconds'];
+        unset($data['minutes']);
+        unset($data['seconds']);
+
         //Check if video is changed
         $oldVideoUrl = $this->record->video_url;
         $lessonVideo = CourseLessonVideo::where('course_lesson_id', $this->record->id)->first();
-        if(true || (!empty($data['video_url']) && $oldVideoUrl != $data['video_url']) || empty($lessonVideo) || ($lessonVideo->status == 2) || ($lessonVideo->status == 1 && $lessonVideo->progress <= 100)){
+        if((!empty($data['video_url']) && $oldVideoUrl != $data['video_url']) || empty($lessonVideo) || ($lessonVideo->status == 2) || ($lessonVideo->status == 1 && $lessonVideo->progress <= 100)){
             if(!empty($lessonVideo)){
                 $lessonVideo->delete();
             }

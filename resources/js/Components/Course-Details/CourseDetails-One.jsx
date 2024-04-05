@@ -8,18 +8,18 @@ import { getImageStoragePath } from '@/helper'
 import React, { useState } from 'react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
-import qualitySelector from "jb-videojs-hls-quality-selector";
+import "jb-videojs-hls-quality-selector";
 const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
 
   const videoRef = React.useRef(null)
   const playerRef = React.useRef(null)
   const [player, setPlayer] = useState(undefined);
   const options = {
-    playbackRates: [0.25, 0.5, 1, 1.5, 2],
     autoplay: true,
     controls: true,
     responsive: true,
     fluid: true,
+    playbackRates: [0.25, 0.5, 1, 1.5, 2],
     seekButtons: {
       forward: 5,
       back: 5,
@@ -67,7 +67,7 @@ const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
   }, [options, videoRef, demoLesson])
 
   React.useEffect(() => {
-    if (player) player.hlsQualitySelector({ displayCurrentQuality: true });
+    if (player && player.hlsQualitySelector) player.hlsQualitySelector({ displayCurrentQuality: true });
   }, [player]);
 
   // Dispose the Video.js player when the functional component unmounts
@@ -110,7 +110,15 @@ const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
             className="course-content rbt-shadow-box coursecontent-wrapper mt--30"
             id="coursecontent"
           >
-            <Content checkMatchCourses={course} />
+            <Content checkMatchCourses={course}  onChangeVideo={(lesson)=>{
+              if(player){
+                player.src({
+                  src: '/video/' + lesson.id,
+                  type: 'application/x-mpegURL',
+                  withCredentials: true,
+                })
+              }
+            }}/>
           </div>
           <div
             className="rbt-instructor rbt-shadow-box intructor-wrapper mt--30"
@@ -124,7 +132,7 @@ const CourseDetailsOne = ({ checkMatchCourses, course, demoLesson }) => {
       <div className="col-lg-4">
         <div className="course-sidebar sticky-top rbt-shadow-box course-sidebar-top rbt-gradient-border">
           <div className="inner">
-            <Viedo checkMatchCourses={course} />
+            <Viedo checkMatchCourses={course}/>
           </div>
         </div>
       </div>

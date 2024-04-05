@@ -1,19 +1,19 @@
 import { Head, Link } from '@inertiajs/react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
-import React from 'react'
+import React, { useState } from 'react'
 import LearningLayout from '@/Layouts/LearningLayout'
 import PrimaryButton from '@/Components/PrimaryButton'
 import { Button, ProgressBar } from 'react-bootstrap'
 import { durationToTime, getImageStoragePath } from '@/helper'
 import axios from 'axios'
+import "jb-videojs-hls-quality-selector";
 
 export default function DashboardPage({ course, learningProgress }: { course: any, learningProgress: any }) {
   const [activeLesson, setActiveLesson] = React.useState<any>(null)
   const [courseProgress, setCourseProgress] = React.useState<any>(learningProgress)
   const [activeLessonIndex, setActiveLessonIndex] = React.useState<number>(0)
-  const [activeChapterIndex, setActiveChapterIndex] = React.useState<number>(0)
-  const [activeSectionIndex, setActiveSectionIndex] = React.useState<number>(0)
+  const [player, setPlayer] = useState();
 
   const videoRef = React.useRef(null)
   const playerRef = React.useRef(null)
@@ -22,6 +22,11 @@ export default function DashboardPage({ course, learningProgress }: { course: an
     controls: true,
     responsive: true,
     fluid: true,
+    playbackRates: [0.25, 0.5, 1, 1.5, 2],
+    seekButtons: {
+      forward: 5,
+      back: 5,
+    },
     html5: {
       hls: {
         withCredentials: true,
@@ -53,6 +58,9 @@ export default function DashboardPage({ course, learningProgress }: { course: an
         type: 'application/x-mpegURL',
         withCredentials: true,
       })
+
+      // @ts-ignore
+      setPlayer(player);
     } else {
       const player = playerRef.current
 
@@ -64,6 +72,11 @@ export default function DashboardPage({ course, learningProgress }: { course: an
       })
     }
   }, [options, videoRef, activeLesson])
+
+  React.useEffect(() => {
+    // @ts-ignore
+    if (player && player.hlsQualitySelector) player.hlsQualitySelector({ displayCurrentQuality: true });
+  }, [player]);
 
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
@@ -167,8 +180,6 @@ export default function DashboardPage({ course, learningProgress }: { course: an
       startLesson(nextLesson, nextLessonIndex)
     }
   }
-
-  console.log(activeLesson?.attachments)
 
   // @ts-ignore
   return (
@@ -338,7 +349,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                     <p className="lesson-description"
                        dangerouslySetInnerHTML={{ __html: activeLesson?.description }}></p>
                     {
-                      activeLesson.attachments?.length ? (
+                      activeLesson && activeLesson.attachments?.length ? (
                         <>
                           <p>
                             <strong>Tệp đính kèm:</strong>
@@ -370,7 +381,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                   <h3 className="lesson-title">{course?.name}</h3>
                   <p className="lesson-description"
                      dangerouslySetInnerHTML={{ __html: course?.description }}></p>{
-                  activeLesson.attachments?.length ? (
+                  activeLesson && activeLesson.attachments?.length ? (
                     <>
                       <p>
                         <strong>Tệp đính kèm:</strong>

@@ -86,8 +86,21 @@ class CourseLessonResource extends NestedResource
                             ->maxLength(65535)
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('duration')
+                            ->visible(false)
                             ->numeric()
+                            ->afterStateHydrated(function (string $state, Set $set) {
+                                $set('minutes', floor($state / 60));
+                                $set('seconds', $state % 60);
+                            })
                             ->default(0),
+                        Forms\Components\Group::make([
+                            Forms\Components\TextInput::make('minutes')
+                                ->numeric()
+                                ->default(0),
+                            Forms\Components\TextInput::make('seconds')
+                                ->numeric()
+                                ->default(0),
+                        ])->columns(2),
                         Forms\Components\Hidden::make('position')
                             ->default(0),
                         Forms\Components\Toggle::make('is_trial')
