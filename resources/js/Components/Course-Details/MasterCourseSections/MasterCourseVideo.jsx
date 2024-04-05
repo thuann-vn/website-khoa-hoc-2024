@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import Image from "next/image";
 import { Link, usePage } from '@inertiajs/react'
-
 import "venobox/dist/venobox.min.css";
-
 import { currency, getImageStoragePath } from '@/helper'
-import { PageProps } from '@/types'
 
 const Viedo = ({ checkMatchCourses }) => {
   const [hideOnScroll, setHideOnScroll] = useState(false);
