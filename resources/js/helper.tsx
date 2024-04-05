@@ -14,7 +14,18 @@ export const durationToTime = (duration: number) => {
   //To minutes:seconds
   let minutes = Math.floor(duration / 60);
   let seconds = duration - minutes * 60;
-  return `${minutes}:${seconds}`
+  let secondsInText = seconds.toString();
+  let minutesInText = minutes.toString();
+
+  if(seconds < 10) {
+    secondsInText = `0${seconds}`
+  }
+
+  if(minutes < 10) {
+    minutesInText = `0${minutes}`
+  }
+
+  return `${minutesInText}:${secondsInText}`
 }
 
 export const formatDateTime = (date: string) => {

@@ -228,6 +228,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                   expand: string | boolean | undefined;
                   name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined;
                   duration: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined;
+                  duration_sum: number,
                   lessons: {
                     name: string | number | boolean | React.ReactPortal | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined;
                     duration: number;
@@ -255,7 +256,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                         aria-controls={`collapseTwo${sectionIndex + 1}`}
                       >
                         {item.name}
-                        <span className="rbt-badge-5 ml--10">{item.duration} phút</span>
+                        <span className="rbt-badge-5 ml--10">{item.duration_sum} phút</span>
                       </button>
                     </h2>
                     <div

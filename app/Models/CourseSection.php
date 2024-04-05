@@ -24,6 +24,8 @@ class CourseSection extends Model {
         'updated_by'
     ];
 
+    protected $appends = ['duration_sum'];
+
     public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');
@@ -37,5 +39,13 @@ class CourseSection extends Model {
     public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(CourseLesson::class, 'course_section_id');
+    }
+
+    public function getDurationSumAttribute(): float
+    {
+        //Count all the lessons in the course
+        return round($this->lessons->map(function ($lesson) {
+                return $lesson->duration ?? 0;
+            })->sum() / 60, 0);
     }
 }

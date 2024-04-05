@@ -28,7 +28,7 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
                     aria-controls={`collapseTwo${innerIndex + 1}`}
                   >
                     {item.name}
-                    <span className="rbt-badge-5 ml--10">{item.duration} phút</span>
+                    <span className="rbt-badge-5 ml--10">{item.duration_sum} phút</span>
                   </button>
                 </h2>
                 <div

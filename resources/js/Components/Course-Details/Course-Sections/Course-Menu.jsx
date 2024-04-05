@@ -14,13 +14,15 @@ const CourseMenu = () => {
     ];
     const observer = new IntersectionObserver(
       (entries) => {
+        var isIntersecting = false;
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !isIntersecting) {
             setCurrentSection(`#${entry.target.id}`);
+            isIntersecting = true;
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 1.0 }
     );
 
     sections.forEach((section) => {
