@@ -44,7 +44,13 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
                           {
                             chapter.lessons.map((lesson, lessionIdx) => {
                               return <li key={subIndex}>
-                                <a href="javascript:void">
+                                <a href="#demo-video" onClick={(e)=>{
+                                  if(lesson.is_trial) {
+                                    onChangeVideo(lesson)
+                                  }else{
+                                    e.preventDefault()
+                                  }
+                                }}>
                                   <div className="course-content-left">
                                     <i className="feather-play-circle"></i>
                                     <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
@@ -52,13 +58,10 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
                                   {lesson.is_trial ? (
                                     <div className="course-content-right">
                                       <span>
-                                        <a href={'#demo-video'} onClick={()=>{
-                                          onChangeVideo(lesson)
-                                        }} className="rbt-badge variation-03 bg-primary-opacity">
+                                        <a href={'#demo-video'} className="rbt-badge variation-03 bg-primary-opacity">
                                           <i className="feather-eye"></i> Xem
                                         </a>
                                       </span>
-
                                     </div>
                                   ) : (
                                     <div className="course-content-right">
@@ -74,7 +77,13 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
                         </li>
                       )) : item.lessons.map((lesson, subIndex) => (
                         <li key={subIndex}>
-                          <a href="javascript:void">
+                          <a href="#demo-video" onClick={(e)=>{
+                            if(lesson.is_trial) {
+                              onChangeVideo(lesson)
+                            }else{
+                              e.preventDefault()
+                            }
+                          }}>
                             <div className="course-content-left">
                               <i className="feather-play-circle"></i>
                               <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
