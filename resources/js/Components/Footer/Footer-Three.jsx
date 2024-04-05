@@ -44,6 +44,7 @@ const FooterThree = () => {
                         <a
                           className="rbt-btn hover-icon-reverse btn-border-gradient radius-round"
                           href={"tel:" + site_settings.phone}
+                          target={"_blank"}
                         >
                           <div className="icon-reverse-wrapper">
                             <span className="btn-text">Liên hệ chúng tôi</span>
@@ -76,13 +77,13 @@ const FooterThree = () => {
                         </li>
                         <li>
                           <span>Hotline:</span>{' '}
-                          <Link href="#">{site_settings.phone}</Link>
+                          <a href={"tel:" + site_settings.phone} target={"_blank"}>{site_settings.phone}</a>
                         </li>
                         <li>
                           <span>E-mail:</span>{' '}
-                          <Link href="mailto:hr@example.com">
+                          <a href={"mailto:" + site_settings.email} target={"_blank"}>
                             {site_settings.email}
-                          </Link>
+                          </a>
                         </li>
                         <li>
                           <span>Địa chỉ:</span> {site_settings.address}
@@ -91,13 +92,13 @@ const FooterThree = () => {
                       <ul className="social-icon social-default icon-naked justify-content-start mt--20">
                         {socialLink.map((value, innerIndex) => (
                           <li key={innerIndex}>
-                          <Link href={value.link}>
+                          <a href={value.link} target={"_blank"}>
                             {
                               value.icon === 'feather-zalo' ?
                                 <img src={'/images/zalo.png'} width={36} height={36} /> :
                                 <img src={'/images/facebook.png'} width={36} height={36} />
                             }
-                          </Link>
+                          </a>
                           </li>
                         ))}
                       </ul>
