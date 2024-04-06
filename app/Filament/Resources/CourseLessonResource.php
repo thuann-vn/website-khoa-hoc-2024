@@ -82,7 +82,6 @@ class CourseLessonResource extends NestedResource
                             ->maxLength(255)
                             ->columnSpanFull(),
                         Forms\Components\RichEditor::make('description')
-                            ->required()
                             ->maxLength(65535)
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('duration')
@@ -95,11 +94,11 @@ class CourseLessonResource extends NestedResource
                             ->default(0),
                         Forms\Components\Group::make([
                             Forms\Components\TextInput::make('minutes')
-                                ->numeric()
-                                ->default(0),
+                                ->required()
+                                ->numeric(),
                             Forms\Components\TextInput::make('seconds')
-                                ->numeric()
-                                ->default(0),
+                                ->required()
+                                ->numeric(),
                         ])->columns(2),
                         Forms\Components\Hidden::make('position')
                             ->default(0),
