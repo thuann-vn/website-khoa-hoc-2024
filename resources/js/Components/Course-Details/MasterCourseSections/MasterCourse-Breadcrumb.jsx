@@ -20,7 +20,7 @@ const CourseBreadcrumb = ({ getMatchCourse }) => {
             </li>
           </ul>
           <h2 className="title">{getMatchCourse.name}</h2>
-          <p className="description">{getMatchCourse.description}</p>
+          {/*<p className="description">{getMatchCourse.description}</p>*/}
 
           <div className="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
             <div className="feature-sin rating">
