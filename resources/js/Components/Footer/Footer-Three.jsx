@@ -77,16 +77,19 @@ const FooterThree = () => {
                         </li>
                         <li>
                           <span>Hotline:</span>{' '}
-                          <a href={"tel:" + site_settings.phone} target={"_blank"}>{site_settings.phone}</a>
+                          <a href={'tel:' + site_settings.phone} target={'_blank'}>{site_settings.phone}</a>
                         </li>
                         <li>
                           <span>E-mail:</span>{' '}
-                          <a href={"mailto:" + site_settings.email} target={"_blank"}>
+                          <a href={'mailto:' + site_settings.email} target={'_blank'}>
                             {site_settings.email}
                           </a>
                         </li>
                         <li>
                           <span>Địa chỉ:</span> {site_settings.address}
+                        </li>
+                        <li>
+                          <span>Học Offline:</span> 349/14 Nguyễn Trãi, P7, Q5, HCM
                         </li>
                       </ul>
                       <ul className="social-icon social-default icon-naked justify-content-start mt--20">

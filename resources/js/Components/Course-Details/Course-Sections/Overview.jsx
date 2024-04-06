@@ -16,7 +16,7 @@ const Overview = ({ course }) => {
           <div className="section-title">
             <h4 className="rbt-title-style-3">Bạn sẽ học gì ở khóa học này?</h4>
           </div>
-          <p>{description}</p>
+          <div dangerouslySetInnerHTML={{__html: description}}></div>
         </div>
         <div
           className={`rbt-show-more-btn ${toggle ? "active" : ""}`}

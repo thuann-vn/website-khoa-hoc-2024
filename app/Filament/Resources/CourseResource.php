@@ -61,7 +61,7 @@ class CourseResource extends NestedResource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
