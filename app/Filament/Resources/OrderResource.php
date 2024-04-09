@@ -90,6 +90,10 @@ class OrderResource extends Resource
                     ->tel()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('zalo')
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('voucher_code')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('discount')

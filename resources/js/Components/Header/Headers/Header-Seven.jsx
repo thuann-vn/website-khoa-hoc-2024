@@ -67,6 +67,12 @@ const HeaderSeven = ({
                 auth.user ? (
                   <ul className="quick-access">
 
+                    <li className="rbt-btn-wrapper d-none d-xl-block">
+                      <Link className={`rbt-btn me-4 ${btnClass}`} href={route('enrolled-course')}>
+                        <span data-text={`Bắt đầu học`}>Bắt đầu học</span>
+                      </Link>
+                    </li>
+
                     <li className="account-access rbt-user-wrapper d-none d-xl-block">
                       <Link href="#">
                         <i className="feather-user"></i>

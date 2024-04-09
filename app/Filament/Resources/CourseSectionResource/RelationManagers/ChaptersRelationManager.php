@@ -8,8 +8,6 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Guava\Filament\NestedResources\RelationManagers\NestedRelationManager;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ChaptersRelationManager extends NestedRelationManager
 {
@@ -40,6 +38,7 @@ class ChaptersRelationManager extends NestedRelationManager
             ->filters([
                 //
             ])
+            ->reorderable('position')
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])

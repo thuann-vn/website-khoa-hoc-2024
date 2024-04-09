@@ -54,11 +54,11 @@ const CourseWidget = ({
           <ul className="rbt-meta">
             <li>
               <i className="feather-book" />
-              {data.lectures} Bài học
+              {data.course_lesson_count} Bài học
             </li>
             <li>
-              <i className="feather-users" />
-              {data.enrolledStudent} Học viên
+              <i className="feather-clock" />
+              {data.course_duration_sum} Giờ
             </li>
           </ul>
 
@@ -118,26 +118,6 @@ const CourseWidget = ({
           ) : (
             ""
           )}
-
-          {courseStyle === "two" && showAuthor && (
-            <div className="rbt-author-meta mb--20">
-              <div className="rbt-avater">
-                <Link href="components/widgets#">
-                  <img
-                    width={40}
-                    height={40}
-                    src="/images/client/avater-01.png"
-                    alt="Sophia Jaymes"
-                  />
-                </Link>
-              </div>
-              <div className="rbt-author-info">
-                By <Link href="#">Patrick</Link> In{" "}
-                <Link href="#">Languages</Link>
-              </div>
-            </div>
-          )}
-
           {!isProgress ? (
             <div className="rbt-card-bottom">
               <div className="rbt-price">

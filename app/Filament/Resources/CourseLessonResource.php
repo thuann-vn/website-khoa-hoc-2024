@@ -11,13 +11,18 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Guava\Filament\NestedResources\Ancestor;
 use Guava\Filament\NestedResources\Resources\NestedResource;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Livewire\Component;
 
-class CourseLessonResource extends NestedResource
+class CourseLessonResource extends Resource
 {
     protected static ?string $model = CourseLesson::class;
 
@@ -26,6 +31,15 @@ class CourseLessonResource extends NestedResource
     protected static ?string $label = 'Bài học';
     protected static ?string $pluralLabel = 'Bài học';
 
+    protected static ?string $slug = 'lessons';
+    public static string $parentResource = CourseResource::class;
+
+    protected static bool $shouldRegisterNavigation = false;
+
+    public static function getRecordTitle(?Model $record): string|null|Htmlable
+    {
+        return $record->title;
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -37,15 +51,15 @@ class CourseLessonResource extends NestedResource
                             ->image()
                             ->columnSpanFull(),
                         Forms\Components\Group::make([
-                            Forms\Components\Select::make('course_id')
-                                ->label('Khóa học')
-                                ->options(
-                                    Course::all()->pluck('name', 'id')->toArray()
-                                )
-                                ->required()
-                                ->live(),
+                            Forms\Components\Hidden::make('course_id')
+                                ->default(request()->route('parent') ?? request()->input('parent'))
+                                ->required(),
                             Forms\Components\Select::make('course_section_id')
                                 ->label('Phần học')
+                                ->visible(function (Get $get){
+                                    $course = Course::find($get('course_id'));
+                                    return $course->sections()->count();
+                                })
                                 ->options(
                                     function (Get $get) {
                                         return CourseSection::where('course_id', $get('course_id'))->pluck('name', 'id')->toArray();
@@ -53,11 +67,16 @@ class CourseLessonResource extends NestedResource
                                 )
                                 ->createOptionForm(fn (Form $form) => CourseSectionResource::form($form))
                                 ->createOptionUsing(function (array $data, Get $get, ) {
-                                    return CourseSection::create($data + ['course_id' => $get('course_id')]);
+                                    return CourseSection::create($data + ['course_id' =>  request()->route('parent') ?? request()->input('parent')]);
                                 })
                                 ->live(),
                             Forms\Components\Select::make('course_chapter_id')
                                 ->label('Chương học')
+                                ->visible(function (Get $get){
+                                    $courseId = $get('course_id');
+                                    $course = Course::find($courseId);
+                                    return $course->sections()->whereHas('chapters')->count();
+                                })
                                 ->options(
                                     function (Get $get) {
                                         return CourseChapter::where('course_section_id', $get('course_section_id'))->pluck('name', 'id')->toArray();
@@ -67,7 +86,7 @@ class CourseLessonResource extends NestedResource
                                 ->createOptionUsing(function (array $data, Get $get, ) {
                                     return CourseChapter::create($data + ['course_section_id' => $get('course_section_id')]);
                                 })
-                        ])->columns(3),
+                        ])->columns(2),
 
                         Forms\Components\TextInput::make('name')
                             ->required()
@@ -133,18 +152,11 @@ class CourseLessonResource extends NestedResource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image_url'),
-                Tables\Columns\TextColumn::make('course.name')
-                    ->description(function ($record) {
-                        if($record->course?->section?->name && $record->course?->chapter?->name){
-                            return $record->course?->section?->name . ' - ' . $record->course?->chapter?->name;
-                        }else if($record->course?->section?->name) {
-                            return $record->course?->section?->name;
-                        }
-                        return '';
-                    })
-                    ->numeric()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('chapter.name')
+                    ->label('Chương học')
+                    ->numeric()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('duration')
                     ->numeric()
@@ -165,12 +177,27 @@ class CourseLessonResource extends NestedResource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+//            ->defaultGroup('section.name')
+            ->reorderable('position')
             ->filters([
                 //
+//                Tables\Filters\SelectFilter::make('course_id')
+//                    ->options(
+//                        Course::all()->pluck('name', 'id')->toArray()
+//                    )
+//                    ->label('Khóa học'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->url(
+                        fn (Pages\ListCourseLessons $livewire, Model $record): string => static::$parentResource::getUrl('lessons.edit', [
+                            'record' => $record,
+                            'parent' => $livewire->parent,
+                        ])
+                    ),
+                Tables\Actions\DeleteAction::make(),
             ])
+            ->filtersLayout(Tables\Enums\FiltersLayout::AboveContent)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -192,13 +219,5 @@ class CourseLessonResource extends NestedResource
             'create' => Pages\CreateCourseLesson::route('/create'),
             'edit' => Pages\EditCourseLesson::route('/{record}/edit'),
         ];
-    }
-
-    public static function getAncestor() : ?Ancestor
-    {
-        // This is just a simple configuration with a few helper methods
-        return Ancestor::make(
-            CourseResource::class, // Parent Resource Class
-        );
     }
 }

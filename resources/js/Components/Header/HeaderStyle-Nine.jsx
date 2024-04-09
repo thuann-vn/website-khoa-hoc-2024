@@ -12,7 +12,7 @@ const HeaderStyleNine = () => {
           gapSpaceBetween=""
           navigationEnd="rbt-navigation-end"
           btnClass="rbt-switch-btn btn-gradient btn-sm hover-transform-none"
-          btnText="Đăng nhập"
+          btnText="Đăng nhập để học"
           headerType="123"
         />
       </header>

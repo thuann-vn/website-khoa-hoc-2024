@@ -28,6 +28,22 @@ export const durationToTime = (duration: number) => {
   return `${minutesInText}:${secondsInText}`
 }
 
+export const minuteToHoursMinutes = (minutes: number) => {
+  let hours = Math.floor(minutes / 60);
+  let remainingMinutes = minutes - hours * 60;
+  let hoursInText = hours.toString();
+  let minutesInText = remainingMinutes.toString();
+
+  if(remainingMinutes < 10) {
+    minutesInText = `0${remainingMinutes}`
+  }
+
+  if(hoursInText === '0') {
+    return `${minutesInText} phút`
+  }
+  return `${hoursInText} giờ ${minutesInText} phút`
+}
+
 export const formatDateTime = (date: string) => {
   return moment(date).format('DD/MM/YYYY')
 }

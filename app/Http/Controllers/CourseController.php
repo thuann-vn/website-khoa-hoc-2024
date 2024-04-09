@@ -85,7 +85,14 @@ class CourseController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
+            'zalo' => 'required_if:is_zalo_same_phone,false',
             'course_id' => 'required',
+        ], [
+            'zalo.required_if' => 'Vui lòng nhập Zalo',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Email không hợp lệ',
+            'name.required' => 'Vui lòng nhập họ tên',
         ]);
         $course = \App\Models\Course::whereId($request->course_id)->first();
         $type  =$request->type ?? 'default';
@@ -95,6 +102,7 @@ class CourseController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'zalo' => $request->is_zalo_same_phone ? $request->phone : $request->zalo,
             'course_id' => $course->id,
             'course_section_id' => null,
             'payment_status' => 'pending',

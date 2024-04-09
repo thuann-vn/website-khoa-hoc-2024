@@ -2,9 +2,13 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\CourseLessonResource\Pages\CreateCourseLesson;
+use App\Filament\Resources\CourseLessonResource\Pages\EditCourseLesson;
+use App\Filament\Resources\CourseLessonResource\Pages\ListCourseLessons;
 use App\Filament\Resources\CourseResource\Pages;
 use App\Filament\Resources\CourseResource\RelationManagers;
 use App\Models\Course;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -13,14 +17,20 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Guava\Filament\NestedResources\Resources\NestedResource;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
 
 class CourseResource extends NestedResource
 {
+
+    public static function getRecordTitle(?Model $record): string|null|Htmlable
+    {
+        return $record->name ?? '';
+    }
+
     protected static ?string $model = Course::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -75,9 +85,9 @@ class CourseResource extends NestedResource
                     ->required()
                     ->numeric()
                     ->default(0),
-                Forms\Components\TextInput::make('duration')
-                    ->required()
-                    ->numeric(),
+//                Forms\Components\TextInput::make('duration')
+//                    ->required()
+//                    ->numeric(),
                 Forms\Components\Toggle::make('is_active')
                     ->required(),
             ]);
@@ -98,9 +108,9 @@ class CourseResource extends NestedResource
                 MoneyColumn::make('price')
                     ->money('VND')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('duration')
-                    ->numeric()
-                    ->sortable(),
+//                Tables\Columns\TextColumn::make('duration')
+//                    ->numeric()
+//                    ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -117,6 +127,14 @@ class CourseResource extends NestedResource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Manage lessons')
+                    ->color('success')
+                    ->icon('heroicon-m-academic-cap')
+                    ->url(
+                        fn (Course $record): string => static::getUrl('lessons.index', [
+                            'parent' => $record->id,
+                        ])
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -129,7 +147,7 @@ class CourseResource extends NestedResource
     {
         return [
             //
-            RelationManagers\LessonsRelationManager::class,
+//            RelationManagers\LessonsRelationManager::class,
             RelationManagers\SectionsRelationManager::class
         ];
     }
@@ -140,6 +158,11 @@ class CourseResource extends NestedResource
             'index' => Pages\ListCourses::route('/'),
             'create' => Pages\CreateCourse::route('/create'),
             'edit' => Pages\EditCourse::route('/{record}/edit'),
+
+            // Lessons
+            'lessons.index' => ListCourseLessons::route('/{parent}/lessons'),
+            'lessons.create' => CreateCourseLesson::route('/{parent}/lessons/create'),
+            'lessons.edit' => EditCourseLesson::route('/{parent}/lessons/{record}/edit'),
         ];
     }
 }

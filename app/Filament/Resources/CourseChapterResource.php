@@ -106,7 +106,7 @@ class CourseChapterResource extends NestedResource
     {
         return [
             //
-            RelationManagers\LessonsRelationManager::class
+//            RelationManagers\LessonsRelationManager::class
         ];
     }
 

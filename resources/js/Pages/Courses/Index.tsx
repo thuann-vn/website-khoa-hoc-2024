@@ -41,7 +41,7 @@ export default function CourseIndex({
         <div className="rbt-section-overlayping-top rbt-section-gapBottom">
           <div className="inner">
             <div className="container">
-              <CourseFilterOneToggle course={getSelectedCourse} start={0} end={1} />
+              <CourseFilterOneToggle course={getSelectedCourse} start={0} end={6} />
 
               {getAllCourse.length > 6 ? (
                 <div className="row">

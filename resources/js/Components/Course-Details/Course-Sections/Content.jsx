@@ -1,5 +1,5 @@
 import React from 'react'
-import { durationToTime } from '@/helper'
+import { durationToTime, minuteToHoursMinutes } from '@/helper'
 
 const Content = ({ checkMatchCourses, onChangeVideo }) => {
   return (
@@ -15,7 +15,6 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
                 <h2
                   className="accordion-header card-header"
                   id={`headingTwo${innerIndex}`}
-
                 >
                   <button
                     className={`accordion-button ${
@@ -28,7 +27,7 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
                     aria-controls={`collapseTwo${innerIndex + 1}`}
                   >
                     {item.name}
-                    <span className="rbt-badge-5 ml--10">{item.duration_sum} phút</span>
+                    <span className="rbt-badge-5 ml--10">{minuteToHoursMinutes(item.duration_sum)}</span>
                   </button>
                 </h2>
                 <div

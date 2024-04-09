@@ -38,7 +38,7 @@ class Course extends Model {
 
     public function sections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CourseSection::class, 'course_id');
+        return $this->hasMany(CourseSection::class, 'course_id')->orderBy('position');
     }
 
     public function masterCourses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -89,6 +89,6 @@ class Course extends Model {
 
     public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CourseLesson::class, 'course_id');
+        return $this->hasMany(CourseLesson::class, 'course_id')->orderBy('position');
     }
 }

@@ -33,12 +33,12 @@ class CourseSection extends Model {
 
     public function chapters(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CourseChapter::class, 'course_section_id');
+        return $this->hasMany(CourseChapter::class, 'course_section_id')->orderBy('position');
     }
 
     public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CourseLesson::class, 'course_section_id');
+        return $this->hasMany(CourseLesson::class, 'course_section_id')->orderBy('position');
     }
 
     public function getDurationSumAttribute(): float

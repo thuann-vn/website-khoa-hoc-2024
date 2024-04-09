@@ -35,7 +35,11 @@ export default function Login({ status, canResetPassword }: { status?: string, c
             <div className={"col-md-6 offset-3"}>
               <div className="discount-coupon edu-bg-shade">
                 <div className="section-title text-start">
-                  <h4 className="title mb--30">Đăng nhập</h4>
+                  <h4 className="title mb-4">Đăng nhập</h4>
+
+                  <p className={"mb--30 text-gray-400"}>
+                    Vui lòng mua khoá học để được cấp tài khoản hoặc liên hệ tư vấn - Zalo / Hotline
+                  </p>
                 </div>
 
                 {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}

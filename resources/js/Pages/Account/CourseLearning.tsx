@@ -336,7 +336,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
           </div>
         </div>
         <div className={'col-md-9 lesson-outer-container'}>
-          <div className={'lesson-container'}>
+          <div className={'lesson-container px-4'}>
             {
               activeLesson ? (
                 <div>
@@ -402,7 +402,18 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                   <div className="lesson-action">
                     <PrimaryButton onClick={(e) => {
                       e.preventDefault()
-                      startLesson(course.sections[0]['chapters'][0]['lessons'][0], 0)
+
+                      //Find and continue the lesson
+                      if(Object.keys(courseProgress).length){
+                        course.lessons.forEach((lesson: any, index: number) => {
+                          if(!courseProgress[lesson.id] || courseProgress[lesson.id].status != 'completed'){
+                            return startLesson(lesson, index)
+                          }
+                        })
+                        startLesson(course.lessons[0], 0)
+                      }else {
+                        startLesson(course.lessons[0], 0)
+                      }
                     }}>
                       Bắt đầu học
                     </PrimaryButton>

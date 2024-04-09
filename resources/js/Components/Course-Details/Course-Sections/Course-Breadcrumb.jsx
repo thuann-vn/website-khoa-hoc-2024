@@ -57,9 +57,12 @@ const CourseBreadcrumb = ({ getMatchCourse }) => {
             </div>
 
             <div className="feature-sin total-rating">
-              <Link className="rbt-badge-4" href="#">
+              <span className="rbt-badge-4">
                 {getMatchCourse.course_lesson_count} bài học
-              </Link>
+              </span>
+              <span className="rbt-badge-4">
+                {getMatchCourse.course_duration_sum} giờ học
+              </span>
             </div>
           </div>
 

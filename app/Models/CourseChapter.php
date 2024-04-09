@@ -15,6 +15,6 @@ class CourseChapter extends Model {
 
     public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CourseLesson::class, 'course_chapter_id');
+        return $this->hasMany(CourseLesson::class, 'course_chapter_id')->orderBy('position');
     }
 }

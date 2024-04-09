@@ -35,6 +35,7 @@ class SectionsRelationManager extends NestedRelationManager
             ->filters([
                 //
             ])
+            ->reorderable('position')
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])
