@@ -44,7 +44,8 @@ class LearningController extends Controller
         if(!$lesson->is_trial){
             //Check if user have access to the lesson
             if(auth()->check()){
-                $userCourses = \App\Models\UserCourse::where('user_id', auth()->user()->id)->where('course_id', $lesson->chapter->section->course_id)->first();
+                $userCourses = \App\Models\UserCourse::where('user_id', auth()->user()->id)
+                    ->where('course_id', $lesson->course_id)->first();
                 if(empty($userCourses)){
                     return redirect()->route('enrolled-course');
                 }
