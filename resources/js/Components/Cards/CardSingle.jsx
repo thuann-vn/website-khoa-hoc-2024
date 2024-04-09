@@ -88,7 +88,12 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
             ) : null
           }
 
-          {isDesc ? <div className="rbt-card-text line-clamp-4 block overflow-hidden" dangerouslySetInnerHTML={{__html: data.description}}></div> : ''}
+          {isDesc ? <div className="rbt-card-text block overflow-hidden" style={{
+            "WebkitLineClamp": "5",
+            "display": "-webkit-box",
+            "WebkitBoxOrient": "vertical",
+            "overflow": "hidden",
+          }} data-line-clamp={3} dangerouslySetInnerHTML={{__html: data.description}}></div> : ''}
           {isUser ? (
             <div className="rbt-author-meta mb--10">
               <div className="rbt-avater">
