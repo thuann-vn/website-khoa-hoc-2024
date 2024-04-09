@@ -76,7 +76,12 @@ const CourseFilterOneToggle = ({ course, start, end }) => {
                   </li>
                 </ul>
 
-                <div className="rbt-card-text" dangerouslySetInnerHTML={{__html: data.description}}></div>
+                <div className="rbt-card-text" dangerouslySetInnerHTML={{__html: data.description}} style={{
+                  "WebkitLineClamp": "5",
+                  "display": "-webkit-box",
+                  "WebkitBoxOrient": "vertical",
+                  "overflow": "hidden",
+                }}></div>
                 <div className="rbt-author-meta mb--10">
                   <div className="rbt-avater">
                     <Link href={route("courses-detail", data.slug)}>
