@@ -28,13 +28,16 @@ class Teacher extends User{
         return $this->hasMany(Course::class, 'teacher_id');
     }
 
-    public function getCourseCountAttribute()
+    public function getCourseCountAttribute(): int
     {
         return $this->courses->count();
     }
 
-    public function getStudentCountAttribute()
+    public function getStudentCountAttribute(): int
     {
-        return $this->courses->sum('students_count');
+        //Count all the students in the courses
+        $countIds = $this->courses->pluck('id');
+        $students = \App\Models\UserCourse::whereIn('course_id', $countIds)->get();
+        return $students->count();
     }
 }

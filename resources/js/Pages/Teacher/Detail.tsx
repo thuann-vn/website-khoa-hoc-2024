@@ -1,18 +1,9 @@
 import { Head, Link } from '@inertiajs/react'
 import { PageProps } from '@/types'
 import Guest from '@/Layouts/GuestLayout'
-import CourseHead from '@/Components/Course-Details/Course-Sections/course-head'
-import CourseDetailsOne from '@/Components/Course-Details/CourseDetails-One'
-import CourseActionBottom from '@/Components/Course-Details/Course-Sections/Course-Action-Bottom'
-import MasterCourseDetails from '@/Components/Course-Details/MasterCourseDetails'
-import MasterCourseBreadcrumb from '@/Components/Course-Details/MasterCourseSections/MasterCourse-Breadcrumb'
 import UserProfile from '@/Components/User-Profile/User-Profile'
 import Biography from '@/Components/User-Profile/User-Biography'
-import UserCourses from '@/Components/User-Profile/User-Courses'
-import { Key } from 'react'
-import { JSX } from 'react/jsx-runtime'
 import Card from '@/Components/Cards/Card'
-import CardSingle from '@/Components/Cards/CardSingle'
 
 export default function CourseIndex({
   teacher, includeCourses,
