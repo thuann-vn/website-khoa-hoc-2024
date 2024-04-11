@@ -94,6 +94,21 @@ class ManageSite extends SettingsPage
                         ->required()
                         ->maxLength(65535),
                 ]),
+                Forms\Components\Tabs\Tab::make('SEO Information')
+                    ->schema([
+                        Forms\Components\TextInput::make('seo_title')
+                            ->label('SEO Title')
+                            ->maxLength(255),
+                        Forms\Components\Textarea::make('seo_description')
+                            ->label('SEO Description')
+                            ->maxLength(65535),
+                        Forms\Components\TextInput::make('seo_keywords')
+                            ->label('SEO Keywords')
+                            ->maxLength(255),
+                        Forms\Components\Textarea::make('custom_js')
+                            ->label('Custom JS')
+                            ->maxLength(65535),
+                    ]),
                 Forms\Components\Tabs\Tab::make('Bank Information')
                     ->schema([
 

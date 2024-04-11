@@ -373,7 +373,6 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                   })
                 }
               </ul>
-
               <hr />
               <strong>Nộp bài:</strong>
               <FilePond

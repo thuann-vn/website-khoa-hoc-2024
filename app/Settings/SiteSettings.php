@@ -43,6 +43,12 @@ class SiteSettings extends Settings
     public string $company_tax_text;
     public string $refund_text;
 
+    public string $seo_title;
+    public string $seo_description;
+    public string $seo_keywords;
+    public string $seo_image;
+    public string $custom_js;
+
     public static function group(): string
     {
         return 'general';

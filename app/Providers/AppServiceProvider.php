@@ -6,6 +6,9 @@ use App\Models\CourseLesson;
 use App\Models\Order;
 use App\Observers\CourseLessonObserver;
 use App\Observers\OrderObserver;
+use App\Settings\SiteSettings;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,5 +33,8 @@ class AppServiceProvider extends ServiceProvider
         //
         Order::observe(OrderObserver::class);
         CourseLesson::observe(CourseLessonObserver::class);
+
+        $appSettings = app(SiteSettings::class);
+        SEOMeta::setTitleDefault($appSettings->seo_title);
     }
 }
