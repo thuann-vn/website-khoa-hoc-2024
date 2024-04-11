@@ -11,7 +11,7 @@ const Biography = ({ checkMatchProfile }) => {
           <h4 className="rbt-title-style-3">Giới thiệu</h4>
           <div className="row g-5">
             <div className="col-lg-8">
-              <p className="mt--10 mb--20">{checkMatchProfile.bio}</p>
+              <div className="mt--10 mb--20" dangerouslySetInnerHTML={{__html: checkMatchProfile.bio}}></div>
               <ul className="rbt-information-list mt--15">
                 <li>
                   <a href={`tel:${checkMatchProfile.phone}`}>

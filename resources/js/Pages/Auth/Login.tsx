@@ -5,9 +5,11 @@ import InputError from '@/Components/InputError'
 import InputLabel from '@/Components/InputLabel'
 import PrimaryButton from '@/Components/PrimaryButton'
 import TextInput from '@/Components/TextInput'
-import { Head, Link, useForm } from '@inertiajs/react'
+import { Head, Link, useForm, usePage } from '@inertiajs/react'
+import { PageProps } from '@/types'
 
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
+  const {site_settings} = usePage<PageProps>().props
   const { data, setData, post, processing, errors, reset } = useForm({
     email: '',
     password: '',
@@ -32,13 +34,13 @@ export default function Login({ status, canResetPassword }: { status?: string, c
 
       <div className={'container mt-5 mb-5'}>
           <div className={"row"}>
-            <div className={"col-md-6 offset-3"}>
+            <div className={"col-md-6 offset-md-3 offset-lg-3"}>
               <div className="discount-coupon edu-bg-shade">
                 <div className="section-title text-start">
                   <h4 className="title mb-4">Đăng nhập</h4>
 
                   <p className={"mb--30 text-gray-400"}>
-                    Vui lòng mua khoá học để được cấp tài khoản hoặc liên hệ tư vấn - Zalo / Hotline
+                    Vui lòng mua khoá học để được cấp tài khoản hoặc liên hệ tư vấn - <a href={`tel:${site_settings.phone}`}>{site_settings.phone}</a>
                   </p>
                 </div>
 

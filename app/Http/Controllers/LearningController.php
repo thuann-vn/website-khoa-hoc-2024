@@ -12,7 +12,7 @@ class LearningController extends Controller
     public function index()
     {
         $slug = request()->slug;
-        $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'sections.chapters.lessons', 'sections.lessons'])->where('slug', $slug)->first();
+        $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'sections.chapters.lessons', 'sections.lessons', 'sections.chapters.exercise', 'sections.lessons.exercise'])->where('slug', $slug)->first();
         //Check if user is enrolled in the course
         $userCourse = \App\Models\UserCourse::where('user_id', auth()->user()->id)->where('course_id', $course->id)->first();
 
@@ -84,5 +84,47 @@ class LearningController extends Controller
         $lessonProgress->status = $status;
         $lessonProgress->save();
         return response()->json(['message' => 'Progress updated successfully']);
+    }
+
+    public function uploadExercise(Request $request)
+    {
+        //Validate
+        $request->validate([
+            'id' => 'required',
+            'file' => 'required|max:10000',
+        ]);
+        $id = $request->id;
+        $user_id = auth()->user()->id;
+        $lesson = \App\Models\CourseLesson::findOrFail($id);
+
+        $savePath = 'exercises/' . $user_id . '_' . $lesson->course_id . '_' . $id . '/completed';
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+        $file->storeAs($savePath, $filename, 'public');
+
+        //Save to database
+        $exercise = \App\Models\Exercise::where('lesson_id', $id)->where('user_id', $user_id)->first();
+        if(!empty($exercise)){
+            if(empty($exercise->completed_attachments)){
+                $exercise->completed_attachments = [];
+            }
+            $newAttachments = $exercise->completed_attachments;
+            $newAttachments[] = $savePath . '/' . $filename;
+            $exercise->completed_attachments = $newAttachments;
+            $exercise->save();
+        }
+        return response()->json(['message' => 'Exercise uploaded successfully']);
+    }
+
+    public function deleteExercise(Request $request)
+    {
+        $id = $request->id;
+        $user_id = auth()->user()->id;
+        $exercise = \App\Models\Exercise::where('lesson_id', $id)->where('user_id', $user_id)->first();
+        $filename = str_replace('storage/', '', $request->filename);
+        $exercise->completed_attachments = array_diff($exercise->completed_attachments, [$filename]);
+        $exercise->save();
+        Storage::disk('public')->delete($filename);
+        return response()->json(['message' => 'Exercise deleted successfully']);
     }
 }

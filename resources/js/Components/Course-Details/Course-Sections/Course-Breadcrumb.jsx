@@ -81,7 +81,7 @@ const CourseBreadcrumb = ({ getMatchCourse }) => {
             </div>
             <div className="rbt-author-info">
               Giáo viên{" "}
-              <Link href={`/teacher/${getMatchCourse.id}`}>
+              <Link href={`/teacher/${getMatchCourse.teacher.id}`}>
                 {getMatchCourse.teacher.name}
               </Link>{" "}
               trong <Link href="#">{getMatchCourse.category.name}</Link>

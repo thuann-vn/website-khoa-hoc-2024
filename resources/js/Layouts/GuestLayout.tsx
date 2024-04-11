@@ -11,8 +11,12 @@ import HeaderStyleNine from '@/Components/Header/HeaderStyle-Nine'
 import Marketplace from '@/Components/12-Marketplace/12Marketplace'
 import Separator from '@/Components/Common/Separator'
 import FooterThree from '@/Components/Footer/Footer-Three'
+import Button from '@/Components/Button/Button'
+import { Link, usePage } from '@inertiajs/react'
+import { PageProps } from '@/types'
 
 export default function Guest({ children }: PropsWithChildren) {
+  const { auth } = usePage<PageProps>().props
     return (
       <Provider store={Store}>
         <Context>
@@ -23,6 +27,13 @@ export default function Guest({ children }: PropsWithChildren) {
           <BackToTop />
           <Separator />
           <FooterThree />
+          {
+            !auth?.user && (
+              <Link className={"rbt-btn me-4 rbt-switch-btn btn-gradient btn-sm hover-transform-none btn-login-fixed"} href={route("login")} >
+                Đăng nhập để học
+              </Link>
+            )
+          }
         </Context>
       </Provider>
     );

@@ -22,7 +22,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
         <Head title="Forgot Password" />
         <div className={'container mt-5 mb-5'}>
           <div className={"row"}>
-            <div className={"col-md-6 offset-3"}>
+            <div className={"col-md-6 offset-md-3 offset-lg-3"}>
               <div className="discount-coupon edu-bg-shade">
                 <div className="section-title text-start">
                   <h4 className="title mb--30">Quên mật khẩu</h4>

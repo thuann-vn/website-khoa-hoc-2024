@@ -28,4 +28,9 @@ class CourseLesson extends Model {
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
+
+    public function exercise(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Exercise::class, 'lesson_id')->where('user_id', auth()->user()->id);
+    }
 }

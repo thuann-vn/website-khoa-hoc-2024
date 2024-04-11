@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/enrolled-course/{slug}', [\App\Http\Controllers\LearningController::class, 'index'])->name('enrolled-course.learn');
     Route::post('/update-progress', [\App\Http\Controllers\LearningController::class, 'updateLearningProgress'])->name('update-progress');
+    Route::post('upload-exercise', [\App\Http\Controllers\LearningController::class, 'uploadExercise'])->name('upload-exercise');
+    Route::delete('delete-exercise', [\App\Http\Controllers\LearningController::class, 'deleteExercise'])->name('delete-exercise');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
