@@ -19,12 +19,21 @@ class Course extends Model {
         'discount',
         'price',
         'one_on_one_price',
+        'old_price',
+        'old_one_on_one_price',
+        'sale_start',
+        'sale_end',
         'position',
         'created_by',
         'updated_by'
     ];
 
-    protected $appends = ['course_lesson_count', 'course_duration_sum', 'progress'];
+    protected $casts = [
+        'sale_start' => 'date',
+        'sale_end' => 'date'
+    ];
+
+    protected $appends = ['course_lesson_count', 'course_duration_sum', 'progress', 'is_sale'];
 
     public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -90,5 +99,10 @@ class Course extends Model {
     public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(CourseLesson::class, 'course_id')->orderBy('position');
+    }
+
+    public function getIsSaleAttribute()
+    {
+        return $this->sale_start && $this->sale_end && now()->between($this->sale_start, $this->sale_end);
     }
 }

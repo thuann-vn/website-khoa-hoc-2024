@@ -6,6 +6,7 @@ import "venobox/dist/venobox.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useAppContext } from "@/context/Context";
 import { currency, getImageStoragePath } from '@/helper'
+import moment from 'moment'
 
 const Viedo = ({ checkMatchCourses, onChangeVideo }) => {
   const { cartToggle, setCart } = useAppContext();
@@ -69,7 +70,15 @@ const Viedo = ({ checkMatchCourses, onChangeVideo }) => {
         </div>
       </a>
       <div className="content-item-content">
-        <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+        <div className="rbt-price-wrapper">
+          {
+            checkMatchCourses.old_price ? (
+              <div>
+                <span className="old-price">{currency(checkMatchCourses.old_price)}</span>
+                <br/>
+              </div>
+            ) : null
+          }
           <div className="rbt-price">
             <span className="current-price">{currency(checkMatchCourses.price)}</span>
           </div>
@@ -90,7 +99,15 @@ const Viedo = ({ checkMatchCourses, onChangeVideo }) => {
           checkMatchCourses.one_on_one_price ? (
             <>
               <hr/>
-              <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+              <div className="rbt-price-wrapper">
+                {
+                  checkMatchCourses.old_one_on_one_price ? (
+                    <div>
+                      <span className="old-price">{currency(checkMatchCourses.old_one_on_one_price)}</span>
+                      <br/>
+                    </div>
+                  ) : null
+                }
                 <div className="rbt-price">
                   <span className="current-price">{currency(checkMatchCourses.one_on_one_price)}</span>
                 </div>
@@ -108,6 +125,14 @@ const Viedo = ({ checkMatchCourses, onChangeVideo }) => {
               </div>
             </>
           ) : null
+        }
+
+        {
+          checkMatchCourses.is_sale && (
+            <span className="sale_text">
+              Áp dụng tới ngày <b>{moment(checkMatchCourses.sale_end).format('DD/MM/YYYY')}</b>
+            </span>
+          )
         }
         <span className="subtitle">
           <i className="feather-rotate-ccw"></i> {site_settings.refund_text}

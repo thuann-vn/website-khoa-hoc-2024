@@ -78,17 +78,24 @@ class CourseResource extends NestedResource
                 MoneyInput::make('price')
                     ->required()
                     ->prefix('$'),
+                MoneyInput::make('old_price')
+                    ->prefix('$'),
                 MoneyInput::make('one_on_one_price')
                     ->required()
                     ->prefix('$'),
-                Forms\Components\TextInput::make('discount')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+                MoneyInput::make('old_one_on_one_price')
+                    ->prefix('$'),
+                Forms\Components\DatePicker::make('sale_start'),
+                Forms\Components\DatePicker::make('sale_end'),
+//                Forms\Components\TextInput::make('discount')
+//                    ->required()
+//                    ->numeric()
+//                    ->default(0),
 //                Forms\Components\TextInput::make('duration')
 //                    ->required()
 //                    ->numeric(),
                 Forms\Components\Toggle::make('is_active')
+                    ->columnSpanFull()
                     ->required(),
             ]);
     }
