@@ -44,12 +44,17 @@ const Viedo = ({ checkMatchCourses }) => {
           )}
         </div>
       </a>
-      <div className="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+      <div className="rbt-price-wrapper">
+        {
+          checkMatchCourses.old_price ? (
+            <div>
+              <span className="old-price">{currency(checkMatchCourses.old_price)}</span>
+              <br/>
+            </div>
+          ) : null
+        }
         <div className="rbt-price">
           <span className="current-price">{currency(checkMatchCourses.price)}</span>
-          {
-            checkMatchCourses.old_price && <span className="off-price">{currency(checkMatchCourses.old_price)}</span>
-          }
         </div>
       </div>
 
@@ -64,6 +69,38 @@ const Viedo = ({ checkMatchCourses }) => {
             </span>
         </Link>
       </div>
+      {
+        checkMatchCourses.one_on_one_price ? (
+          <>
+            <hr/>
+            <div className="rbt-price-wrapper">
+              {
+                checkMatchCourses.old_one_on_one_price ? (
+                  <div>
+                    <span className="old-price">{currency(checkMatchCourses.old_one_on_one_price)}</span>
+                    <br/>
+                  </div>
+                ) : null
+              }
+              <div className="rbt-price">
+                <span className="current-price">{currency(checkMatchCourses.one_on_one_price)}</span>
+              </div>
+            </div>
+            <div className="add-to-card-button mt--15">
+              <Link
+                className="rbt-btn btn-gradient icon-hover w-100 d-block text-center"
+                href={route('master-class-checkout', { slug: checkMatchCourses.slug, type: 'one-on-one' })}
+              >
+                <span className="btn-text">Học 1-1 với giáo viên</span>
+                <span className="btn-icon">
+              <i className="feather-arrow-right"></i>
+            </span>
+              </Link>
+            </div>
+          </>
+        ) : null
+      }
+
       <span className="subtitle">
           <i className="feather-rotate-ccw"></i> {site_settings.refund_text}
         </span>

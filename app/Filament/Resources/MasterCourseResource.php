@@ -65,11 +65,13 @@ class MasterCourseResource extends Resource
                     ->maxLength(255),
                 MoneyInput::make('price')
                     ->required()
-                    ->default(0)
                     ->prefix('$'),
                 MoneyInput::make('old_price')
-                    ->readOnly()
-                    ->default(0)
+                    ->prefix('$'),
+                MoneyInput::make('one_on_one_price')
+                    ->required()
+                    ->prefix('$'),
+                MoneyInput::make('old_one_on_one_price')
                     ->prefix('$'),
                 Forms\Components\Textarea::make('description')
                     ->required()

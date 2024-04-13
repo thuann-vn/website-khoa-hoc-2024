@@ -134,9 +134,11 @@ class CourseController extends Controller
     public function masterCheckout(Request $request)
     {
         $slug = $request->slug;
+        $type = $request->type;
         $course = \App\Models\MasterCourse::whereSlug($slug)->first();
         return Inertia::render('Courses/MasterCourseCheckout', [
-            'course' => $course
+            'course' => $course,
+            'type' => $type
         ]);
     }
 
@@ -149,8 +151,9 @@ class CourseController extends Controller
             'course_id' => 'required',
         ]);
         $course = \App\Models\MasterCourse::whereId($request->course_id)->first();
+        $type  =$request->type ?? 'default';
         $order = \App\Models\Order::create([
-            'total_price' =>  $course->price,
+            'total_price' =>  $type == 'one-on-one' ? $course->one_on_one_price : $course->price,
             'status' => OrderStatusEnum::Pending,
             'name' => $request->name,
             'email' => $request->email,

@@ -42,7 +42,7 @@ const Instructor = ({ checkMatchCourses }) => {
               </ul>
             </div>
             <div className="content">
-              <p className="description">{teacher.bio}</p>
+              <p className="description" dangerouslySetInnerHTML={{__html: teacher.bio}}></p>
             </div>
           </div>
         </div>

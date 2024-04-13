@@ -43,22 +43,6 @@ const CourseActionBottom = ({ checkMatchCourses }) => {
                     ${checkMatchCourses.offPrice}
                   </span>
                 </div>
-                <div className="rbt-single-list action-btn">
-                  <Link
-                    className="rbt-btn btn-gradient hover-icon-reverse btn-md"
-                    href="#"
-                  >
-                    <span className="icon-reverse-wrapper">
-                      <span className="btn-text">Purchase Now</span>
-                      <span className="btn-icon">
-                        <i className="feather-arrow-right"></i>
-                      </span>
-                      <span className="btn-icon">
-                        <i className="feather-arrow-right"></i>
-                      </span>
-                    </span>
-                  </Link>
-                </div>
               </div>
             </div>
           </div>

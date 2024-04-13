@@ -7,14 +7,15 @@ import CheckoutForm from '@/Components/Checkout/CheckoutForm'
 import { currency } from '@/helper'
 
 export default function CheckoutPage({
-  course, courseSection
-}: PageProps<{ course: any, courseSection:any }>) {
+  course, courseSection, type
+}: PageProps<{ course: any, courseSection:any, type: any }>) {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
     email: '',
     phone: '',
     course_id: course.id,
-    course_section_id: null
+    course_section_id: null,
+    type
   });
   const _submit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -39,13 +40,13 @@ export default function CheckoutPage({
                     <div className="checkout-cart-total">
                       <ul>
                         <li>
-                          {course.name}
-                          <span>{currency(course.price)}</span>
+                          {course.name} {type === 'one-on-one' ? '(1-1 với giáo viên)' : ''}
+                          <span>{currency(type === 'one-on-one' ? course.one_on_one_price : course.price)}</span>
                         </li>
                       </ul>
                       <h4 className="mt--30">
                         Thành
-                        tiền <span>{currency(course.price)}</span>
+                        tiền <span>{currency(type === 'one-on-one' ? course.one_on_one_price : course.price)}</span>
                       </h4>
                     </div>
                   </div>
