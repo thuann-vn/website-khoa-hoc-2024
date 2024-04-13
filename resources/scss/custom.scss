@@ -172,3 +172,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.btn-login-fixed{
+  display: none;
+  z-index: 2050;
+
+  &.active{
+    display: block;
+  }
+}

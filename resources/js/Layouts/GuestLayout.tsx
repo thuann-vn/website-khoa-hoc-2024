@@ -27,13 +27,6 @@ export default function Guest({ children }: PropsWithChildren) {
           <BackToTop />
           <Separator />
           <FooterThree />
-          {
-            !auth?.user && (
-              <Link className={"rbt-btn me-4 rbt-switch-btn btn-gradient btn-sm hover-transform-none btn-login-fixed"} href={route("login")} >
-                Đăng nhập để học
-              </Link>
-            )
-          }
         </Context>
       </Provider>
     );
