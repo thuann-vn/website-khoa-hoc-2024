@@ -60,18 +60,9 @@ class CourseSectionResource extends NestedResource
                     ->default(0)
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('duration')
-                    ->default(0)
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('discount')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
                 MoneyInput::make('price')
                     ->default(0)
                     ->required()
-                    ->numeric()
                     ->prefix('$'),
                 Forms\Components\Toggle::make('is_active')
                     ->default(true)

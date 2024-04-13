@@ -87,13 +87,6 @@ class CourseResource extends NestedResource
                     ->prefix('$'),
                 Forms\Components\DatePicker::make('sale_start'),
                 Forms\Components\DatePicker::make('sale_end'),
-//                Forms\Components\TextInput::make('discount')
-//                    ->required()
-//                    ->numeric()
-//                    ->default(0),
-//                Forms\Components\TextInput::make('duration')
-//                    ->required()
-//                    ->numeric(),
                 Forms\Components\Toggle::make('is_active')
                     ->columnSpanFull()
                     ->required(),
@@ -115,9 +108,6 @@ class CourseResource extends NestedResource
                 MoneyColumn::make('price')
                     ->money('VND')
                     ->sortable(),
-//                Tables\Columns\TextColumn::make('duration')
-//                    ->numeric()
-//                    ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
