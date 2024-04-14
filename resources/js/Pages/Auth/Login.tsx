@@ -1,4 +1,4 @@
-import { FormEventHandler, useEffect } from 'react'
+import React, { FormEventHandler, useEffect } from 'react'
 import Checkbox from '@/Components/Checkbox'
 import GuestLayout from '@/Layouts/GuestLayout'
 import InputError from '@/Components/InputError'
@@ -39,8 +39,16 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                 <div className="section-title text-start">
                   <h4 className="title mb-4">Đăng nhập</h4>
 
-                  <p className={"mb--30 text-gray-400"}>
-                    Vui lòng mua khoá học để được cấp tài khoản hoặc liên hệ tư vấn - <a href={`tel:${site_settings.phone}`}>{site_settings.phone}</a>
+                  <p className={'mb--30 text-danger'}>
+                    Vui lòng mua <Link className={'text-danger bold'} href={route('courses')}>khoá học</Link> để được cấp tài
+                    khoản hoặc liên hệ tư vấn: {' '}
+                    <a href={site_settings.facebook} target={'_blank'}>
+                      <img src={'/images/facebook.png'} width={20} height={20} />
+                    </a>
+                    {' '}
+                    <a href={site_settings.zalo} target={'_blank'} className={"ms-2 inline-block"}>
+                      <img src={'/images/zalo.png'} width={20} height={20} />
+                    </a>
                   </p>
                 </div>
 
