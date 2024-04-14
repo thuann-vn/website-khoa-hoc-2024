@@ -36,11 +36,9 @@ class ManageSite extends SettingsPage
             'pgb' => 'PGBank',
             'lvpb' => 'LienVietPostBank',
             'tpb' => 'TPBank',
-            'bvb' => 'BVB',
             'abb' => 'ABBank',
             'ocb' => 'OCB',
             'bvb' => 'BaoVietBank',
-            'nab' => 'NamABank',
         ];
         return $form
             ->schema([
@@ -51,7 +49,6 @@ class ManageSite extends SettingsPage
                     Forms\Components\TextInput::make('title')
                         ->label('Title')
                         ->required()
-                        ->live()
                         ->maxLength(255),
                     Forms\Components\Textarea::make('description')
                         ->label('Description')
@@ -60,22 +57,22 @@ class ManageSite extends SettingsPage
                     Forms\Components\TextInput::make('email')
                         ->label('Email')
                         ->required()
-                        ->live()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('phone')
                         ->label('Phone')
                         ->required()
-                        ->live()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('zalo')
                         ->label('Zalo')
                         ->required()
-                        ->live()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('facebook')
                         ->label('Facebook')
                         ->required()
-                        ->live()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('messenger')
+                        ->label('Messenger')
+                        ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('address')
                         ->label('Address')

@@ -109,12 +109,12 @@ const Viedo = ({ checkMatchCourses }) => {
         <div className="rbt-post-share d-flex align-items-center justify-content-center">
           <ul className="social-icon social-default justify-content-center">
             <li>
-              <a href={site_settings.facebook} target={"_blank"}>
-                <img src={"/images/facebook.png"} width={36} height={36} />
+              <a href={site_settings.messenger} target={'_blank'}>
+                <img src={'/images/fb.png'} width={36} height={36} />
               </a>
             </li>
             <li>
-              <a href={site_settings.zalo} target={"_blank"}>
+              <a href={site_settings.zalo} target={'_blank'}>
                 <img src={'/images/zalo.png'} width={36} height={36} />
               </a>
             </li>

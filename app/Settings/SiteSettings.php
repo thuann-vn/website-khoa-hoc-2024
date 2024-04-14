@@ -22,6 +22,8 @@ class SiteSettings extends Settings
 
     public string $facebook;
 
+    public string $messenger;
+
     public string $address;
 
     public string $bank_number;

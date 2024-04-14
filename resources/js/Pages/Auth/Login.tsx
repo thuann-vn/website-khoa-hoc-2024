@@ -42,8 +42,8 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                   <p className={'mb--30 text-danger'}>
                     Vui lòng mua <Link className={'text-danger bold'} href={route('courses')}>khoá học</Link> để được cấp tài
                     khoản hoặc liên hệ tư vấn: {' '}
-                    <a href={site_settings.facebook} target={'_blank'}>
-                      <img src={'/images/facebook.png'} width={20} height={20} />
+                    <a href={site_settings.messenger} target={'_blank'}>
+                      <img src={'/images/fb.png'} width={20} height={20} />
                     </a>
                     {' '}
                     <a href={site_settings.zalo} target={'_blank'} className={"ms-2 inline-block"}>
