@@ -36,19 +36,21 @@ export default function Login({ status, canResetPassword }: { status?: string, c
           <div className={"row"}>
             <div className={"col-md-6 offset-md-3 offset-lg-3"}>
               <div className="discount-coupon edu-bg-shade">
-                <div className="section-title text-start">
+                <div className="section-title text-start text-center">
                   <h4 className="title mb-4">Đăng nhập</h4>
 
-                  <p className={'mb--30 text-danger'}>
-                    Vui lòng mua <Link className={'text-danger bold'} href={route('courses')}>khoá học</Link> để được cấp tài
-                    khoản hoặc liên hệ tư vấn: {' '}
-                    <a href={site_settings.messenger} target={'_blank'}>
-                      <img src={'/images/fb.png'} width={20} height={20} />
-                    </a>
-                    {' '}
-                    <a href={site_settings.zalo} target={'_blank'} className={"ms-2 inline-block"}>
-                      <img src={'/images/zalo.png'} width={20} height={20} />
-                    </a>
+                  <p className={'mb--30 text-danger text-center'}>
+                    Vui lòng mua <Link className={'text-primary bold'} href={route('courses')}>khoá học</Link> để được cấp tài
+                    khoản hoặc liên hệ tư vấn: {' '} <br/>
+                    <div className={"mt-4"}>
+                      <a href={site_settings.messenger} target={'_blank'}>
+                        <img src={'/images/fb.png'} width={36} height={36} />
+                      </a>
+                      {' '}
+                      <a href={site_settings.zalo} target={'_blank'} className={'ms-3 inline-block'}>
+                        <img src={'/images/zalo.png'} width={36} height={36} />
+                      </a>
+                    </div>
                   </p>
                 </div>
 
