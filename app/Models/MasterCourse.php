@@ -28,7 +28,7 @@ class MasterCourse extends Model {
         //Count all the lessons in the course
         $sum = 0;
         foreach ($this->courses as $course) {
-            $sum += $course->course_sum_duration;
+            $sum += $course->course_duration_sum;
         }
         return $sum;
     }

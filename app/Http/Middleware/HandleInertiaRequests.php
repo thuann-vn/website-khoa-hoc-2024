@@ -68,7 +68,8 @@ class HandleInertiaRequests extends Middleware
                 ],
             'site_settings' => (new SiteSettings())->toArray(),
             'blog_categories' => PostCategory::orderBy('name')->get(),
-            'app_url' => config('app.url')
+            'app_url' => config('app.url'),
+            'current_route' => $request->route()->getName(),
         ];
     }
 }

@@ -128,16 +128,30 @@
 
 .btn-login-fixed{
   position: none !important;
-  top: 240px;
+  bottom: 0;
   right: 0px;
+  left: 0;
+  background-color: #fff;
   margin: 0 !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+  display: none;
+  z-index: 2050;
+  padding: 10px;
+  text-align: center;
 }
 
 @media screen and (max-width: 767px) {
   .btn-login-fixed{
     position: fixed !important;
+
+    &.active{
+      display: block;
+    }
+  }
+
+  .rbt-progress-parent{
+    bottom: 80px;
   }
 }
 
@@ -171,13 +185,4 @@
   display: block;
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.btn-login-fixed{
-  display: none;
-  z-index: 2050;
-
-  &.active{
-    display: block;
-  }
 }

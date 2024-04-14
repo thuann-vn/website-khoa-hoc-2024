@@ -4,7 +4,7 @@ import { Link, usePage } from '@inertiajs/react'
 const BackToTop = () => {
   const progressRef = useRef(null);
   const loginButtonRef = useRef(null);
-  const { auth } = usePage().props;
+  const { auth, current_route } = usePage().props;
 
   useEffect(() => {
     const progressPath = progressRef.current?.querySelector("path");
@@ -29,10 +29,10 @@ const BackToTop = () => {
       if (rbtProgressParent) {
         if (scroll > 50) {
           rbtProgressParent.classList.add("rbt-backto-top-active");
-          loginButtonRef.current.classList.add("active");
+          loginButtonRef?.current && loginButtonRef.current.classList.add("active");
         } else {
           rbtProgressParent.classList.remove("rbt-backto-top-active");
-          loginButtonRef.current.classList.remove("active");
+          loginButtonRef?.current && loginButtonRef.current.classList.remove("active");
         }
       }
     };
@@ -49,6 +49,7 @@ const BackToTop = () => {
       window.removeEventListener("scroll", updateProgress);
     };
   }, []);
+  console.log(current_route)
 
   return (
     <>
@@ -64,13 +65,14 @@ const BackToTop = () => {
       </div>
 
       {
-        !auth?.user && (
-          <Link className={"rbt-btn me-4 rbt-switch-btn btn-gradient btn-sm hover-transform-none btn-login-fixed"}
-                href={route("login")}
-            ref={loginButtonRef}
-          >
-            Đăng nhập để học
-          </Link>
+        !auth?.user && current_route !== 'login' && (
+          <div className={"btn-login-fixed"} ref={loginButtonRef}>
+            <Link className={"rbt-btn me-4 rbt-switch-btn btn-gradient btn-sm hover-transform-none"}
+                  href={route("login")}
+            >
+              Đăng nhập để học
+            </Link>
+          </div>
         )
       }
     </>
