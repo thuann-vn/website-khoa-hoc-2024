@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatusEnum;
 use App\Models\CourseLesson;
+use App\Settings\SiteSettings;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -34,6 +37,17 @@ class CourseController extends Controller
 
         //Demo video
         $demoLesson = $course->lessons->where('is_trial', true)->first();
+
+
+        //Site settings
+        $appSettings = app(SiteSettings::class);
+        SEOTools::setTitle($course->name);
+        SEOTools::setDescription(strip_tags($course->description));
+        SEOMeta::setKeywords($appSettings->seo_keywords);
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::setCanonical(url()->current());
+        SEOTools::opengraph()->addProperty('type', 'website');
+
         return Inertia::render('Courses/Detail', [
             'course' => $course,
             'demoLesson' => $demoLesson
@@ -48,6 +62,16 @@ class CourseController extends Controller
             ->with(['teacher','category'])
             ->whereIsActive(true)
             ->get();
+
+        //Site settings
+        $appSettings = app(SiteSettings::class);
+        SEOTools::setTitle($teacher->name);
+        SEOTools::setDescription(strip_tags($teacher->bio));
+        SEOMeta::setKeywords($appSettings->seo_keywords);
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::setCanonical(url()->current());
+        SEOTools::opengraph()->addProperty('type', 'website');
+
         return Inertia::render('Teacher/Detail', compact('teacher', 'includeCourses'));
     }
 
@@ -59,6 +83,16 @@ class CourseController extends Controller
             ->with(['teacher','category'])
             ->whereIsActive(true)
             ->get();
+
+
+        //Site settings
+        $appSettings = app(SiteSettings::class);
+        SEOTools::setTitle($course->name);
+        SEOTools::setDescription(strip_tags($course->description));
+        SEOMeta::setKeywords($appSettings->seo_keywords);
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::setCanonical(url()->current());
+        SEOTools::opengraph()->addProperty('type', 'website');
         return Inertia::render('Courses/MasterCourse', [
             'course' => $course,
             'includeCourses' => $includeCourses

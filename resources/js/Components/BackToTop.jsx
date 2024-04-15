@@ -65,7 +65,7 @@ const BackToTop = () => {
       </div>
 
       {
-        !auth?.user && current_route !== 'login' && (
+        !auth?.user && ['login', 'courses-checkout', 'master-class-checkout'].indexOf(current_route) === -1 && (
           <div className={"btn-login-fixed"} ref={loginButtonRef}>
             <Link className={"rbt-btn me-4 rbt-switch-btn btn-gradient btn-sm hover-transform-none"}
                   href={route("login")}

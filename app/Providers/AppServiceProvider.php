@@ -36,5 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
         $appSettings = app(SiteSettings::class);
         SEOMeta::setTitleDefault($appSettings->seo_title);
+        SEOMeta::setTitle($appSettings->seo_title);
+        SEOMeta::setDescription($appSettings->seo_description);
     }
 }
