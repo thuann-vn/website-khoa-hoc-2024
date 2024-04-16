@@ -18,7 +18,7 @@ class HomeController extends Controller
 
         //Site settings
         $appSettings = app(SiteSettings::class);
-        SEOTools::setTitle('Trang chủ');
+        SEOTools::setTitle($appSettings->seo_title);
         SEOTools::setDescription($appSettings->seo_description);
         SEOMeta::setKeywords($appSettings->seo_keywords);
         SEOTools::opengraph()->setUrl(url()->current());
