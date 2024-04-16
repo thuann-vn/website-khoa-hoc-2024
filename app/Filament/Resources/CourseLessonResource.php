@@ -177,6 +177,7 @@ class CourseLessonResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('position', 'asc')
 //            ->defaultGroup('section.name')
             ->reorderable('position')
             ->filters([
