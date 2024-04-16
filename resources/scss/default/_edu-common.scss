@@ -1,5 +1,5 @@
 /*------------------------
-    Edu Common Styles  
+    Edu Common Styles
 --------------------------*/
 
 /*-------------------------
@@ -174,7 +174,7 @@
 }
 
 .rbt-gradient-border {
-    background: linear-gradient(-145deg, #CFA2E8, #637FEA) !important;
+    background: linear-gradient(-145deg, #e8f300, #00a78d) !important;
     z-index: 10;
 
     &::before {
@@ -383,7 +383,7 @@
 
 
 /*-------------------------
-    Card Author Meta 
+    Card Author Meta
 -------------------------*/
 .rbt-author-meta {
     display: flex;
@@ -423,7 +423,7 @@
 }
 
 /*-----------------------------
-    Rbt Border Style  
+    Rbt Border Style
 ------------------------------*/
 hr {
     background-color: var(--color-border);
@@ -536,7 +536,7 @@ hr {
 
 
 /*-----------------------------
-    Rbt Border Radius  
+    Rbt Border Radius
 -------------------------------*/
 
 .square {
@@ -629,7 +629,7 @@ hr {
 }
 
 /*--------------------------
-    Font Weight 
+    Font Weight
 ---------------------------*/
 
 .w-300 {
@@ -661,7 +661,7 @@ hr {
 }
 
 /*-----------------------------
-    Card bg Inner Color 
+    Card bg Inner Color
 --------------------------------*/
 
 .bg-card-color-1 {

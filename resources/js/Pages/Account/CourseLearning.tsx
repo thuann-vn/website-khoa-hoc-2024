@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
+import 'filepond/dist/filepond.min.css'
 import React, { useState } from 'react'
 import LearningLayout from '@/Layouts/LearningLayout'
 import PrimaryButton from '@/Components/PrimaryButton'
@@ -8,7 +9,6 @@ import { Button, ProgressBar } from 'react-bootstrap'
 import { durationToTime, getImageStoragePath } from '@/helper'
 import axios from 'axios'
 import 'jb-videojs-hls-quality-selector'
-import 'filepond/dist/filepond.min.css'
 
 // Import React FilePond
 import { FilePond, registerPlugin } from 'react-filepond'
@@ -498,7 +498,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
         </div>
       </header>
       <div className={
-        'row'
+        'row lesson-wrapper'
       }>
         <CourseSidebar />
         <div className={'col-md-9 lesson-outer-container'}>

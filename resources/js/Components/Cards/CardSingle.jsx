@@ -93,7 +93,7 @@ const CardSingle = ({ data, isDesc, isUser  }) => {
             "display": "-webkit-box",
             "WebkitBoxOrient": "vertical",
             "overflow": "hidden",
-          }} data-line-clamp={3} dangerouslySetInnerHTML={{__html: data.description}}></div> : ''}
+          }} data-line-clamp={3} dangerouslySetInnerHTML={{__html: (data.excerpt ?? '').substring(0, 150) + '...'}}></div> : ''}
           {isUser ? (
             <div className="rbt-author-meta mb--10">
               <div className="rbt-avater">

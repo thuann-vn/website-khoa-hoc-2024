@@ -37,10 +37,6 @@ const CourseWidget = ({
               src={getImageStoragePath(data.image)}
               alt={data.name}
             />
-            <div className="rbt-badge-3 bg-white">
-              <span>{`-${discountPercentage}%`}</span>
-              <span>Off</span>
-            </div>
           </Link>
         </div>
         <div className="rbt-card-body">

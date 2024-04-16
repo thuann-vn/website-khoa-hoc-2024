@@ -112,7 +112,7 @@ fieldset:disabled {
     &.btn-gradient {
         color: var(--color-white);
         background-size: 300% 100%;
-        background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary), var(--color-secondary), var(--color-primary));
+        background-image:  linear-gradient(270deg, #e8f300 0%, #00a78d 100%);
 
         &.btn-gradient-2 {
             background-image: linear-gradient(to right, var(--color-pink), var(--color-violet), var(--color-violet), var(--color-pink));
@@ -124,7 +124,7 @@ fieldset:disabled {
 
         &:hover {
             background-color: inherit;
-            background-position: 102% 0;
+            background-position: 100% 0;
             transition: all .4s ease-in-out;
         }
     }
@@ -638,7 +638,7 @@ fieldset:disabled {
     }
 
     &.btn-border-gradient {
-        background: linear-gradient(90deg, #CFA2E8, #637FEA);
+        background: linear-gradient(90deg, #e8f300, #00a78d);
         border: none;
         outline: none;
         cursor: pointer;

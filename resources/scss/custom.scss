@@ -153,6 +153,15 @@
   .rbt-progress-parent{
     bottom: 80px;
   }
+
+  .lesson-wrapper{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .lesson-outer-container{
+    max-height: none !important;
+  }
 }
 
 .attachments{

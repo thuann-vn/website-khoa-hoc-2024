@@ -76,7 +76,7 @@ const CourseFilterOneToggle = ({ course, start, end }) => {
                   </li>
                 </ul>
 
-                <div className="rbt-card-text" dangerouslySetInnerHTML={{__html: data.description}} style={{
+                <div className="rbt-card-text" dangerouslySetInnerHTML={{__html: (data.excerpt ?? '').substring(0, 150) + '...'}} style={{
                   "WebkitLineClamp": "5",
                   "display": "-webkit-box",
                   "WebkitBoxOrient": "vertical",

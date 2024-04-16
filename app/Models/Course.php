@@ -33,7 +33,7 @@ class Course extends Model {
         'sale_end' => 'date'
     ];
 
-    protected $appends = ['course_lesson_count', 'course_duration_sum', 'progress', 'is_sale'];
+    protected $appends = ['course_lesson_count', 'course_duration_sum', 'progress', 'is_sale', 'excerpt'];
 
     public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -104,5 +104,10 @@ class Course extends Model {
     public function getIsSaleAttribute()
     {
         return $this->sale_start && $this->sale_end && now()->between($this->sale_start, $this->sale_end);
+    }
+
+    public function getExcerptAttribute()
+    {
+        return strip_tags($this->description);
     }
 }
