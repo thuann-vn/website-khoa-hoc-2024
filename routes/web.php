@@ -22,6 +22,7 @@ use App\Livewire\Post\Show as PostShow;
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/danh-sach-khoa-hoc', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
 Route::get('/danh-sach-khoa-hoc/{slug}', [App\Http\Controllers\CourseController::class, 'index'])->name('courses-category');
+
 Route::get('/khoa-hoc/{slug}', [App\Http\Controllers\CourseController::class, 'detail'])->name('courses-detail');
 Route::get('/khoa-hoc/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'checkout'])->name('courses-checkout');
 Route::post('/khoa-hoc/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'checkoutStore'])->name('courses-checkout-store');
@@ -32,6 +33,12 @@ Route::get('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseControlle
 Route::post('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'masterCheckoutStore'])->name('master-class-checkout-store');
 Route::get('/master-class/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseController::class, 'masterCheckoutSuccess'])->name('master-class-checkout-success');
 
+Route::get('/khoa-hoc-offline', [App\Http\Controllers\CourseController::class, 'index'])->name('offline-courses');
+Route::get('/khoa-hoc-offline/{slug}', [App\Http\Controllers\CourseController::class, 'offlineCourseDetail'])->name('offline-courses-detail');
+Route::get('/khoa-hoc-offline/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'offlineCheckout'])->name('offline-courses-checkout');
+Route::post('/khoa-hoc-offline/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'offlineCheckoutStore'])->name('offline-courses-checkout-store');
+Route::get('/khoa-hoc-offline/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseController::class, 'offlineCheckoutSuccess'])->name('offline-courses-checkout-success');
+
 Route::get('/teacher/{id}', [App\Http\Controllers\CourseController::class, 'teacherDetail'])->name('teacher-detail');
 
 Route::group(['prefix' => 'blog'], function () {
@@ -40,6 +47,12 @@ Route::group(['prefix' => 'blog'], function () {
     Route::get('/tag/{tag}', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.tag');
     Route::get('/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])->name('blog.detail');
 });
+
+Route::group(['prefix' => 'viec-lam'], function () {
+    Route::get('/', [\App\Http\Controllers\RecruitmentController::class, 'index'])->name('recruitment');
+    Route::get('/{slug}', [\App\Http\Controllers\RecruitmentController::class, 'show'])->name('recruitment.detail');
+});
+
 
 Route::get('/video/{id}', [\App\Http\Controllers\LearningController::class, 'learnVideo'])
     ->name('video.playlist');

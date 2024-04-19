@@ -9,6 +9,7 @@ use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Course;
 use App\Models\CourseSection;
 use App\Models\MasterCourse;
+use App\Models\OfflineCourse;
 use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -29,6 +30,18 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('offline_course_id')
+                    ->label('Offline course')
+                    ->afterStateUpdated(function(Forms\Get $get, Forms\Set $set){
+                        if($get('offline_course_id')){
+                            $courseSection = OfflineCourse::find($get('offline_course_id'));
+                            $set('total_price', intval($courseSection->price));
+                        }
+                    })
+                    ->live()
+                    ->options(function(Forms\Get $get){
+                        return OfflineCourse::pluck('name', 'id');
+                    }),
                 Forms\Components\Select::make('master_course_id')
                     ->label('Master course')
                     ->afterStateUpdated(function(Forms\Get $get, Forms\Set $set){

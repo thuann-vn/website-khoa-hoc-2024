@@ -7,8 +7,9 @@ import Guest from '@/Layouts/GuestLayout'
 import MasterClassCardSingle from '@/Components/Cards/MasterClassCardSingle'
 import { getImageStoragePath } from '@/helper'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
+import OfflineCourseCardSingle from '@/Components/Cards/OfflineCourseCardSingle'
 
-export default function Welcome({ categories, courses, masterCourses, featuredPosts }: PageProps<{ categories: any[], courses: any[], masterCourses: any[], featuredPosts: [] }>) {
+export default function Welcome({ categories, courses, masterCourses, offlineCourses, featuredPosts }: PageProps<{ categories: any[], courses: any[], masterCourses: any[], offlineCourses: any[], featuredPosts: [] }>) {
   const {site_settings, app_url} = usePage<PageProps>().props;
   const { height, width } = useWindowDimensions();
   return (
@@ -126,21 +127,39 @@ export default function Welcome({ categories, courses, masterCourses, featuredPo
           </div>
         </div>
 
-        {/*<div*/}
-        {/*  className="rbt-counterup-area bg_image bg_image_fixed bg_image--20 ptb--170 bg-black-overlay"*/}
-        {/*  data-black-overlay="2"*/}
-        {/*>*/}
-        {/*  <CounterFive />*/}
-        {/*</div>*/}
 
-        {/*<div className="rbt-testimonial-area bg-color-extra2 rbt-section-gap">*/}
-        {/*  <div className="container">*/}
-        {/*    <div className="testimonial-item-3-activation swiper rbt-arrow-between gutter-swiper-30">*/}
-        {/*      <TestimonialFive isDesc={true} />*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        {
+          offlineCourses.length > 0 && (
+            <div className="rbt-featured-course bg-color-white rbt-section-gap">
+              <div className="container">
+                <div className="row g-5 align-items-end mb--60">
+                  <div className="col-lg-6 col-md-12 col-12">
+                    <div className="section-title text-start">
+                      <h2 className="title">Khóa học offline</h2>
+                      <p className="description mt--20">
+                        Các khóa học offline nổi bật về thiết kế trang sức.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
+                <div className="row g-5">
+                  {offlineCourses.map((data, index) => (
+                    <div
+                      className={`col-lg-4 col-md-6 col-sm-12 col-12`}
+                      data-sal-delay="150"
+                      data-sal="slide-up"
+                      data-sal-duration="800"
+                      key={index}
+                    >
+                      <OfflineCourseCardSingle data={data} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        }
         <div className="rbt-rbt-blog-area rbt-section-gapTop bg-gradient-8 rbt-round-bottom-shape">
           <div className="wrapper pb--50 rbt-index-upper">
             <div className="container">

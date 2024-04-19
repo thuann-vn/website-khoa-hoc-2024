@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from '@inertiajs/react'
 
-const Banner = ({ text, col, getBlog,category }) => {
+const Banner = ({ text, col, getBlog,category, description = '' }) => {
   return (
     <>
       <div className="rbt-page-banner-wrapper">
@@ -28,13 +28,12 @@ const Banner = ({ text, col, getBlog,category }) => {
                     <h1 className="title mb--0">{text}</h1>
                     <Link href="#" className="rbt-badge-2">
                       <div className="image">🎉</div>{" "}
-                      {getBlog ? `${getBlog.total} Bài viết` : "50 Articles"}
+                      {getBlog ? `${getBlog.total} Bài đăng` : "0 Bài đăng"}
                     </Link>
                   </div>
 
                   <p className="description">
-                    {category ? category.description :'Tổng hợp kiến thức về thiết kế trang sức và chia sẻ kinh nghiệm từ các chuyên gia.'}
-
+                    {category ? category.description  : (description ? description : 'Tổng hợp kiến thức về thiết kế trang sức và chia sẻ kinh nghiệm từ các chuyên gia.')}
                   </p>
                 </div>
               </div>

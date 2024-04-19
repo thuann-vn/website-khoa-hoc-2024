@@ -24,36 +24,40 @@ const Nav = () => {
             Trang chủ
           </Link>
         </li>
-        <li className="">
+        <li className="has-dropdown has-child-menu">
           <Link
-            className={`${activeMenuItem === "courses" ? "open" : ""}`}
-            onClick={() => toggleMenuItem("courses")}
+            className={`${activeMenuItem === 'courses' ? 'open' : ''}`}
+            onClick={() => toggleMenuItem('courses')}
             href={route('courses')}
           >
             Khóa học
           </Link>
-        </li>
-        <li className="has-dropdown has-child-menu">
-          <a
-            className={`${activeMenuItem === "blog" ? "open" : ""}`}
-            onClick={() => toggleMenuItem("blog")}
-            href={'#'}
-          >
-            Kiến thức
-          </a>
           <ul
             className={`submenu ${
-              activeMenuItem === "blog" ? "active d-block" : ""
+              activeMenuItem === 'courses' ? 'active d-block' : ''
             }`}
           >
-            {blog_categories.map((data, index) => {
-              return (
-                <li className="has-dropdown" key={index}>
-                  <Link href={route('blog.category', {category: data.slug})}>{data.name}</Link>
-                </li>
-              )
-            })}
+            <li className="has-dropdown">
+              <Link href={route('courses')}>Khoá học Online</Link>
+            </li>
+            <li className="has-dropdown">
+              <Link href={route('offline-courses')}>Khoá học Offline</Link>
+            </li>
           </ul>
+        </li>
+        <li className="">
+          <Link
+            href={route('blog')}
+          >
+            Kiến thức
+          </Link>
+        </li>
+        <li className="">
+          <Link
+            href={route('recruitment')}
+          >
+            Việc làm
+          </Link>
         </li>
       </ul>
     </nav>

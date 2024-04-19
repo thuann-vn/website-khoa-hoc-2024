@@ -63,9 +63,15 @@ class PostResource extends Resource
                         Forms\Components\Section::make()
                             ->columnSpan(2)
                             ->schema([
+                                Forms\Components\Select::make('categories')
+                                    ->label('Category')
+                                    ->required()
+                                    ->relationship('categories', 'name')
+                                    ->live()
+                                    ->preload(),
                                 Forms\Components\TextInput::make('title')
                                     ->placeholder('Enter a title')
-                                    ->live()
+                                    ->live(onBlur: true)
                                     ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
                                         if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
                                             return;
@@ -76,6 +82,12 @@ class PostResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
+                                Forms\Components\TextInput::make('slug')
+                                    ->placeholder('Enter a slug')
+                                    ->alphaDash()
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->maxLength(255),
                                 Forms\Components\RichEditor::make('content')
                                     ->required(),
                             ]),
@@ -83,17 +95,6 @@ class PostResource extends Resource
                         Forms\Components\Section::make()
                             ->columnSpan(1)
                             ->schema([
-                                Forms\Components\TextInput::make('slug')
-                                    ->placeholder('Enter a slug')
-                                    ->alphaDash()
-                                    ->required()
-                                    ->unique(ignoreRecord: true)
-                                    ->maxLength(255),
-
-                                Forms\Components\Select::make('categories')
-                                     ->required()
-                                    ->relationship('categories', 'name')
-                                    ->multiple()->preload(),
 
                                 Forms\Components\Select::make('user_id')
                                     ->label('Author')

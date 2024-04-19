@@ -1,13 +1,6 @@
 import { Head, Link } from '@inertiajs/react'
 import { PageProps } from '@/types'
-import CategoryEight from '@/Components/Category/CategoryEight'
-import Card from '@/Components/Cards/Card'
-import CounterFive from '@/Components/Counters/Counter-Five'
-import TestimonialFive from '@/Components/Testimonials/TestimonialFive'
-import BlogGridMinimal from '@/Components/Blogs/BlogGridMinimal'
 import Guest from '@/Layouts/GuestLayout'
-import CardSingle from '@/Components/Cards/CardSingle'
-import MasterClassCardSingle from '@/Components/Cards/MasterClassCardSingle'
 import Banner from '@/Components/Common/Banner'
 import BlogGrid from '@/Components/Blogs/BlogGrid'
 

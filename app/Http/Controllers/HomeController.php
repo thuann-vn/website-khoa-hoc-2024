@@ -14,6 +14,7 @@ class HomeController extends Controller
         $categories = \App\Models\CourseCategory::whereIsActive(true)->get();
         $courses = \App\Models\Course::with(['teacher','category'])->whereIsActive(true)->get();
         $masterCourses = \App\Models\MasterCourse::with(['courses'])->get();
+        $offlineCourses = \App\Models\OfflineCourse::with('teacher', 'onlineCourse')->get();
         $featuredPosts = \App\Models\Post::whereIsPublished(true)->orderByDesc('published_at')->limit(3)->get();
 
         //Site settings
@@ -29,7 +30,8 @@ class HomeController extends Controller
             'categories' => $categories,
             'courses' => $courses,
             'masterCourses' => $masterCourses,
-             'featuredPosts' => $featuredPosts
+             'featuredPosts' => $featuredPosts,
+            'offlineCourses' => $offlineCourses
         ]);
     }
 }
