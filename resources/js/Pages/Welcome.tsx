@@ -8,8 +8,9 @@ import MasterClassCardSingle from '@/Components/Cards/MasterClassCardSingle'
 import { getImageStoragePath } from '@/helper'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import OfflineCourseCardSingle from '@/Components/Cards/OfflineCourseCardSingle'
+import RecruitmentSingleCard from '@/Components/Recruitment/RecruitmentSingleCard'
 
-export default function Welcome({ categories, courses, masterCourses, offlineCourses, featuredPosts }: PageProps<{ categories: any[], courses: any[], masterCourses: any[], offlineCourses: any[], featuredPosts: [] }>) {
+export default function Welcome({ categories, courses, masterCourses, offlineCourses, featuredPosts, recruitmentPosts }: PageProps<{ categories: any[], courses: any[], masterCourses: any[], offlineCourses: any[], featuredPosts: [], recruitmentPosts: [] }>) {
   const {site_settings, app_url} = usePage<PageProps>().props;
   const { height, width } = useWindowDimensions();
   return (
@@ -160,6 +161,32 @@ export default function Welcome({ categories, courses, masterCourses, offlineCou
             </div>
           )
         }
+
+        {
+          recruitmentPosts.length > 0 && (
+            <div className="rbt-featured-course bg-color-white rbt-section-gap">
+              <div className="container">
+                <div className="row g-5 align-items-end mb--60">
+                  <div className="col-lg-6 col-md-12 col-12">
+                    <div className="section-title text-start">
+                      <h2 className="title">VIỆC LÀM KIM HOÀN - TRANG SỨC</h2>
+                      <p className="description mt--20">
+                        Danh sách các việc làm mới nhất trong ngành kim hoàn - trang sức.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row g-5">
+                  {recruitmentPosts.map((data, index) => (
+                    <RecruitmentSingleCard data={data} key={index} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        }
+
         <div className="rbt-rbt-blog-area rbt-section-gapTop bg-gradient-8 rbt-round-bottom-shape">
           <div className="wrapper pb--50 rbt-index-upper">
             <div className="container">
