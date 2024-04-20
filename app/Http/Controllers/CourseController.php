@@ -227,7 +227,7 @@ class CourseController extends Controller
     public function offlineIndex(Request $request)
     {
         $courses = \App\Models\OfflineCourse::with(['teacher','onlineCourse'])->get();
-        return Inertia::render('Courses/Index', [
+        return Inertia::render('Courses/OfflineIndex', [
             'courses' => $courses
         ]);
     }

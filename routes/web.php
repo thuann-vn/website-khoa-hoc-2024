@@ -33,7 +33,7 @@ Route::get('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseControlle
 Route::post('/master-class/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'masterCheckoutStore'])->name('master-class-checkout-store');
 Route::get('/master-class/{slug}/dang-ky-thanh-cong', [App\Http\Controllers\CourseController::class, 'masterCheckoutSuccess'])->name('master-class-checkout-success');
 
-Route::get('/khoa-hoc-offline', [App\Http\Controllers\CourseController::class, 'index'])->name('offline-courses');
+Route::get('/khoa-hoc-offline', [App\Http\Controllers\CourseController::class, 'offlineIndex'])->name('offline-courses');
 Route::get('/khoa-hoc-offline/{slug}', [App\Http\Controllers\CourseController::class, 'offlineCourseDetail'])->name('offline-courses-detail');
 Route::get('/khoa-hoc-offline/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'offlineCheckout'])->name('offline-courses-checkout');
 Route::post('/khoa-hoc-offline/{slug}/dang-ky', [App\Http\Controllers\CourseController::class, 'offlineCheckoutStore'])->name('offline-courses-checkout-store');
