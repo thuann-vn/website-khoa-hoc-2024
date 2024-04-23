@@ -11,7 +11,7 @@ const BlogListItems = ({ start, end, selectedBlogs, isRecruitment = false }) => 
             className="rbt-card card-list variation-02 rbt-hover mt--30"
             key={index}
           >
-            <div className="rbt-card-img">
+            <div className="rbt-card-img" style={{minHeight: '240px'}}>
               <Link href={route(isRecruitment ? 'recruitment.detail' :'blog.detail' , {slug: item.slug})}>
                 <img
                   src={item.image ? getImageStoragePath(item.image)  : (item.media?.url || '/images/blog/blog-single-03.png') }
