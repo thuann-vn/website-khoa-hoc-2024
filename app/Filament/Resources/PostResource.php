@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class PostResource extends Resource
 {
@@ -88,7 +89,7 @@ class PostResource extends Resource
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
-                                Forms\Components\RichEditor::make('content')
+                                TinyEditor::make('content')
                                     ->required(),
                             ]),
 

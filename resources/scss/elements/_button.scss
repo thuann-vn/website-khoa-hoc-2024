@@ -112,7 +112,7 @@ fieldset:disabled {
     &.btn-gradient {
         color: var(--color-white);
         background-size: 300% 100%;
-        background-image:  linear-gradient(270deg, #e8f300 0%, #00a78d 100%);
+        background-image:  linear-gradient(270deg, #007955 0%, #007955 100%);
 
         &.btn-gradient-2 {
             background-image: linear-gradient(to right, var(--color-pink), var(--color-violet), var(--color-violet), var(--color-pink));
@@ -638,7 +638,7 @@ fieldset:disabled {
     }
 
     &.btn-border-gradient {
-        background: linear-gradient(90deg, #e8f300, #00a78d);
+        background: linear-gradient(90deg, #007955, #007955);
         border: none;
         outline: none;
         cursor: pointer;

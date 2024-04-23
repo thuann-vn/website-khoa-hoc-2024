@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
 
@@ -77,7 +78,7 @@ class MasterCourseResource extends Resource
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\RichEditor::make('content')
+                TinyEditor::make('content')
                     ->columnSpanFull(),
             ]);
     }

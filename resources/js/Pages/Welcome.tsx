@@ -57,45 +57,12 @@ export default function Welcome({ categories, courses, masterCourses, offlineCou
           </div>
         </div>
 
-        {
-          masterCourses.length > 0 && (
-            <div className="rbt-featured-course bg-color-white rbt-section-gap">
-              <div className="container">
-                <div className="row g-5 align-items-end mb--60">
-                  <div className="col-lg-6 col-md-12 col-12">
-                    <div className="section-title text-start">
-                      <h2 className="title">Master Class</h2>
-                      <p className="description mt--20">
-                        Các combo khóa học nổi bật về thiết kế trang sức.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row g-5">
-                  {masterCourses.map((data, index) => (
-                    <div
-                      className={`col-lg-4 col-md-6 col-sm-12 col-12`}
-                      data-sal-delay="150"
-                      data-sal="slide-up"
-                      data-sal-duration="800"
-                      key={index}
-                    >
-                      <MasterClassCardSingle data={data} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )
-        }
-
         <div className="rbt-featured-course bg-color-white rbt-section-gap">
           <div className="container">
             <div className="row g-5 align-items-end mb--60">
               <div className="col-lg-6 col-md-12 col-12">
                 <div className="section-title text-start">
-                  <h2 className="title">Danh sách khóa học</h2>
+                  <h2 className="title">Danh Sách Khoá Học Online</h2>
                   <p className="description mt--20">
                     Các khóa học nổi bật về thiết kế trang sức.
                   </p>
@@ -127,6 +94,39 @@ export default function Welcome({ categories, courses, masterCourses, offlineCou
             </div>
           </div>
         </div>
+
+        {
+          masterCourses.length > 0 && (
+            <div className="rbt-featured-course bg-color-white rbt-section-gap">
+              <div className="container">
+                <div className="row g-5 align-items-end mb--60">
+                  <div className="col-lg-6 col-md-12 col-12">
+                    <div className="section-title text-start">
+                      <h2 className="title">Khoá Học Chuyên nghiệp</h2>
+                      <p className="description mt--20">
+                        Các combo khóa học nổi bật về thiết kế trang sức.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row g-5">
+                  {masterCourses.map((data, index) => (
+                    <div
+                      className={`col-lg-4 col-md-6 col-sm-12 col-12`}
+                      data-sal-delay="150"
+                      data-sal="slide-up"
+                      data-sal-duration="800"
+                      key={index}
+                    >
+                      <MasterClassCardSingle data={data} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        }
 
 
         {
@@ -169,7 +169,7 @@ export default function Welcome({ categories, courses, masterCourses, offlineCou
                 <div className="row g-5 align-items-end mb--60">
                   <div className="col-lg-6 col-md-12 col-12">
                     <div className="section-title text-start">
-                      <h2 className="title">VIỆC LÀM KIM HOÀN - TRANG SỨC</h2>
+                      <h2 className="title">Việc Làm Kim Hoàn</h2>
                       <p className="description mt--20">
                         Danh sách các việc làm mới nhất trong ngành kim hoàn - trang sức.
                       </p>

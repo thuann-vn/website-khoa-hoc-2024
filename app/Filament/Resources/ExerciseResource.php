@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class ExerciseResource extends Resource
 {
@@ -47,7 +48,7 @@ class ExerciseResource extends Resource
                                         return \App\Models\CourseLesson::where('course_id', $get('course_id'))->orderBy('position')->pluck('name', 'id');
                                     })
                                     ->required(),
-                                Forms\Components\RichEditor::make('content')
+                                TinyEditor::make('content')
                                     ->label('Nội dung bài tập')
                                     ->columnSpanFull(),
                                 Forms\Components\FileUpload::make('attachments')

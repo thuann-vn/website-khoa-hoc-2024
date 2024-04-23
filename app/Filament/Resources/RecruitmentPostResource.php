@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class RecruitmentPostResource extends Resource
 {
@@ -76,7 +77,7 @@ class RecruitmentPostResource extends Resource
                     ->placeholder('Số điện thoại hoặc email liên hệ')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('content')
+                TinyEditor::make('content')
                     ->placeholder('Mô tả công việc')
                     ->required()
                     ->columnSpanFull(),

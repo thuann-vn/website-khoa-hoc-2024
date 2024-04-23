@@ -20,6 +20,7 @@ use Guava\Filament\NestedResources\Resources\NestedResource;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 use Pelmered\FilamentMoneyField\Tables\Columns\MoneyColumn;
 
@@ -71,7 +72,7 @@ class CourseResource extends NestedResource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('description')
+                TinyEditor::make('description')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),

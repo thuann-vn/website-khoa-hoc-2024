@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class CourseLessonResource extends Resource
 {
@@ -100,7 +101,7 @@ class CourseLessonResource extends Resource
                             })
                             ->maxLength(255)
                             ->columnSpanFull(),
-                        Forms\Components\RichEditor::make('description')
+                        TinyEditor::make('description')
                             ->maxLength(65535)
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('duration')

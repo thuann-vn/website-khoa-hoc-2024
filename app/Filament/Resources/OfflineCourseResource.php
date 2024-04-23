@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 
 class OfflineCourseResource extends Resource
@@ -63,7 +64,7 @@ class OfflineCourseResource extends Resource
                 Forms\Components\Select::make('type')
                     ->label('Lịch khai giảng')
                     ->options([
-                        'weekly' => 'Hàng tuân',
+                        'weekly' => 'Hàng tuần',
                         'date' => 'Ngày cố định',
                     ])
                     ->live()
@@ -76,7 +77,7 @@ class OfflineCourseResource extends Resource
                 Forms\Components\Textarea::make('prepare')
                     ->label('Chuẩn bị')
                     ->columnSpanFull(),
-                Forms\Components\RichEditor::make('content')
+                TinyEditor::make('content')
                     ->label('Nội dung khóa học')
                     ->columnSpanFull(),
                 MoneyInput::make('price')

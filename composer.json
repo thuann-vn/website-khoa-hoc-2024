@@ -28,6 +28,7 @@
     "laravel/sanctum": "^3.2",
     "laravel/tinker": "^2.8",
     "livewire/livewire": "^3.3",
+    "mohamedsabil83/filament-forms-tinyeditor": "^2.3",
     "pbmedia/laravel-ffmpeg": "^8.4",
     "pboivin/filament-peek": "^2.2",
     "pelmered/filament-money-field": "^1.2",

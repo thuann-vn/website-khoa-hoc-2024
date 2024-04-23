@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react'
+import { getImageStoragePath } from '@/helper'
 // import Image from "next/image";
 
 const BlogListItems = ({ start, end, selectedBlogs }) => {
@@ -13,7 +14,7 @@ const BlogListItems = ({ start, end, selectedBlogs }) => {
             <div className="rbt-card-img">
               <Link href={route('blog.detail', {slug: item.slug})}>
                 <img
-                  src={item.media?.url || '/images/blog/blog-single-03.png' }
+                  src={item.image ? getImageStoragePath(item.image)  : (item.media?.url || '/images/blog/blog-single-03.png') }
                   width={580}
                   height={300}
                   alt="Card image"

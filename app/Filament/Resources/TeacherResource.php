@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class TeacherResource extends Resource
 {
@@ -42,7 +43,7 @@ class TeacherResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->tel()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('bio')
+                TinyEditor::make('bio')
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('salary')
