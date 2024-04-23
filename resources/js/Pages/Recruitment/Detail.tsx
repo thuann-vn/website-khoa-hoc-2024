@@ -34,6 +34,7 @@ export default function BlogIndex({ post, relatedPosts }: PageProps<{post: any,r
                       selectedBlogs={relatedPosts}
                       start={0}
                       end={4}
+                      isRecruitment={true}
                     />
                   </div>
                 ) : null

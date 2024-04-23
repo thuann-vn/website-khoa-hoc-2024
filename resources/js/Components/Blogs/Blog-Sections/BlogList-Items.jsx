@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react'
 import { getImageStoragePath } from '@/helper'
 // import Image from "next/image";
 
-const BlogListItems = ({ start, end, selectedBlogs }) => {
+const BlogListItems = ({ start, end, selectedBlogs, isRecruitment = false }) => {
   return (
     <>
       {selectedBlogs &&
@@ -12,7 +12,7 @@ const BlogListItems = ({ start, end, selectedBlogs }) => {
             key={index}
           >
             <div className="rbt-card-img">
-              <Link href={route('blog.detail', {slug: item.slug})}>
+              <Link href={route(isRecruitment ? 'recruitment.detail' :'blog.detail' , {slug: item.slug})}>
                 <img
                   src={item.image ? getImageStoragePath(item.image)  : (item.media?.url || '/images/blog/blog-single-03.png') }
                   width={580}
@@ -23,10 +23,10 @@ const BlogListItems = ({ start, end, selectedBlogs }) => {
             </div>
             <div className="rbt-card-body">
               <h5 className="rbt-card-title">
-                <Link href={route('blog.detail', {slug: item.slug})}>{item.title}</Link>
+                <Link href={route(isRecruitment ? 'recruitment.detail' :'blog.detail', {slug: item.slug})}>{item.title}</Link>
               </h5>
               <div className="rbt-card-bottom">
-                <Link className="transparent-button" href={route('blog.detail', {slug: item.slug})}>
+                <Link className="transparent-button" href={route(isRecruitment ? 'recruitment.detail' :'blog.detail', {slug: item.slug})}>
                   Đọc thêm
                   <i>
                     <svg
