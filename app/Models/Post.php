@@ -22,6 +22,7 @@ class Post extends Model
         'slug',
         'content',
         'image_id',
+        'image',
         'user_id',
         'is_published',
         'published_at',
@@ -48,16 +49,6 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the featured image for the post.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function image()
-    {
-        return $this->belongsTo(Media::class);
     }
 
     /**

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import BlogData from "../../data/blog/blog.json";
 import Pagination from "../Common/Pagination";
 import { Link } from '@inertiajs/react'
-import { formatDateTime } from '@/helper'
+import { formatDateTime, getImageStoragePath } from '@/helper'
 
 const BlogGridMinimal = ({ isPagination, start, end, data }) => {
   const [blogs, setBlogs] = useState([]);
@@ -39,7 +39,17 @@ const BlogGridMinimal = ({ isPagination, start, end, data }) => {
             >
               <div className="rbt-card variation-02 rbt-hover card-minimal">
                 <div className="rbt-card-body">
-                  <ul className="meta-list justify-content-start mb--30">
+                  <div className="rbt-card-img mb--20">
+                    <Link href={route('blog.detail' , {slug: data.slug})}>
+                      <img
+                        src={data.image ? getImageStoragePath(data.image) : '/images/blog/blog-single-03.png'}
+                        width={580}
+                        height={300}
+                        alt="Card image"
+                      />
+                    </Link>
+                  </div>
+                  <ul className="meta-list justify-content-start mb--10">
                     <li className="list-item">
                       <i className="feather-clock"></i>
                       <span>{formatDateTime(data.published_at)}</span>

@@ -34,18 +34,18 @@ const OfflineCourseBreadcrumb = ({ getMatchCourse }) => {
           </div>
           <p className={'description'}>
             Lịch khai
-            giảng: <b>{getMatchCourse.type === 'weekly' ? 'Hàng tuần' : formatDateTime(getMatchCourse.start_date)}</b>
+            giảng: <i>{getMatchCourse.type === 'weekly' ? 'Hàng tuần' : formatDateTime(getMatchCourse.start_date)}</i>
             <br />
-            Địa chỉ học: <b>{getMatchCourse.address}</b> <br />
-            Có học online: <b>{getMatchCourse.has_online ? 'Có' : 'Không'} {
+            Địa chỉ học: <i>{getMatchCourse.address}</i> <br />
+            Có học online: <i>{getMatchCourse.has_online ? 'Có' : 'Không'} {
             getMatchCourse.has_online && getMatchCourse.online_course?.slug && (
               <>
                 <span>{' - '}</span><Link href={route('courses-detail', getMatchCourse.online_course?.slug)}>Các bạn tham
                 khảo tại
                 đây</Link>
               </>)
-          }</b> <br />
-            Chuẩn bị: <b>{getMatchCourse.prepare}</b> <br />
+          }</i> <br />
+            Chuẩn bị: <i>{getMatchCourse.prepare}</i> <br />
           </p>
         </div>
       </div>

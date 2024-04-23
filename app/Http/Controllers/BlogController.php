@@ -13,7 +13,7 @@ class BlogController extends Controller
     public function index()
     {
         $categorySlug = request()->category;
-        $query = Post::with('categories', 'image')->where('published_at', '<=', date('Y-m-d'))->orderBy('published_at', 'desc');
+        $query = Post::with('categories')->where('published_at', '<=', date('Y-m-d'))->orderBy('published_at', 'desc');
         $category = null;
         if($categorySlug) {
             $category = PostCategory::whereSlug($categorySlug)->firstOrFail();
@@ -32,7 +32,7 @@ class BlogController extends Controller
 
     public function show($slug)
     {
-        $post = Post::with('categories', 'image')->whereSlug($slug)->firstOrFail();
+        $post = Post::with('categories')->whereSlug($slug)->firstOrFail();
         $relatedPosts = Post::with('image')->whereHas('categories', function (Builder $query) use ($post){
             $query->whereIn('post_categories.id', $post->categories->pluck('id')->toArray());
         })->where('id', '!=', $post->id)->orderByDesc('created_at')->limit(3)->get();

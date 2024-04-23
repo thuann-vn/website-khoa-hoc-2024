@@ -195,7 +195,7 @@ export default function Welcome({ categories, courses, masterCourses, offlineCou
                   <div className="section-title text-start">
                     <h2 className="title color-white">Kiến Thức</h2>
                     <p className="description color-white-off mt--20">
-                      Tổng hợp kiến thức về thiết kế trang sức và chiari sẻ kinh nghiệm từ các chuyên gia.
+                      Tổng hợp kiến thức về thiết kế trang sức và chia sẻ kinh nghiệm từ chuyên gia.
                     </p>
                   </div>
                 </div>

@@ -103,10 +103,8 @@ class PostResource extends Resource
                                     ->default(fn () => auth()->id())
                                     ->searchable()
                                     ->required(),
-
-                                CuratorPicker::make('image_id')
+                                Forms\Components\FileUpload::make('image')
                                     ->label('Featured Image'),
-
                                 Forms\Components\DatePicker::make('published_at')
                                     ->label('Publish Date')
                                     ->default(now())
@@ -134,7 +132,7 @@ class PostResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                CuratorColumn::make('image')
+                Tables\Columns\ImageColumn::make('image')
                     ->circular()
                     ->size(32),
 
