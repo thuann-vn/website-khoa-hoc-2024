@@ -33,7 +33,7 @@ class BlogController extends Controller
     public function show($slug)
     {
         $post = Post::with('categories')->whereSlug($slug)->firstOrFail();
-        $relatedPosts = Post::with('image')->whereHas('categories', function (Builder $query) use ($post){
+        $relatedPosts = Post::whereHas('categories', function (Builder $query) use ($post){
             $query->whereIn('post_categories.id', $post->categories->pluck('id')->toArray());
         })->where('id', '!=', $post->id)->orderByDesc('created_at')->limit(3)->get();
         $categories = PostCategory::withCount('posts')->orderBy('posts_count', 'desc')->limit(10)->get();
