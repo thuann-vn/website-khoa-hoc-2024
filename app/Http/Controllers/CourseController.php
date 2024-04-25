@@ -49,7 +49,7 @@ class CourseController extends Controller
         SEOMeta::setKeywords($course->seo_keywords ?? $appSettings->seo_keywords);
         SEOMeta::setTitle($course->seo_title ?? $course->name);
         SEOMeta::setDescription($course->seo_description ?? strip_tags($course->description));
-        SEOTools::addImages([asset($course->image)]);
+        SEOTools::addImages([asset('/storage/' .  $course->image)]);
 
         return Inertia::render('Courses/Detail', [
             'course' => $course,
@@ -100,7 +100,7 @@ class CourseController extends Controller
         SEOMeta::setKeywords($course->seo_keywords ?? $appSettings->seo_keywords);
         SEOMeta::setTitle($course->seo_title ?? $course->name);
         SEOMeta::setDescription($course->seo_description ?? strip_tags($course->description));
-        SEOTools::addImages([asset($course->image)]);
+        SEOTools::addImages([asset('/storage/' .  $course->image)]);
         return Inertia::render('Courses/MasterCourse', [
             'course' => $course,
             'includeCourses' => $includeCourses
@@ -248,7 +248,7 @@ class CourseController extends Controller
         SEOMeta::setKeywords($course->seo_keywords ?? $appSettings->seo_keywords);
         SEOMeta::setTitle($course->seo_title ?? $course->name);
         SEOMeta::setDescription($course->seo_description ?? strip_tags($course->description));
-        SEOTools::addImages([asset($course->image)]);
+        SEOTools::addImages([asset('/storage/' .  $course->image)]);
         return Inertia::render('Courses/OfflineCourse', [
             'course' => $course
         ]);
