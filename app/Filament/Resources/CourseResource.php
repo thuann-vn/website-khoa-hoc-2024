@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Form\SEOFields;
 use App\Filament\Resources\CourseLessonResource\Pages\CreateCourseLesson;
 use App\Filament\Resources\CourseLessonResource\Pages\EditCourseLesson;
 use App\Filament\Resources\CourseLessonResource\Pages\ListCourseLessons;
@@ -13,6 +14,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -42,55 +44,65 @@ class CourseResource extends NestedResource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->label('Image')
-                    ->image()
-                    ->required()
-                ->columnSpanFull(),
-                Forms\Components\Select::make('teacher_id')
-                    ->relationship('teacher', 'name')
-                    ->required(),
-                Forms\Components\Select::make('course_category_id')
-                    ->relationship('category', 'name')
-                    ->required(),
-                Forms\Components\Select::make('masterCourses')
-                    ->relationship('masterCourses', 'name')
-                    ->multiple()
-                    ->preload()
-                ->columnSpanFull(),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
-                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
-                            return;
-                        }
+                Forms\Components\Tabs::make()
+                ->tabs([
+                    Forms\Components\Tabs\Tab::make('General info')
+                    ->schema([
+                        Forms\Components\FileUpload::make('image')
+                            ->label('Image')
+                            ->image()
+                            ->required()
+                            ->columnSpanFull(),
+                        Forms\Components\Select::make('teacher_id')
+                            ->relationship('teacher', 'name')
+                            ->required(),
+                        Forms\Components\Select::make('course_category_id')
+                            ->relationship('category', 'name')
+                            ->required(),
+                        Forms\Components\Select::make('masterCourses')
+                            ->relationship('masterCourses', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
+                                if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
+                                    return;
+                                }
 
-                        $set('slug', Str::slug($state));
-                    })
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                TinyEditor::make('description')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                MoneyInput::make('price')
-                    ->required()
-                    ->prefix('$'),
-                MoneyInput::make('old_price')
-                    ->prefix('$'),
-                MoneyInput::make('one_on_one_price')
-                    ->required()
-                    ->prefix('$'),
-                MoneyInput::make('old_one_on_one_price')
-                    ->prefix('$'),
-                Forms\Components\DatePicker::make('sale_start'),
-                Forms\Components\DatePicker::make('sale_end'),
-                Forms\Components\Toggle::make('is_active')
-                    ->columnSpanFull()
-                    ->required(),
+                                $set('slug', Str::slug($state));
+                            })
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('slug')
+                            ->required()
+                            ->maxLength(255),
+                        TinyEditor::make('description')
+                            ->required()
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
+                        MoneyInput::make('price')
+                            ->required()
+                            ->prefix('$'),
+                        MoneyInput::make('old_price')
+                            ->prefix('$'),
+                        MoneyInput::make('one_on_one_price')
+                            ->required()
+                            ->prefix('$'),
+                        MoneyInput::make('old_one_on_one_price')
+                            ->prefix('$'),
+                        Forms\Components\DatePicker::make('sale_start'),
+                        Forms\Components\DatePicker::make('sale_end'),
+                        Forms\Components\Toggle::make('is_active')
+                            ->columnSpanFull()
+                            ->required(),
+                    ]),
+                    Forms\Components\Tabs\Tab::make('SEO')
+                    ->schema([
+                        SEOFields::create()
+                    ])
+                ])
             ]);
     }
 

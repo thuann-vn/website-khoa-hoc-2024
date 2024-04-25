@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Form\SEOFields;
 use App\Filament\Resources\MasterCourseResource\Pages;
 use App\Filament\Resources\MasterCourseResource\RelationManagers;
 use App\Models\Course;
@@ -31,55 +32,66 @@ class MasterCourseResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->columnSpanFull()
-                    ->required(),
-                Forms\Components\Select::make('courses')
-                    ->live()
-                    ->afterStateUpdated(function (Get $get, Set $set) {
-                        $courses = $get('courses');
-                        $price = 0;
-                        foreach ($courses as $courseId) {
-                            $course   = Course::find($courseId);
-                            $price += $course->price;
-                        }
-                        $set('old_price', $price);
-                    })
-                    ->multiple()
-                    ->preload()
-                    ->columnSpanFull()
-                    ->relationship('courses', 'name'),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
-                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
-                            return;
-                        }
+                Forms\Components\Tabs::make()
+                    ->tabs([
+                        Forms\Components\Tabs\Tab::make('General info')
+                            ->schema([
 
-                        $set('slug', Str::slug($state));
-                    })
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                MoneyInput::make('price')
-                    ->required()
-                    ->prefix('$'),
-                MoneyInput::make('old_price')
-                    ->prefix('$'),
-                MoneyInput::make('one_on_one_price')
-                    ->required()
-                    ->prefix('$'),
-                MoneyInput::make('old_one_on_one_price')
-                    ->prefix('$'),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                TinyEditor::make('content')
-                    ->columnSpanFull(),
+                                Forms\Components\FileUpload::make('image')
+                                    ->image()
+                                    ->columnSpanFull()
+                                    ->required(),
+                                Forms\Components\Select::make('courses')
+                                    ->live()
+                                    ->afterStateUpdated(function (Get $get, Set $set) {
+                                        $courses = $get('courses');
+                                        $price = 0;
+                                        foreach ($courses as $courseId) {
+                                            $course   = Course::find($courseId);
+                                            $price += $course->price;
+                                        }
+                                        $set('old_price', $price);
+                                    })
+                                    ->multiple()
+                                    ->preload()
+                                    ->columnSpanFull()
+                                    ->relationship('courses', 'name'),
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
+                                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
+                                            return;
+                                        }
+
+                                        $set('slug', Str::slug($state));
+                                    })
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('slug')
+                                    ->required()
+                                    ->maxLength(255),
+                                MoneyInput::make('price')
+                                    ->required()
+                                    ->prefix('$'),
+                                MoneyInput::make('old_price')
+                                    ->prefix('$'),
+                                MoneyInput::make('one_on_one_price')
+                                    ->required()
+                                    ->prefix('$'),
+                                MoneyInput::make('old_one_on_one_price')
+                                    ->prefix('$'),
+                                Forms\Components\Textarea::make('description')
+                                    ->required()
+                                    ->maxLength(65535)
+                                    ->columnSpanFull(),
+                                TinyEditor::make('content')
+                                    ->columnSpanFull(),
+                            ]),
+                        Forms\Components\Tabs\Tab::make('SEO')
+                            ->schema([
+                                SEOFields::create()
+                            ])
+                    ])
             ]);
     }
 

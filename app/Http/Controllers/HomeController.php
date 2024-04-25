@@ -31,7 +31,7 @@ class HomeController extends Controller
             'categories' => $categories,
             'courses' => $courses,
             'masterCourses' => $masterCourses,
-             'featuredPosts' => $featuredPosts,
+            'featuredPosts' => $featuredPosts,
             'offlineCourses' => $offlineCourses,
             'recruitmentPosts' => $recruitmentPosts,
         ]);

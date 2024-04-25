@@ -41,14 +41,15 @@ class CourseController extends Controller
 
         //Site settings
         $appSettings = app(SiteSettings::class);
-        SEOTools::setTitle($course->name);
-        SEOTools::setDescription(strip_tags($course->description));
-        SEOMeta::setKeywords($appSettings->seo_keywords);
-        SEOMeta::setTitle($course->name);
-        SEOMeta::setDescription(strip_tags($course->description));
+        SEOTools::setTitle($course->seo_title ?? $course->name);
+        SEOTools::setDescription($course->seo_description ?? strip_tags($course->description));
         SEOTools::opengraph()->setUrl(url()->current());
         SEOTools::setCanonical(url()->current());
         SEOTools::opengraph()->addProperty('type', 'website');
+        SEOMeta::setKeywords($course->seo_keywords ?? $appSettings->seo_keywords);
+        SEOMeta::setTitle($course->seo_title ?? $course->name);
+        SEOMeta::setDescription($course->seo_description ?? strip_tags($course->description));
+        SEOTools::addImages([asset($course->image)]);
 
         return Inertia::render('Courses/Detail', [
             'course' => $course,
@@ -91,14 +92,15 @@ class CourseController extends Controller
 
         //Site settings
         $appSettings = app(SiteSettings::class);
-        SEOTools::setTitle($course->name);
-        SEOTools::setDescription(strip_tags($course->description));
+        SEOTools::setTitle($course->seo_title ?? $course->name);
+        SEOTools::setDescription($course->seo_description ?? strip_tags($course->description));
         SEOTools::opengraph()->setUrl(url()->current());
         SEOTools::setCanonical(url()->current());
         SEOTools::opengraph()->addProperty('type', 'website');
-        SEOMeta::setKeywords($appSettings->seo_keywords);
-        SEOMeta::setTitle($course->name);
-        SEOMeta::setDescription(strip_tags($course->description));
+        SEOMeta::setKeywords($course->seo_keywords ?? $appSettings->seo_keywords);
+        SEOMeta::setTitle($course->seo_title ?? $course->name);
+        SEOMeta::setDescription($course->seo_description ?? strip_tags($course->description));
+        SEOTools::addImages([asset($course->image)]);
         return Inertia::render('Courses/MasterCourse', [
             'course' => $course,
             'includeCourses' => $includeCourses
@@ -238,14 +240,15 @@ class CourseController extends Controller
 
         //Site settings
         $appSettings = app(SiteSettings::class);
-        SEOTools::setTitle($course->name);
-        SEOTools::setDescription(strip_tags($course->description));
+        SEOTools::setTitle($course->seo_title ?? $course->name);
+        SEOTools::setDescription($course->seo_description ?? strip_tags($course->description));
         SEOTools::opengraph()->setUrl(url()->current());
         SEOTools::setCanonical(url()->current());
         SEOTools::opengraph()->addProperty('type', 'website');
-        SEOMeta::setKeywords($appSettings->seo_keywords);
-        SEOMeta::setTitle($course->name);
-        SEOMeta::setDescription(strip_tags($course->description));
+        SEOMeta::setKeywords($course->seo_keywords ?? $appSettings->seo_keywords);
+        SEOMeta::setTitle($course->seo_title ?? $course->name);
+        SEOMeta::setDescription($course->seo_description ?? strip_tags($course->description));
+        SEOTools::addImages([asset($course->image)]);
         return Inertia::render('Courses/OfflineCourse', [
             'course' => $course
         ]);
