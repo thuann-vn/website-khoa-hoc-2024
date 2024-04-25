@@ -5,7 +5,7 @@ import OfflineCourseVideo from '@/Components/Course-Details/OfflineCourseSection
 import Instructor from '@/Components/Course-Details/Course-Sections/Instructor.jsx'
 
 const OfflineCourseDetails = ({ course, includeCourses }) => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
   return (
     <>
       <div className="col-lg-8">
@@ -21,12 +21,12 @@ const OfflineCourseDetails = ({ course, includeCourses }) => {
             </div>
             <div dangerouslySetInnerHTML={{ __html: course.content }}></div>
           </div>
-          <div
-            className={`rbt-show-more-btn ${toggle ? "active" : ""}`}
-            onClick={() => setToggle(!toggle)}
-          >
-            Xem thêm
-          </div>
+          {/*<div*/}
+          {/*  className={`rbt-show-more-btn ${toggle ? "active" : ""}`}*/}
+          {/*  onClick={() => setToggle(!toggle)}*/}
+          {/*>*/}
+          {/*  Xem thêm*/}
+          {/*</div>*/}
         </div>
         <div
           className="rbt-instructor rbt-shadow-box intructor-wrapper mt--30"

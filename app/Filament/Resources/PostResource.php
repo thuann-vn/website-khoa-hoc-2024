@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Form\SEOFields;
 use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
@@ -15,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use Pelmered\FilamentMoneyField\Forms\Components\MoneyInput;
 
 class PostResource extends Resource
 {
@@ -61,38 +63,43 @@ class PostResource extends Resource
                 Forms\Components\Grid::make()
                     ->columns(3)
                     ->schema([
-                        Forms\Components\Section::make()
-                            ->columnSpan(2)
-                            ->schema([
-                                Forms\Components\Select::make('categories')
-                                    ->label('Category')
-                                    ->required()
-                                    ->relationship('categories', 'name')
-                                    ->live()
-                                    ->preload(),
-                                Forms\Components\TextInput::make('title')
-                                    ->placeholder('Enter a title')
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
-                                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
-                                            return;
-                                        }
+                        Forms\Components\Tabs::make()
+                            ->tabs([
+                                Forms\Components\Tabs\Tab::make('General info')
+                                    ->schema([
+                                        Forms\Components\Select::make('categories')
+                                            ->label('Category')
+                                            ->required()
+                                            ->relationship('categories', 'name')
+                                            ->live()
+                                            ->preload(),
+                                        Forms\Components\TextInput::make('title')
+                                            ->placeholder('Enter a title')
+                                            ->live(onBlur: true)
+                                            ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
+                                                if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
+                                                    return;
+                                                }
 
-                                        $set('slug', Str::slug($state));
-                                    })
-                                    ->required()
-                                    ->maxLength(255)
-                                    ->autofocus(),
-                                Forms\Components\TextInput::make('slug')
-                                    ->placeholder('Enter a slug')
-                                    ->alphaDash()
-                                    ->required()
-                                    ->unique(ignoreRecord: true)
-                                    ->maxLength(255),
-                                TinyEditor::make('content')
-                                    ->required(),
-                            ]),
-
+                                                $set('slug', Str::slug($state));
+                                            })
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->autofocus(),
+                                        Forms\Components\TextInput::make('slug')
+                                            ->placeholder('Enter a slug')
+                                            ->alphaDash()
+                                            ->required()
+                                            ->unique(ignoreRecord: true)
+                                            ->maxLength(255),
+                                        TinyEditor::make('content')
+                                            ->required(),
+                                    ]),
+                                Forms\Components\Tabs\Tab::make('SEO')
+                                    ->schema([
+                                        SEOFields::create()
+                                    ])
+                            ])->columnSpan(2),
                         Forms\Components\Section::make()
                             ->columnSpan(1)
                             ->schema([

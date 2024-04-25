@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Overview = ({ course }) => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
   const { title, description } = course;
 
   return (
@@ -18,12 +18,12 @@ const Overview = ({ course }) => {
           </div>
           <div dangerouslySetInnerHTML={{__html: description}}></div>
         </div>
-        <div
-          className={`rbt-show-more-btn ${toggle ? "active" : ""}`}
-          onClick={() => setToggle(!toggle)}
-        >
-         Xem thêm
-        </div>
+        {/*<div*/}
+        {/*  className={`rbt-show-more-btn ${toggle ? "active" : ""}`}*/}
+        {/*  onClick={() => setToggle(!toggle)}*/}
+        {/*>*/}
+        {/* Xem thêm*/}
+        {/*</div>*/}
       </div>
     </>
   );

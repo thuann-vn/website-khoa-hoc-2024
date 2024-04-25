@@ -13,7 +13,7 @@ const Instructor = ({ checkMatchCourses }) => {
         </div>
         <div className="media align-items-center">
           <div className="thumbnail">
-            <Link href={getImageStoragePath(teacher?.image)}>
+            <Link href={`/teacher/${teacher.id}`}>
               <img
                 src={getImageStoragePath(teacher?.image)}
                 width={250}

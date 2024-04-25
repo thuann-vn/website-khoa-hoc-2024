@@ -2,11 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Form\SEOFields;
 use App\Filament\Resources\RecruitmentPostResource\Pages;
 use App\Filament\Resources\RecruitmentPostResource\RelationManagers;
 use App\Models\RecruitmentPost;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -30,58 +33,68 @@ class RecruitmentPostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->columnSpanFull()
-                    ->image(),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set, string $operation, ?string $old, ?string $state) {
-                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
-                            return;
-                        }
+               Forms\Components\Tabs::make()
+                ->tabs([
+                    Forms\Components\Tabs\Tab::make('General info')
+                        ->schema([
+                            Forms\Components\FileUpload::make('image')
+                                ->columnSpanFull()
+                                ->image(),
+                            Forms\Components\TextInput::make('title')
+                                ->required()
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set, string $operation, ?string $old, ?string $state) {
+                                    if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
+                                        return;
+                                    }
 
-                        $set('slug', Str::slug($state));
-                    })
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('salary')
-                    ->placeholder('Ví dụ: 10 - 15 triệu / Thoả thuận')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('location')
-                    ->placeholder('Ví dụ: 123 Võ Văn Kiệt ,P2, Q5, TP.HCM')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('position')
-                    ->placeholder('Ví dụ: Nhân viên kinh doanh')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('type')
-                    ->placeholder('Toàn thời gian cố định / Thời vụ')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('total_positions')
-                    ->placeholder('Số lượng tuyển dụng')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('probation_period')
-                    ->placeholder('Thời gian thử việc')
-                    ->required(),
-                Forms\Components\DatePicker::make('expiry_date')
-                    ->placeholder('Ngày hết hạn tuyển dụng')
-                    ->required(),
-                Forms\Components\TextInput::make('contact')
-                    ->placeholder('Số điện thoại hoặc email liên hệ')
-                    ->required()
-                    ->maxLength(255),
-                TinyEditor::make('content')
-                    ->placeholder('Mô tả công việc')
-                    ->required()
-                    ->columnSpanFull(),
-            ]);
+                                    $set('slug', Str::slug($state));
+                                })
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('slug')
+                                ->required()
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('salary')
+                                ->placeholder('Ví dụ: 10 - 15 triệu / Thoả thuận')
+                                ->required()
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('location')
+                                ->placeholder('Ví dụ: 123 Võ Văn Kiệt ,P2, Q5, TP.HCM')
+                                ->required()
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('position')
+                                ->placeholder('Ví dụ: Nhân viên kinh doanh')
+                                ->required()
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('type')
+                                ->placeholder('Toàn thời gian cố định / Thời vụ')
+                                ->required()
+                                ->maxLength(255),
+                            Forms\Components\TextInput::make('total_positions')
+                                ->placeholder('Số lượng tuyển dụng')
+                                ->required()
+                                ->numeric(),
+                            Forms\Components\TextInput::make('probation_period')
+                                ->placeholder('Thời gian thử việc')
+                                ->required(),
+                            Forms\Components\DatePicker::make('expiry_date')
+                                ->placeholder('Ngày hết hạn tuyển dụng')
+                                ->required(),
+                            Forms\Components\TextInput::make('contact')
+                                ->placeholder('Số điện thoại hoặc email liên hệ')
+                                ->required()
+                                ->maxLength(255),
+                            TinyEditor::make('content')
+                                ->placeholder('Mô tả công việc')
+                                ->required()
+                                ->columnSpanFull(),
+                        ])->columns(2),
+                    Forms\Components\Tabs\Tab::make('SEO')
+                        ->schema([
+                            SEOFields::create()
+                        ])
+                ])
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table

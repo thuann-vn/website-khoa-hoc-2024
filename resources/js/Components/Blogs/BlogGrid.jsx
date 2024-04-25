@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import BlogData from "../../data/blog/blog.json";
 import BlogGridTop from "./Blog-Sections/BlogGrid-Top";
 import Pagination from "../Common/Pagination";
+import { getImageStoragePath } from '@/helper'
 
 const BlogGrid = ({ isPagination, top, start, end, posts, featuredPosts }) => {
   const [blogs, setBlogs] = useState([]);
@@ -46,7 +47,7 @@ const BlogGrid = ({ isPagination, top, start, end, posts, featuredPosts }) => {
                 <div className="rbt-card-img">
                   <Link href={route('blog.detail', {slug: data.slug})}>
                     <img
-                      src={data.image?.url || '/images/blog/blog-single-03.png'}
+                      src={data.image ? getImageStoragePath(data.image) :  '/images/blog/blog-single-03.png'}
                       width={450}
                       height={267}
                       alt="Card image"

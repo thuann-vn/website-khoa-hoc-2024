@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\PostCategory;
+use App\Settings\SiteSettings;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Database\Eloquent\Builder;
 use Inertia\Inertia;
 
@@ -27,6 +30,10 @@ class BlogController extends Controller
             $query->whereNotIn('id', $featuredPosts->pluck('id')->toArray());
         }
         $posts = $query->paginate(9);
+
+        SEOTools::setTitle('Kiến thức');
+        SEOTools::setDescription($category->seo_description ?? 'Tổng hợp kiến thức về thiết kế trang sức và chia sẻ kinh nghiệm từ các chuyên gia.');
+
         return Inertia::render('Blog/Index', compact('posts', 'category', 'featuredPosts'));
     }
 
@@ -37,6 +44,19 @@ class BlogController extends Controller
             $query->whereIn('post_categories.id', $post->categories->pluck('id')->toArray());
         })->where('id', '!=', $post->id)->orderByDesc('created_at')->limit(3)->get();
         $categories = PostCategory::withCount('posts')->orderBy('posts_count', 'desc')->limit(10)->get();
+
+
+        //Site settings
+        $appSettings = app(SiteSettings::class);
+        SEOTools::setTitle($post->seo_title ?? $post->title);
+        SEOTools::setDescription($post->seo_description ?? '');
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::setCanonical(url()->current());
+        SEOMeta::setKeywords($post->seo_keywords ?? $appSettings->seo_keywords);
+        SEOMeta::setTitle($course->seo_title ?? $post->title);
+        SEOMeta::setDescription($post->seo_description ?? '');
+        SEOTools::addImages([asset('/storage/' .  $post->image)]);
+
         return Inertia::render('Blog/Detail', compact('post', 'relatedPosts', 'categories'));
     }
 }
