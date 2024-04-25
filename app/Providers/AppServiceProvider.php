@@ -35,8 +35,11 @@ class AppServiceProvider extends ServiceProvider
         CourseLesson::observe(CourseLessonObserver::class);
 
         $appSettings = app(SiteSettings::class);
-        SEOMeta::setTitleDefault($appSettings->seo_title);
-        SEOMeta::setTitle($appSettings->seo_title);
-        SEOMeta::setDescription($appSettings->seo_description);
+        SEOTools::setTitle($appSettings->seo_title);
+        SEOTools::setDescription($appSettings->seo_description);
+        SEOMeta::setKeywords($appSettings->seo_keywords);
+        SEOTools::opengraph()->setUrl(url()->current());
+        SEOTools::setCanonical(url()->current());
+        SEOTools::opengraph()->addProperty('type', 'website');
     }
 }
