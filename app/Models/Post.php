@@ -28,8 +28,7 @@ class Post extends Model
         'published_at',
         'seo_title',
         'seo_description',
-        'seo_keywords',
-        'seo_image',
+        'seo_keywords'
     ];
 
     /**
