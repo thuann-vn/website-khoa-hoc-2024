@@ -45,7 +45,7 @@ class BlogController extends Controller
             $query->whereIn('post_categories.id', $post->categories->pluck('id')->toArray());
         })->where('id', '!=', $post->id)->orderByDesc('created_at')->limit(3)->get();
         $categories = PostCategory::withCount('posts')->orderBy('posts_count', 'desc')->limit(10)->get();
-
+        $post->content = str_replace('src="/storage/', 'src="' . asset('storage/'), $post->content);
 
         //Site settings
         $appSettings = app(SiteSettings::class);

@@ -29,6 +29,7 @@ class RecruitmentController extends Controller
     {
         $post = RecruitmentPost::whereSlug($slug)->firstOrFail();
         $relatedPosts = RecruitmentPost::where('id', '!=', $post->id)->orderByDesc('created_at')->limit(3)->get();
+        $post->content = str_replace('src="/storage/', 'src="' . asset('storage/'), $post->content);
 
         //Site settings
         $appSettings = app(SiteSettings::class);
