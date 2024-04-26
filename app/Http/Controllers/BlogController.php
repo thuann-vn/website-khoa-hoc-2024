@@ -16,7 +16,8 @@ class BlogController extends Controller
     public function index()
     {
         $categorySlug = request()->category;
-        $query = Post::with('categories')->where('published_at', '<=', date('Y-m-d'))->orderBy('published_at', 'desc');
+        $query = Post::with('categories')->where('published_at', '<=', date('Y-m-d'))
+            ->where('is_published', true)->orderBy('published_at', 'desc');
         $category = null;
         if($categorySlug) {
             $category = PostCategory::whereSlug($categorySlug)->firstOrFail();

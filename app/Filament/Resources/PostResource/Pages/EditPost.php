@@ -41,10 +41,15 @@ class EditPost extends EditRecord
 
             Actions\Action::make('view')
                 ->label('View post')
-                ->url(fn ($record) => $record->url)
+                ->url(fn($record) => $record->url)
                 ->extraAttributes(['target' => '_blank']),
 
             Actions\DeleteAction::make(),
         ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->previousUrl ?? $this->getResource()::getUrl('index');
     }
 }

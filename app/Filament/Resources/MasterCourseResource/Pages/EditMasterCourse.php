@@ -24,4 +24,9 @@ class EditMasterCourse extends EditRecord
     {
         $this->refreshFormData(['old_price' => $this->record->courses->sum('price')]);
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->previousUrl ?? $this->getResource()::getUrl('index');
+    }
 }
