@@ -26,6 +26,10 @@ class Post extends Model
         'user_id',
         'is_published',
         'published_at',
+        'seo_title',
+        'seo_description',
+        'seo_keywords',
+        'seo_image',
     ];
 
     /**
