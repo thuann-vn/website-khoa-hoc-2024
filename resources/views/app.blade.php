@@ -7,7 +7,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-          <!-- SEO -->
+
+      <title inertia>{{ \Artesaos\SEOTools\Facades\SEOTools::getTitle() }}</title>
+
+      <!-- SEO -->
         {!! app('seotools')->generate() !!}
 
         @if(!empty($appSetting->custom_js))

@@ -6,7 +6,6 @@ import BlogBreadCrumb from '@/Components/Common/Blog-BreadCrumb'
 import BlogListItems from '@/Components/Blogs/Blog-Sections/BlogList-Items'
 
 export default function BlogIndex({ post, relatedPosts }: PageProps<{post: any,relatedPosts:any }>) {
-  console.log(relatedPosts)
   return (
     <>
       <Head title={post.title} />
