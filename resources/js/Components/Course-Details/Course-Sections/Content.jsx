@@ -2,6 +2,41 @@ import React from 'react'
 import { durationToTime, minuteToHoursMinutes } from '@/helper'
 
 const Content = ({ checkMatchCourses, onChangeVideo }) => {
+  const renderLessons = (lessons) => {
+    return lessons.map((lesson, subIndex) => (
+      <li key={subIndex}>
+        <a href="#demo-video" onClick={(e) => {
+          if (lesson.is_trial) {
+            onChangeVideo(lesson)
+          } else {
+            e.preventDefault()
+          }
+        }}>
+          <div className="course-content-left">
+            <i className="feather-play-circle"></i>
+            <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
+          </div>
+          {lesson.is_trial ? (
+            <div className="course-content-right">
+                                  <span>
+                                    <a href={'#demo-video'} onClick={() => {
+                                      onChangeVideo(lesson)
+                                    }} className="rbt-badge variation-03 bg-primary-opacity">
+                                      <i className="feather-eye"></i> Xem
+                                    </a>
+                                  </span>
+            </div>
+          ) : (
+            <div className="course-content-right">
+                                      <span className="course-lock">
+                                        <i className="feather-lock"></i>
+                                      </span>
+            </div>
+          )}
+        </a>
+      </li>
+    ))
+  }
   return (
     <>
       <div className="rbt-course-feature-inner">
@@ -10,7 +45,7 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
         </div>
         <div className="rbt-accordion-style rbt-accordion-02 accordion">
           <div className="accordion" id="accordionExampleb2">
-            {checkMatchCourses.sections && checkMatchCourses.sections?.map((item, innerIndex) => (
+            {(checkMatchCourses.sections && checkMatchCourses.sections.length) ? checkMatchCourses.sections?.map((item, innerIndex) => (
               <div className="accordion-item card" key={innerIndex}>
                 <h2
                   className="accordion-header card-header"
@@ -37,81 +72,62 @@ const Content = ({ checkMatchCourses, onChangeVideo }) => {
                 >
                   <div className="accordion-body card-body pr--0">
                     <ul className="rbt-course-main-content liststyle">
-                      {item.chapters.length > 0 ? item.chapters.map((chapter, subIndex) => (
-                        <li>
-                          <h6 className={'mt-5 mb-4'}>{chapter.name}</h6>
-                          {
-                            chapter.lessons.map((lesson, lessionIdx) => {
-                              return <li key={subIndex}>
-                                <a href="#demo-video" onClick={(e)=>{
-                                  if(lesson.is_trial) {
-                                    onChangeVideo(lesson)
-                                  }else{
-                                    e.preventDefault()
-                                  }
-                                }}>
-                                  <div className="course-content-left">
-                                    <i className="feather-play-circle"></i>
-                                    <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
-                                  </div>
-                                  {lesson.is_trial ? (
-                                    <div className="course-content-right">
+                      {
+                        item.chapters.length > 0 ? item.chapters.map((chapter, subIndex) => (
+                          <li>
+                            <h6 className={'mt-5 mb-4'}>{chapter.name}</h6>
+                            {
+                              chapter.lessons.map((lesson, lessionIdx) => {
+                                return <li key={subIndex}>
+                                  <a href="#demo-video" onClick={(e) => {
+                                    if (lesson.is_trial) {
+                                      onChangeVideo(lesson)
+                                    } else {
+                                      e.preventDefault()
+                                    }
+                                  }}>
+                                    <div className="course-content-left">
+                                      <i className="feather-play-circle"></i>
+                                      <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
+                                    </div>
+                                    {lesson.is_trial ? (
+                                      <div className="course-content-right">
                                       <span>
                                         <a href={'#demo-video'} className="rbt-badge variation-03 bg-primary-opacity">
                                           <i className="feather-eye"></i> Xem
                                         </a>
                                       </span>
-                                    </div>
-                                  ) : (
-                                    <div className="course-content-right">
+                                      </div>
+                                    ) : (
+                                      <div className="course-content-right">
                                       <span className="course-lock">
                                         <i className="feather-lock"></i>
                                       </span>
-                                    </div>
-                                  )}
-                                </a>
-                              </li>
-                            })
-                          }
-                        </li>
-                      )) : item.lessons.map((lesson, subIndex) => (
-                        <li key={subIndex}>
-                          <a href="#demo-video" onClick={(e)=>{
-                            if(lesson.is_trial) {
-                              onChangeVideo(lesson)
-                            }else{
-                              e.preventDefault()
+                                      </div>
+                                    )}
+                                  </a>
+                                </li>
+                              })
                             }
-                          }}>
-                            <div className="course-content-left">
-                              <i className="feather-play-circle"></i>
-                              <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
-                            </div>
-                            {lesson.is_trial ? (
-                              <div className="course-content-right">
-                                  <span>
-                                    <a href={'#demo-video'} onClick={()=>{
-                                      onChangeVideo(lesson)
-                                    }} className="rbt-badge variation-03 bg-primary-opacity">
-                                      <i className="feather-eye"></i> Xem
-                                    </a>
-                                  </span>
-                              </div>
-                            ) : (
-                              <div className="course-content-right">
-                                      <span className="course-lock">
-                                        <i className="feather-lock"></i>
-                                      </span>
-                              </div>
-                            )}
-                          </a>
-                        </li>
-                      ))}
+                          </li>
+                        )) : renderLessons(item.lessons)
+                      }
                     </ul>
                   </div>
                 </div>
               </div>
-            ))}
+            )) : <div className="accordion-item card">
+              <div
+              >
+                <div className="accordion-body card-body pr--0 pb--0 pt-0">
+                  <ul className="rbt-course-main-content liststyle">
+                    {
+                      renderLessons(checkMatchCourses.lessons)
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>}
           </div>
         </div>
       </div>

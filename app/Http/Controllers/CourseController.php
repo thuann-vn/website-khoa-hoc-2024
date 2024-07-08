@@ -33,7 +33,7 @@ class CourseController extends Controller
     public function detail(Request $request)
     {
         $slug = $request->slug;
-        $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'sections.chapters.lessons', 'sections.lessons'])->whereSlug($slug)->firstOrFail();
+        $course = \App\Models\Course::with(['teacher','category', 'sections', 'lessons', 'sections.chapters', 'sections.chapters.lessons', 'sections.lessons'])->whereSlug($slug)->firstOrFail();
 
         //Demo video
         $demoLesson = $course->lessons->where('is_trial', true)->first();
