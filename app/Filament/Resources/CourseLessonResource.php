@@ -193,14 +193,8 @@ class CourseLessonResource extends Resource
 //                    ->label('Khóa học'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->url(
-                        fn (Pages\ListCourseLessons $livewire, Model $record): string => static::$parentResource::getUrl('lessons.edit', [
-                            'record' => $record,
-                            'parent' => $livewire->parent,
-                        ])
-                    ),
                 Tables\Actions\Action::make('generate-video')
+                    ->color('warning')
                     ->label(function (Model $record) {
                         /** @var CourseLesson $record */
                         $video = $record->video;
@@ -213,6 +207,7 @@ class CourseLessonResource extends Resource
                         }
                         return 'Re-encode video';
                     })
+                    ->icon('heroicon-o-play')
                     ->visible(function (Model $record) {
                         /** @var CourseLesson $record */
                         $video = $record->video;
@@ -232,6 +227,13 @@ class CourseLessonResource extends Resource
                         dispatch(new ProcessVideo($lessonVideo));
                         Notification::make('Video đang được mã hóa, vui lòng chờ trong giây lát', 'info')->send();
                     }),
+                Tables\Actions\EditAction::make()
+                    ->url(
+                        fn (Pages\ListCourseLessons $livewire, Model $record): string => static::$parentResource::getUrl('lessons.edit', [
+                            'record' => $record,
+                            'parent' => $livewire->parent,
+                        ])
+                    ),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->filtersLayout(Tables\Enums\FiltersLayout::AboveContent)
