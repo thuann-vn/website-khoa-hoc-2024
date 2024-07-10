@@ -33,4 +33,9 @@ class CourseLesson extends Model {
     {
         return $this->hasOne(Exercise::class, 'lesson_id')->where('user_id', auth()->user()->id);
     }
+
+    public function video()
+    {
+        return $this->hasOne(CourseLessonVideo::class, 'course_lesson_id');
+    }
 }

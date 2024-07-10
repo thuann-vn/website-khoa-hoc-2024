@@ -3,14 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CourseLessonResource\Pages;
+use App\Jobs\ProcessVideo;
 use App\Models\Course;
 use App\Models\CourseChapter;
 use App\Models\CourseLesson;
+use App\Models\CourseLessonVideo;
 use App\Models\CourseSection;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -197,6 +200,34 @@ class CourseLessonResource extends Resource
                             'parent' => $livewire->parent,
                         ])
                     ),
+                Tables\Actions\Action::make('generate-video')
+                    ->label(function (Model $record) {
+                        /** @var CourseLesson $record */
+                        $video = $record->video;
+                        if(empty($video) || $video->status == 0){
+                            return 'Đang mã hóa ' . $video->progress . '%';
+                        }
+                        return 'Xem video';
+                    })
+                    ->visible(function (Model $record) {
+                        /** @var CourseLesson $record */
+                        $video = $record->video;
+                        return !empty($video) && $video->status == 0;
+                    })->action(function (Model $record) {
+                        /** @var CourseLesson $record */
+                        CourseLessonVideo::where('course_lesson_id', $record->id)->delete();
+                        $lessonVideo = new CourseLessonVideo([
+                            'course_lesson_id' => $record->id,
+                            'status' => 0,
+                            'progress' => 0,
+                            'video_url' => $record->video_url,
+                            'started_at' => null,
+                            'completed_at' => null
+                        ]);
+                        $lessonVideo->save();
+                        dispatch(new ProcessVideo($lessonVideo));
+                        Notification::make('Video đang được mã hóa, vui lòng chờ trong giây lát', 'info')->send();
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->filtersLayout(Tables\Enums\FiltersLayout::AboveContent)

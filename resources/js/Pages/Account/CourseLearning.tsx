@@ -197,6 +197,33 @@ export default function DashboardPage({ course, learningProgress }: { course: an
     }
   }
 
+  const renderLessons = (lessions:any) =>{
+    return lessions.map((lesson: any, lessionIdx: any) => {
+      return <li key={lessionIdx}>
+        <a href="#" onClick={(event) => {
+          event.preventDefault()
+          startLesson(lesson, lessionIdx)
+        }}>
+          <div className="course-content-left">
+            {
+              activeLesson && activeLesson?.id == lesson?.id ? (
+                <i className="lesson-icon feather-play-circle"></i>
+              ) : courseProgress[lesson.id] ? (
+                courseProgress[lesson.id].status == 'completed' ? (
+                  <i className="lesson-icon feather-check-circle"></i>
+                ) : (<i className="lesson-icon feather-pause-circle"></i>)
+
+              ) : (
+                <i className="lesson-icon feather-circle"></i>
+              )
+            }
+            <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
+          </div>
+        </a>
+      </li>
+    })
+  }
+
   const CourseSidebar = () => {
     return <div className={'col-md-3 bottom-left'}>
       <div className={'course-name'}>
@@ -208,7 +235,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
       <div className={'course-lesson-list rbt-course-feature-inner'}>
         <div className="rbt-accordion-style rbt-accordion-02 accordion">
           <div className="accordion" id="accordionExampleb2">
-            {course.sections && course.sections?.map((item: {
+            {course.sections?.lenth ? course.sections?.map((item: {
               collapsed: any;
               expand: string | boolean | undefined;
               name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined;
@@ -287,35 +314,18 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                             })
                           }
                         </li>
-                      )) : item.lessons.map((lesson: any, lessionIdx: any) => {
-                        return <li key={lessionIdx}>
-                          <a href="#" onClick={(event) => {
-                            event.preventDefault()
-                            startLesson(lesson, lessionIdx)
-                          }}>
-                            <div className="course-content-left">
-                              {
-                                activeLesson && activeLesson?.id == lesson?.id ? (
-                                  <i className="lesson-icon feather-play-circle"></i>
-                                ) : courseProgress[lesson.id] ? (
-                                  courseProgress[lesson.id].status == 'completed' ? (
-                                    <i className="lesson-icon feather-check-circle"></i>
-                                  ) : (<i className="lesson-icon feather-pause-circle"></i>)
-
-                                ) : (
-                                  <i className="lesson-icon feather-circle"></i>
-                                )
-                              }
-                              <span className="text">{lesson.name} ({durationToTime(lesson.duration)})</span>
-                            </div>
-                          </a>
-                        </li>
-                      })}
+                      )) : renderLessons(item.lessons)}
                     </ul>
                   </div>
                 </div>
               </div>
-            ))}
+            )): (
+              <div className='accordion-body card-body pr--0 pt--0'>
+                <ul className='rbt-course-main-content liststyle'>
+                  {renderLessons(course.lessons)}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

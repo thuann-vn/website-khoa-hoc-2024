@@ -12,7 +12,7 @@ class LearningController extends Controller
     public function index()
     {
         $slug = request()->slug;
-        $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'sections.chapters.lessons', 'sections.lessons', 'sections.chapters.exercise', 'sections.lessons.exercise'])->where('slug', $slug)->first();
+        $course = \App\Models\Course::with(['teacher','category', 'sections', 'sections.chapters', 'lessons', 'sections.chapters.lessons', 'sections.lessons', 'sections.chapters.exercise', 'sections.lessons.exercise'])->where('slug', $slug)->first();
         //Check if user is enrolled in the course
         $userCourse = \App\Models\UserCourse::where('user_id', auth()->user()->id)->where('course_id', $course->id)->first();
 
