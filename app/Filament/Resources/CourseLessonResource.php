@@ -204,15 +204,19 @@ class CourseLessonResource extends Resource
                     ->label(function (Model $record) {
                         /** @var CourseLesson $record */
                         $video = $record->video;
-                        if(empty($video) || $video->status == 0){
-                            return 'Đang mã hóa ' . $video->progress . '%';
+                        if(empty($video)){
+                            return 'Encode video';
+                        } else if($video->status == 0){
+                            return 'Encoding ' . $video->progress . '%';
+                        } else if($video->status == 2){
+                            return 'Error encoding video';
                         }
-                        return 'Xem video';
+                        return 'Re-encode video';
                     })
                     ->visible(function (Model $record) {
                         /** @var CourseLesson $record */
                         $video = $record->video;
-                        return empty($video) || $video->status == 0;
+                        return empty($video) || $video->status != 1;
                     })->action(function (Model $record) {
                         /** @var CourseLesson $record */
                         CourseLessonVideo::where('course_lesson_id', $record->id)->delete();
