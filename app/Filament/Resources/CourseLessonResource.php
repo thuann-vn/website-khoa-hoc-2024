@@ -212,7 +212,7 @@ class CourseLessonResource extends Resource
                     ->visible(function (Model $record) {
                         /** @var CourseLesson $record */
                         $video = $record->video;
-                        return !empty($video) && $video->status == 0;
+                        return empty($video) || $video->status == 0;
                     })->action(function (Model $record) {
                         /** @var CourseLesson $record */
                         CourseLessonVideo::where('course_lesson_id', $record->id)->delete();
