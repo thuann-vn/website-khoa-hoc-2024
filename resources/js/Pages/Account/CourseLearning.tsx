@@ -20,6 +20,10 @@ export default function DashboardPage({ course, learningProgress }: { course: an
   const [activeLesson, setActiveLesson] = React.useState<any>(null)
   const [courseProgress, setCourseProgress] = React.useState<any>(learningProgress)
   const [activeLessonIndex, setActiveLessonIndex] = React.useState<number>(0)
+
+  const [activeSection, setActiveSection] = useState<any>()
+  const [activeChapter, setActiveChapter] = useState<any>()
+
   const [player, setPlayer] = useState()
 
   const videoRef = React.useRef(null)
@@ -99,11 +103,13 @@ export default function DashboardPage({ course, learningProgress }: { course: an
     }
   }, [playerRef])
 
-  const startLesson = (lesson: any, lessonIndex: number) => {
+  const startLesson = (lesson: any, lessonIndex: number, chapterIndex = null, sectionIndex = null) => {
     if (!lesson) {
       return
     }
     setActiveLessonIndex(lessonIndex)
+    setActiveSection(sectionIndex)
+    setActiveChapter(chapterIndex)
     setActiveLesson(lesson)
     const player = playerRef.current
 
@@ -188,12 +194,13 @@ export default function DashboardPage({ course, learningProgress }: { course: an
     if (course.lessons.length > activeLessonIndex + 1) {
       nextLesson = course.lessons[activeLessonIndex + 1]
       nextLessonIndex = activeLessonIndex + 1
+      setActiveLesson(nextLesson)
+      if (nextLesson) {
+        startLesson(nextLesson, nextLessonIndex)
+      }
     } else {
       nextLesson = null
-    }
-    setActiveLesson(nextLesson)
-    if (nextLesson) {
-      startLesson(nextLesson, nextLessonIndex)
+      setActiveLesson(null)
     }
   }
 
@@ -450,7 +457,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
               />
 
               {
-                activeLesson.exercise.fixed_attachments && activeLesson.exercise.fixed_attachments.length ? (
+                activeLesson?.exercise?.fixed_attachments && activeLesson.exercise.fixed_attachments.length ? (
                   <>
                     <hr />
                     <strong>Bài tập đã sửa:</strong>
@@ -527,7 +534,7 @@ export default function DashboardPage({ course, learningProgress }: { course: an
                        dangerouslySetInnerHTML={{ __html: activeLesson?.description }}></p>
                     <LessonAttachments />
                     {
-                      courseProgress[activeLesson.id].status != 'completed' ? (
+                      courseProgress[activeLesson.id]?.status != 'completed' ? (
                         <div className="lesson-action">
                           <PrimaryButton onClick={(e) => {
                             e.preventDefault()
