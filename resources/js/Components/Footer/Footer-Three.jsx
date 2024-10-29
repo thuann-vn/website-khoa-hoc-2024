@@ -88,9 +88,6 @@ const FooterThree = () => {
                         <li>
                           <span>Địa chỉ:</span> {site_settings.address}
                         </li>
-                        <li>
-                          <span>Học Offline:</span> 349/14 Nguyễn Trãi, P7, Q5, HCM
-                        </li>
                       </ul>
                       <ul className="social-icon social-default icon-naked justify-content-start mt--20">
                         {socialLink.map((value, innerIndex) => (
